@@ -9,92 +9,131 @@ export class ResourceModel extends BaseModel {
     public static readonly TYPE_NAME: string = 'Okta::Application::Application';
 
     @Exclude()
-    protected readonly IDENTIFIER_KEY_TPSCODE: string = '/properties/TPSCode';
+    protected readonly IDENTIFIER_KEY_ID: string = '/properties/Id';
 
-    @Expose({ name: 'TPSCode' })
+    @Expose({ name: 'Embedded' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'tPSCode', value, obj, []),
+            transformValue(String, 'embedded', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    tPSCode?: Optional<string>;
-    @Expose({ name: 'Title' })
+    embedded?: Optional<string>;
+    @Expose({ name: 'Links' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'title', value, obj, []),
+            transformValue(String, 'links', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    title?: Optional<string>;
-    @Expose({ name: 'CoverSheetIncluded' })
+    links?: Optional<string>;
+    @Expose({ name: 'Accessibility' })
+    @Type(() => Accessibility)
+    accessibility?: Optional<Accessibility>;
+    @Expose({ name: 'Created' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(Boolean, 'coverSheetIncluded', value, obj, []),
+            transformValue(String, 'created', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    coverSheetIncluded?: Optional<boolean>;
-    @Expose({ name: 'DueDate' })
+    created?: Optional<string>;
+    @Expose({ name: 'Credentials' })
+    @Type(() => ApplicationCredentials)
+    credentials?: Optional<ApplicationCredentials>;
+    @Expose({ name: 'Features' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'dueDate', value, obj, []),
+            transformValue(String, 'features', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    dueDate?: Optional<string>;
-    @Expose({ name: 'ApprovalDate' })
+    features?: Optional<string>;
+    @Expose({ name: 'Id' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'approvalDate', value, obj, []),
+            transformValue(String, 'id', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    approvalDate?: Optional<string>;
-    @Expose({ name: 'Memo' })
-    @Type(() => Memo)
-    memo?: Optional<Memo>;
-    @Expose({ name: 'SecondCopyOfMemo' })
-    @Type(() => Memo)
-    secondCopyOfMemo?: Optional<Memo>;
-    @Expose({ name: 'TestCode' })
+    id?: Optional<string>;
+    @Expose({ name: 'Label' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'testCode', value, obj, []),
+            transformValue(String, 'label', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    testCode?: Optional<string>;
-    @Expose({ name: 'Authors' })
+    label?: Optional<string>;
+    @Expose({ name: 'LastUpdated' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'authors', value, obj, [Array]),
+            transformValue(String, 'lastUpdated', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    authors?: Optional<Array<string>>;
-    @Expose({ name: 'Tags' })
+    lastUpdated?: Optional<string>;
+    @Expose({ name: 'Name' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(Tag, 'tags', value, obj, [Set]),
+            transformValue(String, 'name', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    tags?: Optional<Set<Tag>>;
+    name?: Optional<string>;
+    @Expose({ name: 'Profile' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'profile', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    profile?: Optional<string>;
+    @Expose({ name: 'RequestObjectSigningAlg' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'requestObjectSigningAlg', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    requestObjectSigningAlg?: Optional<string>;
+    @Expose({ name: 'SignOnMode' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'signOnMode', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    signOnMode?: Optional<string>;
+    @Expose({ name: 'Status' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'status', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    status?: Optional<string>;
+    @Expose({ name: 'Visibility' })
+    @Type(() => Visibility)
+    visibility?: Optional<Visibility>;
 
     @Exclude()
     public getPrimaryIdentifier(): Dict {
         const identifier: Dict = {};
-        if (this.tPSCode != null) {
-            identifier[this.IDENTIFIER_KEY_TPSCODE] = this.tPSCode;
+        if (this.id != null) {
+            identifier[this.IDENTIFIER_KEY_ID] = this.id;
         }
 
         // only return the identifier if it can be used, i.e. if all components are present
@@ -109,53 +148,226 @@ export class ResourceModel extends BaseModel {
     }
 }
 
-export class Memo extends BaseModel {
-    ['constructor']: typeof Memo;
+export class Accessibility extends BaseModel {
+    ['constructor']: typeof Accessibility;
 
 
-    @Expose({ name: 'Heading' })
+    @Expose({ name: 'ErrorRedirectUrl' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'heading', value, obj, []),
+            transformValue(String, 'errorRedirectUrl', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    heading?: Optional<string>;
-    @Expose({ name: 'Body' })
+    errorRedirectUrl?: Optional<string>;
+    @Expose({ name: 'LoginRedirectUrl' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'body', value, obj, []),
+            transformValue(String, 'loginRedirectUrl', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    body?: Optional<string>;
+    loginRedirectUrl?: Optional<string>;
+    @Expose({ name: 'SelfService' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Boolean, 'selfService', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    selfService?: Optional<boolean>;
 
 }
 
-export class Tag extends BaseModel {
-    ['constructor']: typeof Tag;
+export class ApplicationCredentials extends BaseModel {
+    ['constructor']: typeof ApplicationCredentials;
 
 
-    @Expose({ name: 'Key' })
+    @Expose({ name: 'OauthClient' })
+    @Type(() => OauthCredential)
+    oauthClient?: Optional<OauthCredential>;
+    @Expose({ name: 'Password' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'key', value, obj, []),
+            transformValue(String, 'password', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    key?: Optional<string>;
-    @Expose({ name: 'Value' })
+    password?: Optional<string>;
+    @Expose({ name: 'Scheme' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'value_', value, obj, []),
+            transformValue(String, 'scheme', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    value_?: Optional<string>;
+    scheme?: Optional<string>;
+    @Expose({ name: 'Signing' })
+    @Type(() => SigningCredential)
+    signing?: Optional<SigningCredential>;
+    @Expose({ name: 'UserName' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'userName', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    userName?: Optional<string>;
+    @Expose({ name: 'UserNameTemplate' })
+    @Type(() => UserNameTemplate)
+    userNameTemplate?: Optional<UserNameTemplate>;
+
+}
+
+export class OauthCredential extends BaseModel {
+    ['constructor']: typeof OauthCredential;
+
+
+    @Expose({ name: 'AutoKeyRotation' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Boolean, 'autoKeyRotation', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    autoKeyRotation?: Optional<boolean>;
+    @Expose({ name: 'ClientId' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'clientId', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    clientId?: Optional<string>;
+    @Expose({ name: 'ClientSecret' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'clientSecret', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    clientSecret?: Optional<string>;
+    @Expose({ name: 'TokenEndpointAuthMethod' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'tokenEndpointAuthMethod', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    tokenEndpointAuthMethod?: Optional<string>;
+
+}
+
+export class SigningCredential extends BaseModel {
+    ['constructor']: typeof SigningCredential;
+
+
+    @Expose({ name: 'Kid' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'kid', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    kid?: Optional<string>;
+
+}
+
+export class UserNameTemplate extends BaseModel {
+    ['constructor']: typeof UserNameTemplate;
+
+
+    @Expose({ name: 'Template' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'template', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    template?: Optional<string>;
+    @Expose({ name: 'Type' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'type_', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    type_?: Optional<string>;
+
+}
+
+export class Visibility extends BaseModel {
+    ['constructor']: typeof Visibility;
+
+
+    @Expose({ name: 'AppLinks' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'appLinks', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    appLinks?: Optional<string>;
+    @Expose({ name: 'AutoLaunch' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Boolean, 'autoLaunch', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    autoLaunch?: Optional<boolean>;
+    @Expose({ name: 'AutoSubmitToolbar' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Boolean, 'autoSubmitToolbar', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    autoSubmitToolbar?: Optional<boolean>;
+    @Expose({ name: 'Hide' })
+    @Type(() => Hide)
+    hide?: Optional<Hide>;
+
+}
+
+export class Hide extends BaseModel {
+    ['constructor']: typeof Hide;
+
+
+    @Expose({ name: 'Ios' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Boolean, 'ios', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    ios?: Optional<boolean>;
+    @Expose({ name: 'Web' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Boolean, 'web', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    web?: Optional<boolean>;
 
 }
 

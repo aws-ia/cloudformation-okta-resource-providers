@@ -1,137 +1,347 @@
 {
     "typeName": "Okta::Application::Application",
-    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+    "description": "Manage an Application in Okta.",
     "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
     "definitions": {
-        "InitechDateFormat": {
-            "$comment": "Use the `definitions` block to provide shared resource property schemas",
-            "type": "string",
-            "format": "date-time"
-        },
-        "Memo": {
+        "OktaAccess" : {
             "type": "object",
             "properties": {
-                "Heading": {
-                    "type": "string"
+                "Url": {
+                    "type": "string",
+                    "description": "Okta URL, including organization identifier"
                 },
-                "Body": {
-                    "type": "string"
+                "ApiKey": {
+                    "type": "string",
+                    "description": "Okta API tokens are used to authenticate requests to Okta APIs."
                 }
             },
             "additionalProperties": false
         },
-        "Tag": {
-            "description": "A key-value pair to associate with a resource.",
+        "Accessibility": {
             "type": "object",
+            "description": "Specifies access settings for the application",
             "properties": {
-                "Key": {
+                "ErrorRedirectUrl": {
                     "type": "string",
-                    "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.",
-                    "minLength": 1,
-                    "maxLength": 128
+                    "description": "Custom error page for this application"
                 },
-                "Value": {
+                "LoginRedirectUrl": {
                     "type": "string",
-                    "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.",
-                    "minLength": 0,
-                    "maxLength": 256
+                    "description": "Custom login page for this application"
+                },
+                "SelfService": {
+                    "type": "boolean",
+                    "description": "Enable self-service application assignment",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "ApplicationCredentials": {
+            "type": "object",
+            "description": "Specifies credentials and scheme for the application's signOnMode",
+            "properties": {
+                "OauthClient": {
+                    "$ref": "#/definitions/OauthCredential"
+                },
+                "Password": {
+                    "$ref": "#/definitions/Password"
+                },
+                "Scheme": {
+                    "$ref": "#/definitions/AuthenticationScheme"
+                },
+                "Signing": {
+                    "$ref": "#/definitions/SigningCredential"
+                },
+                "UserName": {
+                    "type": "string",
+                    "description": "Shared username for app"
+                },
+                "UserNameTemplate": {
+                    "$ref": "#/definitions/UserNameTemplate"
                 }
             },
             "required": [
-                "Key",
-                "Value"
+                "OauthClient",
+                "Signing"
             ],
             "additionalProperties": false
+        },
+        "OauthCredential": {
+            "description": "Determines how to authenticate the OAuth 2.0 client",
+            "type": "object",
+            "properties": {
+                "AutoKeyRotation": {
+                    "type": "boolean",
+                    "description": "Requested key rotation mode"
+                },
+                "ClientId": {
+                    "type": "string",
+                    "description": "Unique identifier for the OAuth 2.0 client application"
+                },
+                "ClientSecret": {
+                    "type": "string",
+                    "description": "OAuth 2.0 client secret string"
+                },
+                "TokenEndpointAuthMethod": {
+                    "type": "string",
+                    "description": "Requested authentication method for the token endpoint"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "TokenEndpointAuthMethod"
+            ]
+        },
+        "Password": {
+            "description": "Specifies a password for a user",
+            "type": "string"
+        },
+        "AuthenticationScheme": {
+            "type": "string",
+            "description": "Authentication Scheme",
+            "enum": [
+                "ADMIN_SETS_CREDENTIALS",
+                "EDIT_PASSWORD_ONLY",
+                "EDIT_USERNAME_AND_PASSWORD",
+                "EXTERNAL_PASSWORD_SYNC",
+                "SHARED_USERNAME_AND_PASSWORD"
+            ]
+        },
+        "SigningCredential": {
+            "type": "object",
+            "description": "Determines the key used for signing assertions for the signOnMode",
+            "properties": {
+                "Kid": {
+                    "type": "string",
+                    "description": "Reference for key credential for the app"
+                }
+            },
+            "required": [
+                "Kid"
+            ],
+            "additionalProperties": false
+        },
+        "UserNameTemplate": {
+            "type": "object",
+            "description": "Specifies the template used to generate a user's username when the application is assigned via a group or directly to a user",
+            "properties": {
+                "Template": {
+                    "description": "mapping expression for username",
+                    "type": "string",
+                    "default": "${source.login}"
+                },
+                "Type": {
+                    "description": "type of mapping expression",
+                    "type": "string",
+                    "enum": [
+                        "NONE",
+                        "BUILT_IN",
+                        "CUSTOM"
+                    ],
+                    "default": "BUILT_IN"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "Type"
+            ]
+        },
+        "SignOnMode": {
+            "type": "string",
+            "enum": [
+                "AUTO_LOGIN",
+                "BASIC_AUTH",
+                "BOOKMARK",
+                "BROWSER_PLUGIN",
+                "Custom",
+                "OPENID_CONNECT",
+                "SAML_1_1",
+                "SAML_2_0",
+                "SECURE_PASSWORD_STORE",
+                "WS_FEDERATION"
+            ]
+        },
+        "Visibility": {
+            "description": "Specifies visibility settings for the application",
+            "type": "object",
+            "properties": {
+                "AppLinks": {
+                    "type": "string",
+                    "description": "Each application defines one or more appLinks that can be published."
+                },
+                "AutoLaunch": {
+                    "description": "Automatically signs in to the app when user signs into Okta.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "AutoSubmitToolbar": {
+                    "description": "Automatically sign in when user lands on the sign-in page",
+                    "type": "boolean",
+                    "default": false
+                },
+                "Hide": {
+                    "description": "Hides this app for specific end-user apps",
+                    "$ref": "#/definitions/Hide"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "AppLinks",
+                "AutoLaunch",
+                "AutoSubmitToolbar",
+                "Hide"
+            ]
+        },
+        "Hide": {
+            "description": "Hides this app for specific end-user apps",
+            "type": "object",
+            "properties": {
+                "Ios": {
+                    "type": "boolean",
+                    "description": "Okta Mobile for iOS or Android (pre-dates Android)",
+                    "default": false
+                },
+                "Web": {
+                    "type": "boolean",
+                    "description": "Okta Web Browser Home Page",
+                    "default": false
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "Ios",
+                "Web"
+            ]
         }
     },
     "properties": {
-        "TPSCode": {
-            "description": "A TPS Code is automatically generated on creation and assigned as the unique identifier.",
+        "Embedded": {
             "type": "string",
-            "pattern": "^[A-Z]{3,5}[0-9]{8}-[0-9]{4}$"
+            "description": "Embedded resources related to the app"
         },
-        "Title": {
-            "description": "The title of the TPS report is a mandatory element.",
+        "Links": {
             "type": "string",
-            "minLength": 20,
-            "maxLength": 250
+            "description": "Discoverable resources related to the app"
         },
-        "CoverSheetIncluded": {
-            "description": "Required for all TPS Reports submitted after 2/19/1999",
-            "type": "boolean"
+        "Accessibility": {
+            "$ref": "#/definitions/Accessibility"
         },
-        "DueDate": {
-            "$ref": "#/definitions/InitechDateFormat"
-        },
-        "ApprovalDate": {
-            "$ref": "#/definitions/InitechDateFormat"
-        },
-        "Memo": {
-            "$ref": "#/definitions/Memo"
-        },
-        "SecondCopyOfMemo": {
-            "description": "In case you didn't get the first one.",
-            "$ref": "#/definitions/Memo"
-        },
-        "TestCode": {
+        "Created": {
             "type": "string",
+            "description": "Timestamp when app was created"
+        },
+        "Credentials": {
+            "$ref": "#/definitions/ApplicationCredentials"
+        },
+        "Features": {
+            "type": "string",
+            "description": "Applications may support optional provisioning features on a per-app basis.",
             "enum": [
-                "NOT_STARTED",
-                "CANCELLED"
+                "GROUP_PUSH",
+                "IMPORT_NEW_USER",
+                "IMPORT_PROFILE_UPDATES",
+                "IMPORT_USER_SCHEMA",
+                "PROFILE_MASTERING",
+                "PUSH_NEW_USERS",
+                "PUSH_PASSWORD_UPDATES",
+                "PUSH_PROFILE_UPDATES",
+                "PUSH_USER_DEACTIVATION",
+                "REACTIVATE_USERS"
             ]
         },
-        "Authors": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
+        "Id": {
+            "description": "Unique key for app",
+            "type": "string"
         },
-        "Tags": {
-            "description": "An array of key-value pairs to apply to this resource.",
-            "type": "array",
-            "uniqueItems": true,
-            "insertionOrder": false,
-            "items": {
-                "$ref": "#/definitions/Tag"
-            }
+        "Label": {
+            "description": "User-defined display name for app",
+            "type": "string"
+        },
+        "LastUpdated": {
+            "description": "Timestamp when app was last updated",
+            "type": "string"
+        },
+        "Name": {
+            "description": "Unique key for app definition",
+            "type": "string"
+        },
+        "Profile": {
+            "description": "Valid JSON schema for specifying properties",
+            "type": "string"
+        },
+        "RequestObjectSigningAlg": {
+            "description": "The type of JSON Web Key Set (JWKS) algorithm that must be used for signing request object",
+            "type": "string",
+            "enum": [
+                "HS256",
+                "HS384",
+                "HS512",
+                "RS256",
+                "RS384",
+                "RS512",
+                "ES256",
+                "ES384",
+                "ES512"
+            ]
+        },
+        "Settings": {
+            "type": "object",
+            "additionalProperties": false
+        },
+        "SignOnMode": {
+            "$ref": "#/definitions/SignOnMode"
+        },
+        "Status": {
+            "description": "Status of app",
+            "type": "string",
+            "enum": [
+                "ACTIVE",
+                "INACTIVE"
+            ]
+        },
+        "Visibility": {
+            "$ref": "#/definitions/Visibility"
         }
     },
     "additionalProperties": false,
     "required": [
-        "TestCode",
-        "Title"
+
     ],
     "readOnlyProperties": [
-        "/properties/TPSCode"
+        "/properties/Embedded",
+        "/properties/Links",
+        "/properties/Id"
     ],
     "primaryIdentifier": [
-        "/properties/TPSCode"
+        "/properties/Id"
     ],
     "handlers": {
         "create": {
-            "permissions": [
-                "initech:CreateReport"
-            ]
+            "permissions": []
         },
         "read": {
-            "permissions": [
-                "initech:DescribeReport"
-            ]
+            "permissions": []
         },
         "update": {
-            "permissions": [
-                "initech:UpdateReport"
-            ]
+            "permissions": []
         },
         "delete": {
-            "permissions": [
-                "initech:DeleteReport"
-            ]
+            "permissions": []
         },
         "list": {
-            "permissions": [
-                "initech:ListReports"
-            ]
+            "permissions": []
         }
+    },
+    "typeConfiguration": {
+        "properties": {
+            "OktaAccess": {
+                "$ref": "#/definitions/OktaAccess"
+            }
+        },
+        "additionalProperties": false,
+        "required": [
+            "OktaAccess"
+        ]
     }
 }

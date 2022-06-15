@@ -37,7 +37,11 @@ class Resource extends BaseResource<ResourceModel> {
         const model = new ResourceModel(request.desiredResourceState);
         const progress = ProgressEvent.progress<ProgressEvent<ResourceModel, CallbackContext>>(model);
         // TODO: put code here
-
+        const model2 = {
+            ...model,
+            _embedded: model.embedded
+        }
+        delete model2.embedded; // May not be necessary if the API accepts additional properties
         // Example:
         try {
             if (session instanceof SessionProxy) {

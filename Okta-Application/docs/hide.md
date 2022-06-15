@@ -1,4 +1,6 @@
-# Okta::Application::Application Memo
+# Okta::Application::Application Hide
+
+Hides this app for specific end-user apps
 
 ## Syntax
 
@@ -8,33 +10,37 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 {
-    "<a href="#heading" title="Heading">Heading</a>" : <i>String</i>,
-    "<a href="#body" title="Body">Body</a>" : <i>String</i>
+    "<a href="#ios" title="Ios">Ios</a>" : <i>Boolean</i>,
+    "<a href="#web" title="Web">Web</a>" : <i>Boolean</i>
 }
 </pre>
 
 ### YAML
 
 <pre>
-<a href="#heading" title="Heading">Heading</a>: <i>String</i>
-<a href="#body" title="Body">Body</a>: <i>String</i>
+<a href="#ios" title="Ios">Ios</a>: <i>Boolean</i>
+<a href="#web" title="Web">Web</a>: <i>Boolean</i>
 </pre>
 
 ## Properties
 
-#### Heading
+#### Ios
 
-_Required_: No
+Okta Mobile for iOS or Android (pre-dates Android)
 
-_Type_: String
+_Required_: Yes
+
+_Type_: Boolean
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### Body
+#### Web
 
-_Required_: No
+Okta Web Browser Home Page
 
-_Type_: String
+_Required_: Yes
+
+_Type_: Boolean
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
