@@ -216,6 +216,9 @@
         }
     },
     "properties": {
+        "OktaAccess": {
+            "$ref": "#/definitions/OktaAccess"
+        },
         "Embedded": {
             "type": "string",
             "description": "Embedded resources related to the app"
@@ -287,6 +290,19 @@
         },
         "Settings": {
             "type": "object",
+            "properties": {
+                "App": {
+                    "type": "object",
+                    "properties": {
+                        "Url": {
+                            "type": "string"
+                        },
+                        "AuthUrl": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
             "additionalProperties": false
         },
         "SignOnMode": {

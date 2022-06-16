@@ -22,11 +22,11 @@ export type PaginatedResponseType = {
 
 export class OktaClient {
     private baseUrl: string;
-    private apiToken: string;
+    private apiKey: string;
 
-    constructor(baseUrl: string, apiToken: string) {
+    constructor(baseUrl: string, apiKey: string) {
         this.baseUrl = baseUrl;
-        this.apiToken = apiToken;
+        this.apiKey = apiKey;
     }
 
     public async doRequest<ResponseType>(method: 'get' | 'put' | 'post' | 'delete', path: string, params: any = {}, body?: {}): Promise<AxiosResponse<ResponseType>> {
@@ -36,8 +36,9 @@ export class OktaClient {
             method: method,
             data: this.sanitizePayload(body),
             headers: {
-                Authorization: `Api-Token ${this.apiToken}`,
-                'Content-type': 'application/json; charset=utf-8'
+                Authorization: `SSWS ${this.apiKey}`,
+                'Content-type': 'application/json; charset=utf-8',
+                Accept: 'application/json; charset=utf-8'
             }
         });
     }
@@ -76,7 +77,11 @@ export class OktaClient {
                     ? this.sanitizePayload(item)
                     : item);
             }
-            map[key.substring(0, 1).toLocaleLowerCase() + key.substring(1)] = value;
+            if (key == "AuthUrl") {
+                map["authURL"] = value;
+            } else if (key != "OktaAccess") {
+                map[key.substring(0, 1).toLocaleLowerCase() + key.substring(1)] = value;
+            }
             return map;
         }, {} as { [key: string]: any })
     }

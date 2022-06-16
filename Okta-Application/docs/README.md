@@ -12,6 +12,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 {
     "Type" : "Okta::Application::Application",
     "Properties" : {
+        "<a href="#oktaaccess" title="OktaAccess">OktaAccess</a>" : <i><a href="oktaaccess.md">OktaAccess</a></i>,
         "<a href="#accessibility" title="Accessibility">Accessibility</a>" : <i><a href="accessibility.md">Accessibility</a></i>,
         "<a href="#created" title="Created">Created</a>" : <i>String</i>,
         "<a href="#credentials" title="Credentials">Credentials</a>" : <i><a href="applicationcredentials.md">ApplicationCredentials</a></i>,
@@ -21,6 +22,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
         "<a href="#name" title="Name">Name</a>" : <i>String</i>,
         "<a href="#profile" title="Profile">Profile</a>" : <i>String</i>,
         "<a href="#requestobjectsigningalg" title="RequestObjectSigningAlg">RequestObjectSigningAlg</a>" : <i>String</i>,
+        "<a href="#settings" title="Settings">Settings</a>" : <i><a href="settings.md">Settings</a></i>,
         "<a href="#signonmode" title="SignOnMode">SignOnMode</a>" : <i>String</i>,
         "<a href="#status" title="Status">Status</a>" : <i>String</i>,
         "<a href="#visibility" title="Visibility">Visibility</a>" : <i><a href="visibility.md">Visibility</a></i>
@@ -33,6 +35,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 <pre>
 Type: Okta::Application::Application
 Properties:
+    <a href="#oktaaccess" title="OktaAccess">OktaAccess</a>: <i><a href="oktaaccess.md">OktaAccess</a></i>
     <a href="#accessibility" title="Accessibility">Accessibility</a>: <i><a href="accessibility.md">Accessibility</a></i>
     <a href="#created" title="Created">Created</a>: <i>String</i>
     <a href="#credentials" title="Credentials">Credentials</a>: <i><a href="applicationcredentials.md">ApplicationCredentials</a></i>
@@ -42,12 +45,21 @@ Properties:
     <a href="#name" title="Name">Name</a>: <i>String</i>
     <a href="#profile" title="Profile">Profile</a>: <i>String</i>
     <a href="#requestobjectsigningalg" title="RequestObjectSigningAlg">RequestObjectSigningAlg</a>: <i>String</i>
+    <a href="#settings" title="Settings">Settings</a>: <i><a href="settings.md">Settings</a></i>
     <a href="#signonmode" title="SignOnMode">SignOnMode</a>: <i>String</i>
     <a href="#status" title="Status">Status</a>: <i>String</i>
     <a href="#visibility" title="Visibility">Visibility</a>: <i><a href="visibility.md">Visibility</a></i>
 </pre>
 
 ## Properties
+
+#### OktaAccess
+
+_Required_: No
+
+_Type_: <a href="oktaaccess.md">OktaAccess</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
 #### Accessibility
 
@@ -140,6 +152,14 @@ _Required_: No
 _Type_: String
 
 _Allowed Values_: <code>HS256</code> | <code>HS384</code> | <code>HS512</code> | <code>RS256</code> | <code>RS384</code> | <code>RS512</code> | <code>ES256</code> | <code>ES384</code> | <code>ES512</code>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### Settings
+
+_Required_: No
+
+_Type_: <a href="settings.md">Settings</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 

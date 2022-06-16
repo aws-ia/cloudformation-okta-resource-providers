@@ -11,6 +11,9 @@ export class ResourceModel extends BaseModel {
     @Exclude()
     protected readonly IDENTIFIER_KEY_ID: string = '/properties/Id';
 
+    @Expose({ name: 'OktaAccess' })
+    @Type(() => OktaAccess)
+    oktaAccess?: Optional<OktaAccess>;
     @Expose({ name: 'Embedded' })
     @Transform(
         (value: any, obj: any) =>
@@ -107,6 +110,9 @@ export class ResourceModel extends BaseModel {
         }
     )
     requestObjectSigningAlg?: Optional<string>;
+    @Expose({ name: 'Settings' })
+    @Type(() => Settings)
+    settings?: Optional<Settings>;
     @Expose({ name: 'SignOnMode' })
     @Transform(
         (value: any, obj: any) =>
@@ -146,6 +152,31 @@ export class ResourceModel extends BaseModel {
         // only return the identifiers if any can be used
         return identifiers.length === 0 ? null : identifiers;
     }
+}
+
+export class OktaAccess extends BaseModel {
+    ['constructor']: typeof OktaAccess;
+
+
+    @Expose({ name: 'Url' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'url', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    url?: Optional<string>;
+    @Expose({ name: 'ApiKey' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'apiKey', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    apiKey?: Optional<string>;
+
 }
 
 export class Accessibility extends BaseModel {
@@ -306,6 +337,41 @@ export class UserNameTemplate extends BaseModel {
         }
     )
     type_?: Optional<string>;
+
+}
+
+export class Settings extends BaseModel {
+    ['constructor']: typeof Settings;
+
+
+    @Expose({ name: 'App' })
+    @Type(() => App)
+    app?: Optional<App>;
+
+}
+
+export class App extends BaseModel {
+    ['constructor']: typeof App;
+
+
+    @Expose({ name: 'Url' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'url', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    url?: Optional<string>;
+    @Expose({ name: 'AuthUrl' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'authUrl', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    authUrl?: Optional<string>;
 
 }
 
