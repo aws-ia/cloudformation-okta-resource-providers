@@ -14,18 +14,16 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "Properties" : {
         "<a href="#oktaaccess" title="OktaAccess">OktaAccess</a>" : <i><a href="oktaaccess.md">OktaAccess</a></i>,
         "<a href="#accessibility" title="Accessibility">Accessibility</a>" : <i><a href="accessibility.md">Accessibility</a></i>,
-        "<a href="#created" title="Created">Created</a>" : <i>String</i>,
         "<a href="#credentials" title="Credentials">Credentials</a>" : <i><a href="applicationcredentials.md">ApplicationCredentials</a></i>,
         "<a href="#features" title="Features">Features</a>" : <i>String</i>,
         "<a href="#label" title="Label">Label</a>" : <i>String</i>,
-        "<a href="#lastupdated" title="LastUpdated">LastUpdated</a>" : <i>String</i>,
         "<a href="#name" title="Name">Name</a>" : <i>String</i>,
         "<a href="#profile" title="Profile">Profile</a>" : <i>String</i>,
         "<a href="#requestobjectsigningalg" title="RequestObjectSigningAlg">RequestObjectSigningAlg</a>" : <i>String</i>,
-        "<a href="#settings" title="Settings">Settings</a>" : <i><a href="settings.md">Settings</a></i>,
+        "<a href="#settings" title="Settings">Settings</a>" : <i>Map</i>,
         "<a href="#signonmode" title="SignOnMode">SignOnMode</a>" : <i>String</i>,
-        "<a href="#status" title="Status">Status</a>" : <i>String</i>,
-        "<a href="#visibility" title="Visibility">Visibility</a>" : <i><a href="visibility.md">Visibility</a></i>
+        "<a href="#visibility" title="Visibility">Visibility</a>" : <i><a href="visibility.md">Visibility</a></i>,
+        "<a href="#application" title="Application">Application</a>" : <i><a href="application.md">Application</a></i>
     }
 }
 </pre>
@@ -37,18 +35,16 @@ Type: Okta::Application::Application
 Properties:
     <a href="#oktaaccess" title="OktaAccess">OktaAccess</a>: <i><a href="oktaaccess.md">OktaAccess</a></i>
     <a href="#accessibility" title="Accessibility">Accessibility</a>: <i><a href="accessibility.md">Accessibility</a></i>
-    <a href="#created" title="Created">Created</a>: <i>String</i>
     <a href="#credentials" title="Credentials">Credentials</a>: <i><a href="applicationcredentials.md">ApplicationCredentials</a></i>
     <a href="#features" title="Features">Features</a>: <i>String</i>
     <a href="#label" title="Label">Label</a>: <i>String</i>
-    <a href="#lastupdated" title="LastUpdated">LastUpdated</a>: <i>String</i>
     <a href="#name" title="Name">Name</a>: <i>String</i>
     <a href="#profile" title="Profile">Profile</a>: <i>String</i>
     <a href="#requestobjectsigningalg" title="RequestObjectSigningAlg">RequestObjectSigningAlg</a>: <i>String</i>
-    <a href="#settings" title="Settings">Settings</a>: <i><a href="settings.md">Settings</a></i>
+    <a href="#settings" title="Settings">Settings</a>: <i>Map</i>
     <a href="#signonmode" title="SignOnMode">SignOnMode</a>: <i>String</i>
-    <a href="#status" title="Status">Status</a>: <i>String</i>
     <a href="#visibility" title="Visibility">Visibility</a>: <i><a href="visibility.md">Visibility</a></i>
+    <a href="#application" title="Application">Application</a>: <i><a href="application.md">Application</a></i>
 </pre>
 
 ## Properties
@@ -68,16 +64,6 @@ Specifies access settings for the application
 _Required_: No
 
 _Type_: <a href="accessibility.md">Accessibility</a>
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
-#### Created
-
-Timestamp when app was created
-
-_Required_: No
-
-_Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
@@ -113,16 +99,6 @@ _Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### LastUpdated
-
-Timestamp when app was last updated
-
-_Required_: No
-
-_Type_: String
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
 #### Name
 
 Unique key for app definition
@@ -131,7 +107,7 @@ _Required_: No
 
 _Type_: String
 
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+_Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 
 #### Profile
 
@@ -159,7 +135,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 _Required_: No
 
-_Type_: <a href="settings.md">Settings</a>
+_Type_: Map
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
@@ -173,18 +149,6 @@ _Allowed Values_: <code>AUTO_LOGIN</code> | <code>BASIC_AUTH</code> | <code>BOOK
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### Status
-
-Status of app
-
-_Required_: No
-
-_Type_: String
-
-_Allowed Values_: <code>ACTIVE</code> | <code>INACTIVE</code>
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
 #### Visibility
 
 Specifies visibility settings for the application
@@ -192,6 +156,16 @@ Specifies visibility settings for the application
 _Required_: No
 
 _Type_: <a href="visibility.md">Visibility</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### Application
+
+Application returned by Okta API
+
+_Required_: No
+
+_Type_: <a href="application.md">Application</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
@@ -206,14 +180,6 @@ When you pass the logical ID of this resource to the intrinsic `Ref` function, R
 The `Fn::GetAtt` intrinsic function returns a value for a specified attribute of this type. The following are the available attributes and sample return values.
 
 For more information about using the `Fn::GetAtt` intrinsic function, see [Fn::GetAtt](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getatt.html).
-
-#### Embedded
-
-Embedded resources related to the app
-
-#### Links
-
-Discoverable resources related to the app
 
 #### Id
 

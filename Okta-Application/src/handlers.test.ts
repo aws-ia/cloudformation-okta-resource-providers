@@ -2,14 +2,15 @@ import {resource} from "./handlers";
 import {ResourceModel} from "./models";
 
 var createdModel: ResourceModel;
+
 describe("ApplicationHandler tests", () => {
     it("should create app", () => {
-            createdModel = Object.assign(new ResourceModel(), <ResourceModel>{
+            createdModel = new ResourceModel(<ResourceModel>{
                 oktaAccess: {
                     apiKey: "<OKTA_API_KEY>",
                     url: "<OKTA_API_KEY>"
                 },
-                settings: {
+                settings: <unknown>{
                     app: {
                         url: "http://localhost:8081",
                         authUrl: "http://localhost:8081"
@@ -21,11 +22,12 @@ describe("ApplicationHandler tests", () => {
                         web: true
                     }
                 },
-
                 name: "template_basic_auth",
                 label: "My Label",
                 "signOnMode": "BASIC_AUTH"
             });
+
+
             // var model = Object.assign(new ResourceModel(), {
             //    okta
             // });
