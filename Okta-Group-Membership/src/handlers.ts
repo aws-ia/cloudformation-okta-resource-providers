@@ -1,19 +1,19 @@
 import {AbstractOktaResource} from "okta-common/src/abstract-okta-resource";
-import {Application, ResourceModel} from './models';
+import {Group, ResourceModel} from './models';
 import {OktaClient} from "okta-common/src/okta-client";
 
 interface CallbackContext extends Record<string, any> {}
 
-class Resource extends AbstractOktaResource<ResourceModel, Application, Application, Application> {
+class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group> {
     async get(model: ResourceModel): Promise<ResourceModel> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Application>(
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
             'get',
             `/api/v1/apps/${model.id}`);
         return new ResourceModel(response.data);
     }
 
     async list(model: ResourceModel): Promise<ResourceModel[]> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Application>(
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
             'get',
             `/api/v1/apps`);
 

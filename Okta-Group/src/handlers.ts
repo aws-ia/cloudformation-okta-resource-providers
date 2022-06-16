@@ -1,46 +1,46 @@
 import {AbstractOktaResource} from "okta-common/src/abstract-okta-resource";
-import {Application, ResourceModel} from './models';
+import {Group, ResourceModel} from './models';
 import {OktaClient} from "okta-common/src/okta-client";
 
 interface CallbackContext extends Record<string, any> {}
 
-class Resource extends AbstractOktaResource<ResourceModel, Application, Application, Application> {
+class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group> {
     async get(model: ResourceModel): Promise<ResourceModel> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Application>(
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
             'get',
-            `/api/v1/apps/${model.id}`);
+            `/api/v1/groups/${model.id}`);
         return new ResourceModel(response.data);
     }
 
     async list(model: ResourceModel): Promise<ResourceModel[]> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Application>(
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
             'get',
-            `/api/v1/apps`);
+            `/api/v1/groups`);
 
         return null;
         // return response.data.dashboards.map(dashboard => this.setModelFrom(new ResourceModel(), new Dashboard(dashboard)));
     }
 
     async create(model: ResourceModel): Promise<ResourceModel> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<ResourceModel>(
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
             'post',
-            `/api/v1/apps`,
+            `/api/v1/groups`,
             {},
             model.toJSON());
         return new ResourceModel(response.data);
     }
 
     async update(model: ResourceModel): Promise<ResourceModel> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Application>(
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
             'put',
-            `/api/v1/apps/${model.id}`);
+            `/api/v1/groups/${model.id}`);
         return new ResourceModel(response.data);
     }
 
     async delete(model: ResourceModel): Promise<void> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Application>(
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
             'delete',
-            `/api/v1/apps/${model.id}`);
+            `/api/v1/groups/${model.id}`);
         // return new ResourceModel(response.data);
     }
 

@@ -1,7 +1,7 @@
 {
-    "name": "okta-application-application",
+    "name": "okta-group-group",
     "version": "0.1.0",
-    "description": "AWS custom resource provider named Okta::Application::Application.",
+    "description": "AWS custom resource provider named Okta::Group::Group.",
     "private": true,
     "main": "dist/handlers.js",
     "files": [
@@ -10,22 +10,18 @@
     "scripts": {
         "build": "npx tsc",
         "prepack": "npm run build",
-        "test": "foo"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
         "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib": "^1.0.1",
         "class-transformer": "0.3.1",
-        "okta-common": "file:../Okta-Common"
+        "okta-common": "file:../okta-common"
     },
     "devDependencies": {
-        "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib": "^1.0.1",
-        "@types/jest": "^27.5.2",
         "@types/node": "^12.0.0",
-        "jest": "^27.5.1",
-        "ts-jest": "^27.1.3",
         "typescript": "^4.1.2"
     },
     "optionalDependencies": {
-        "aws-sdk": "^2.1154.0"
+        "aws-sdk": "^2.656.0"
     }
 }

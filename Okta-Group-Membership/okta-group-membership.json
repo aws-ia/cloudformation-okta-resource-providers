@@ -1,0 +1,63 @@
+{
+    "typeName": "Okta::Group::Membership",
+    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+    "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "properties": {
+        "GroupId": {
+            "type": "string"
+        },
+        "UserIdentifier": {
+            "type": "object",
+            "oneOf" : [
+                {
+                    "type" : "object",
+                    "properties" : {
+                        "Login" : {
+                            "type" : "string"
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                {
+                    "type" : "object",
+                    "properties" : {
+                        "Guid" : {
+                            "type" : "string"
+                        }
+                    },
+                    "additionalProperties":false
+                }
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "GroupId",
+        "UserIdentifier"
+    ],
+    "primaryIdentifier": [
+        "/properties/GroupId",
+        "/properties/UserIdentifier"
+    ],
+    "createOnlyProperties": [
+        "/properties/GroupId",
+        "/properties/UserIdentifier"
+    ],
+    "handlers": {
+        "create": {
+            "permissions": []
+        },
+        "read": {
+            "permissions": []
+        },
+        "update": {
+            "permissions": []
+        },
+        "delete": {
+            "permissions": []
+        },
+        "list": {
+            "permissions": []
+        }
+    }
+}

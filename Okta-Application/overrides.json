@@ -1,0 +1,4 @@
+{
+  apiKey: "<OKTA_API_KEY>",
+  url: "<OKTA_URL>"
+}

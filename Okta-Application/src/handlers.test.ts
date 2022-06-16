@@ -8,7 +8,7 @@ describe("ApplicationHandler tests", () => {
             createdModel = new ResourceModel(<ResourceModel>{
                 oktaAccess: {
                     apiKey: "<OKTA_API_KEY>",
-                    url: "<OKTA_API_KEY>"
+                    url: "<OKTA_URL>"
                 },
                 settings: <unknown>{
                     app: {
@@ -55,6 +55,20 @@ describe("ApplicationHandler tests", () => {
         }).catch(e => {
 
         });
+    })
+    it ("should delete the app", () => {
+        // var x: ResourceModel = Object.assign(new ResourceModel(), <ResourceModel>{
+        //     oktaAccess: {
+        //         apiKey: "<OKTA_API_KEY>",
+        //         url: "<OKTA_API_KEY>"
+        //     },
+        //     id: idOnlyModel.id
+        // });
+        // resource.delete(createdModel).then(rm => {
+        //
+        // }).catch(e => {
+        //
+        // });
     })
 })
 
