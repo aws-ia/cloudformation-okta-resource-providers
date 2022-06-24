@@ -68,7 +68,8 @@
         "/properties/Profile"
     ],
     "readOnlyProperties": [
-        "/properties/Id"
+        "/properties/Id",
+        "/properties/Group"
     ],
     "primaryIdentifier": [
         "/properties/Id"

@@ -1,8 +1,10 @@
-import {AbstractOktaResource} from "okta-common/src/abstract-okta-resource";
+import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
 import {Group, ResourceModel} from './models';
-import {OktaClient} from "okta-common/src/okta-client";
+import {OktaClient} from "../../Okta-Common/src/okta-client";
 
 interface CallbackContext extends Record<string, any> {}
+
+type Groups = Group[];
 
 class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group> {
     async get(model: ResourceModel): Promise<ResourceModel> {
@@ -13,12 +15,11 @@ class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group> 
     }
 
     async list(model: ResourceModel): Promise<ResourceModel[]> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Groups>(
             'get',
             `/api/v1/groups`);
 
-        return null;
-        // return response.data.dashboards.map(dashboard => this.setModelFrom(new ResourceModel(), new Dashboard(dashboard)));
+        return response.data.map(group => this.setModelFrom(new ResourceModel(), new Group(group)));
     }
 
     async create(model: ResourceModel): Promise<ResourceModel> {
@@ -26,30 +27,43 @@ class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group> 
             'post',
             `/api/v1/groups`,
             {},
-            model.toJSON());
+            model.toJSON(),
+            this.loggerProxy);
         return new ResourceModel(response.data);
     }
 
     async update(model: ResourceModel): Promise<ResourceModel> {
+        let modelForDelete: ResourceModel = new ResourceModel({
+            profile: model.profile
+        });
         const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
             'put',
-            `/api/v1/groups/${model.id}`);
+            `/api/v1/groups/${model.id}`,
+            {},
+            modelForDelete.toJSON(),
+            this.loggerProxy);
         return new ResourceModel(response.data);
     }
 
     async delete(model: ResourceModel): Promise<void> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
+        await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
             'delete',
             `/api/v1/groups/${model.id}`);
-        // return new ResourceModel(response.data);
     }
 
     newModel(partial: any): ResourceModel {
-        return undefined;
+        return new ResourceModel(partial);
     }
 
-    setModelFrom(model: ResourceModel, from: ResourceModel | undefined): ResourceModel {
-        return undefined;
+    setModelFrom(model: ResourceModel, from: Group | undefined): ResourceModel {
+        if (!from) {
+            return model;
+        }
+        model.group = from;
+        if (from.id) {
+            model.id = from.id;
+        }
+        return model;
     }
 
 
