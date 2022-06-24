@@ -15,7 +15,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
         "<a href="#oktaaccess" title="OktaAccess">OktaAccess</a>" : <i><a href="oktaaccess.md">OktaAccess</a></i>,
         "<a href="#applicationid" title="ApplicationId">ApplicationId</a>" : <i>String</i>,
         "<a href="#groupid" title="GroupId">GroupId</a>" : <i>String</i>,
-        "<a href="#groupapplicationassociation" title="GroupApplicationAssociation">GroupApplicationAssociation</a>" : <i><a href="groupapplicationassociation.md">GroupApplicationAssociation</a></i>
     }
 }
 </pre>
@@ -28,7 +27,6 @@ Properties:
     <a href="#oktaaccess" title="OktaAccess">OktaAccess</a>: <i><a href="oktaaccess.md">OktaAccess</a></i>
     <a href="#applicationid" title="ApplicationId">ApplicationId</a>: <i>String</i>
     <a href="#groupid" title="GroupId">GroupId</a>: <i>String</i>
-    <a href="#groupapplicationassociation" title="GroupApplicationAssociation">GroupApplicationAssociation</a>: <i><a href="groupapplicationassociation.md">GroupApplicationAssociation</a></i>
 </pre>
 
 ## Properties
@@ -61,11 +59,15 @@ _Type_: String
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 
+## Return Values
+
+### Fn::GetAtt
+
+The `Fn::GetAtt` intrinsic function returns a value for a specified attribute of this type. The following are the available attributes and sample return values.
+
+For more information about using the `Fn::GetAtt` intrinsic function, see [Fn::GetAtt](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getatt.html).
+
 #### GroupApplicationAssociation
 
-_Required_: No
-
-_Type_: <a href="groupapplicationassociation.md">GroupApplicationAssociation</a>
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+Returns the <code>GroupApplicationAssociation</code> value.
 

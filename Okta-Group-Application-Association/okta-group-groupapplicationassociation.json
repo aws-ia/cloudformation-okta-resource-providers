@@ -17,7 +17,7 @@
             },
             "additionalProperties": false
         },
-        "Group": {
+        "GroupApplicationAssociation": {
             "type": "object",
             "properties": {
                 "ApplicationId": {
@@ -44,8 +44,8 @@
             "type": "string",
             "description": "unique key of a valid Group"
         },
-        "Group": {
-            "$ref": "#/definitions/Group"
+        "GroupApplicationAssociation": {
+            "$ref": "#/definitions/GroupApplicationAssociation"
         }
     },
     "additionalProperties": false,

@@ -1,19 +1,13 @@
 import axios, {AxiosResponse} from "axios";
+import {LoggerProxy} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib/dist/log-delivery";
 
 export type ApiErrorResponse = {
-    error: ApiError
+    message: string,
+    name: string,
+    code: number,
+    status: string
 }
-export type ApiError = {
-    code: number
-    message: string
-    constraintViolations?: ConstraintViolation[]
-}
-export type ConstraintViolation = {
-    path: string
-    message: string
-    parameterLocation: string
-    location?: string
-}
+
 export type PaginatedResponseType = {
     totalCount: number
     pageSize: number
@@ -29,7 +23,7 @@ export class OktaClient {
         this.apiKey = apiKey;
     }
 
-    public async doRequest<ResponseType>(method: 'get' | 'put' | 'post' | 'delete', path: string, params: any = {}, body?: {}): Promise<AxiosResponse<ResponseType>> {
+    public async doRequest<ResponseType>(method: 'get' | 'put' | 'post' | 'delete', path: string, params: any = {}, body?: {}, logger?: LoggerProxy): Promise<AxiosResponse<ResponseType>> {
         return await axios.request<ResponseType>({
             url: `${this.baseUrl}${path}`,
             params: params,
@@ -77,7 +71,9 @@ export class OktaClient {
                     ? this.sanitizePayload(item)
                     : item);
             }
-            if (key == "AuthUrl") {
+            if (key == "Ios") {
+                map["iOS"] = value;
+            } else if (key == "AuthURL") {
                 map["authURL"] = value;
             } else if (key != "OktaAccess") {
                 map[key.substring(0, 1).toLocaleLowerCase() + key.substring(1)] = value;

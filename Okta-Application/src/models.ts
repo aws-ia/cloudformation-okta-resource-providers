@@ -20,15 +20,6 @@ export class ResourceModel extends BaseModel {
     @Expose({ name: 'Credentials' })
     @Type(() => ApplicationCredentials)
     credentials?: Optional<ApplicationCredentials>;
-    @Expose({ name: 'Features' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'features', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    features?: Optional<string>;
     @Expose({ name: 'Id' })
     @Transform(
         (value: any, obj: any) =>
@@ -56,15 +47,6 @@ export class ResourceModel extends BaseModel {
         }
     )
     name?: Optional<string>;
-    @Expose({ name: 'Profile' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'profile', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    profile?: Optional<string>;
     @Expose({ name: 'RequestObjectSigningAlg' })
     @Transform(
         (value: any, obj: any) =>
@@ -308,15 +290,6 @@ export class Visibility extends BaseModel {
     ['constructor']: typeof Visibility;
 
 
-    @Expose({ name: 'AppLinks' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'appLinks', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    appLinks?: Optional<string>;
     @Expose({ name: 'AutoLaunch' })
     @Transform(
         (value: any, obj: any) =>
@@ -370,24 +343,9 @@ export class Application extends BaseModel {
     ['constructor']: typeof Application;
 
 
-    @Expose({ name: 'Embedded' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'embedded', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    embedded?: Optional<string>;
-    @Expose({ name: 'Links' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'links', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    links?: Optional<string>;
+    @Expose({ name: 'OktaAccess' })
+    @Type(() => OktaAccess)
+    oktaAccess?: Optional<OktaAccess>;
     @Expose({ name: 'Accessibility' })
     @Type(() => Accessibility)
     accessibility?: Optional<Accessibility>;
@@ -448,15 +406,6 @@ export class Application extends BaseModel {
         }
     )
     name?: Optional<string>;
-    @Expose({ name: 'Profile' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'profile', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    profile?: Optional<string>;
     @Expose({ name: 'RequestObjectSigningAlg' })
     @Transform(
         (value: any, obj: any) =>

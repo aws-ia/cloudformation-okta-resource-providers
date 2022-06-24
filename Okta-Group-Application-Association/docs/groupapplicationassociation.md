@@ -1,4 +1,4 @@
-# Okta::Group::GroupApplicationAssociation Group
+# Okta::Group::GroupApplicationAssociation GroupApplicationAssociation
 
 ## Syntax
 

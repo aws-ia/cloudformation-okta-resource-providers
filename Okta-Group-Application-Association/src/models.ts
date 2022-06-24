@@ -34,9 +34,9 @@ export class ResourceModel extends BaseModel {
         }
     )
     groupId?: Optional<string>;
-    @Expose({ name: 'Group' })
-    @Type(() => Group)
-    group?: Optional<Group>;
+    @Expose({ name: 'GroupApplicationAssociation' })
+    @Type(() => GroupApplicationAssociation)
+    groupApplicationAssociation?: Optional<GroupApplicationAssociation>;
 
     @Exclude()
     public getPrimaryIdentifier(): Dict {
@@ -86,8 +86,8 @@ export class OktaAccess extends BaseModel {
 
 }
 
-export class Group extends BaseModel {
-    ['constructor']: typeof Group;
+export class GroupApplicationAssociation extends BaseModel {
+    ['constructor']: typeof GroupApplicationAssociation;
 
 
     @Expose({ name: 'ApplicationId' })
