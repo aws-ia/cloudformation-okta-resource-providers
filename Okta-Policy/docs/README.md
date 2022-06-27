@@ -15,10 +15,8 @@ To declare this entity in your AWS CloudFormation template, use the following sy
         "<a href="#oktaaccess" title="OktaAccess">OktaAccess</a>" : <i><a href="oktaaccess.md">OktaAccess</a></i>,
         "<a href="#type" title="Type">Type</a>" : <i>String</i>,
         "<a href="#name" title="Name">Name</a>" : <i>String</i>,
-        "<a href="#system" title="System">System</a>" : <i>Boolean</i>,
         "<a href="#description" title="Description">Description</a>" : <i>String</i>,
         "<a href="#priority" title="Priority">Priority</a>" : <i>Integer</i>,
-        "<a href="#status" title="Status">Status</a>" : <i>String</i>,
         "<a href="#conditions" title="Conditions">Conditions</a>" : <i>Map</i>,
         "<a href="#settings" title="Settings">Settings</a>" : <i>Map</i>,
     }
@@ -33,10 +31,8 @@ Properties:
     <a href="#oktaaccess" title="OktaAccess">OktaAccess</a>: <i><a href="oktaaccess.md">OktaAccess</a></i>
     <a href="#type" title="Type">Type</a>: <i>String</i>
     <a href="#name" title="Name">Name</a>: <i>String</i>
-    <a href="#system" title="System">System</a>: <i>Boolean</i>
     <a href="#description" title="Description">Description</a>: <i>String</i>
     <a href="#priority" title="Priority">Priority</a>: <i>Integer</i>
-    <a href="#status" title="Status">Status</a>: <i>String</i>
     <a href="#conditions" title="Conditions">Conditions</a>: <i>Map</i>
     <a href="#settings" title="Settings">Settings</a>: <i>Map</i>
 </pre>
@@ -73,16 +69,6 @@ _Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### System
-
-This is set to true on system policies, which cannot be deleted.
-
-_Required_: No
-
-_Type_: Boolean
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
 #### Description
 
 Description of the Policy.
@@ -100,18 +86,6 @@ Priority of the Policy
 _Required_: No
 
 _Type_: Integer
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
-#### Status
-
-Status of the Policy: ACTIVE or INACTIVE
-
-_Required_: No
-
-_Type_: String
-
-_Allowed Values_: <code>ACTIVE</code> | <code>INACTIVE</code>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 

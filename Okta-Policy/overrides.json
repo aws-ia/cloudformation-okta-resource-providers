@@ -1,0 +1,42 @@
+{
+  "CREATE": {
+    "/OktaAccess": {
+      "ApiKey": "<OKTA_API_KEY>",
+      "Url": "<OKTA_URL>"
+    },
+    "/Type": "OKTA_SIGN_ON",
+    "/Name": "My Group Policy",
+    "/Description": "Description of My Group Policy",
+    "/Conditions": {
+      "People": {
+        "Groups": {
+          "Include": [
+            "00g1e6z3hj56cYK7c697"
+          ]
+        }
+      }
+    },
+    "/Priority": null,
+    "/Settings": null
+  },
+  "UPDATE": {
+    "/OktaAccess": {
+      "ApiKey": "<OKTA_API_KEY>",
+      "Url": "<OKTA_URL>"
+    },
+    "/Type": "OKTA_SIGN_ON",
+    "/Name": "My Updated Group Policy",
+    "/Description": "Updated Description of My Group Policy",
+    "/Conditions": {
+      "People": {
+        "Groups": {
+          "Include": [
+            "00g1e6z3hj56cYK7c697"
+          ]
+        }
+      }
+    },
+    "/Priority": null,
+    "/Settings": null
+  }
+}

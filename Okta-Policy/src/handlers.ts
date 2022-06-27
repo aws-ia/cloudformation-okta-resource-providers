@@ -1,157 +1,81 @@
-import {
-    Action,
-    BaseResource,
-    exceptions,
-    handlerEvent,
-    HandlerErrorCode,
-    LoggerProxy,
-    OperationStatus,
-    Optional,
-    ProgressEvent,
-    ResourceHandlerRequest,
-    SessionProxy,
-} from '@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib';
-import { ResourceModel } from './models';
+import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
+import {Policy, ResourceModel} from './models';
+import {OktaClient} from "../../Okta-Common/src/okta-client";
 
 interface CallbackContext extends Record<string, any> {}
 
-class Resource extends BaseResource<ResourceModel> {
+type Policies = Policy[];
 
-    /**
-     * CloudFormation invokes this handler when the resource is initially created
-     * during stack create operations.
-     *
-     * @param session Current AWS session passed through from caller
-     * @param request The request object for the provisioning request passed to the implementor
-     * @param callbackContext Custom context object to allow the passing through of additional
-     * state or metadata between subsequent retries
-     * @param logger Logger to proxy requests to default publishers
-     */
-    @handlerEvent(Action.Create)
-    public async create(
-        session: Optional<SessionProxy>,
-        request: ResourceHandlerRequest<ResourceModel>,
-        callbackContext: CallbackContext,
-        logger: LoggerProxy
-    ): Promise<ProgressEvent<ResourceModel, CallbackContext>> {
-        const model = new ResourceModel(request.desiredResourceState);
-        const progress = ProgressEvent.progress<ProgressEvent<ResourceModel, CallbackContext>>(model);
-        // TODO: put code here
+class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Policy> {
+    async get(model: ResourceModel): Promise<ResourceModel> {
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Policy>(
+            'get',
+            `/api/v1/policies/${model.id}`);
+        return new ResourceModel(response.data);
+    }
 
-        // Example:
-        try {
-            if (session instanceof SessionProxy) {
-                const client = session.client('S3');
-            }
-            // Setting Status to success will signal to CloudFormation that the operation is complete
-            progress.status = OperationStatus.Success;
-        } catch(err) {
-            logger.log(err);
-            // exceptions module lets CloudFormation know the type of failure that occurred
-            throw new exceptions.InternalFailure(err.message);
-            // this can also be done by returning a failed progress event
-            // return ProgressEvent.failed(HandlerErrorCode.InternalFailure, err.message);
+    async list(model: ResourceModel): Promise<ResourceModel[]> {
+        delete model.settings
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Policies>(
+            'get',
+            `/api/v1/policies`,
+            {
+                "type": model.type_
+            });
+
+        return response.data.map(app => this.setModelFrom(new ResourceModel(), new Policy(app)));
+    }
+
+    async create(model: ResourceModel): Promise<Policy> {
+        delete model.policy
+        var response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<ResourceModel>(
+            'post',
+            `/api/v1/policies`,
+            {},
+            model.toJSON(),
+            this.loggerProxy);
+
+        let policyResponse: Policy = new Policy(response.data);
+        policyResponse.oktaAccess = model.oktaAccess;
+        return policyResponse;
+    }
+
+    async update(model: ResourceModel): Promise<ResourceModel> {
+        let modelToUpdate = new ResourceModel(model);
+        delete modelToUpdate.id
+        delete modelToUpdate.policy
+        var response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Policy>(
+            'put',
+            `/api/v1/policies/${model.id}`,
+            {},
+            modelToUpdate.toJSON(),
+            this.loggerProxy);
+
+        return new ResourceModel(response.data);
+    }
+
+    async delete(model: ResourceModel): Promise<void> {
+        await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Policy>(
+            'delete',
+            `/api/v1/policies/${model.id}`);
+    }
+
+    newModel(partial: any): ResourceModel {
+        return new ResourceModel(partial);
+    }
+
+    setModelFrom(model: ResourceModel, from: Policy | undefined): ResourceModel {
+        if (!from) {
+            return model;
         }
-        return progress;
+        model.policy = from;
+        if (from.id) {
+            model.id = from.id;
+        }
+        return model;
     }
 
-    /**
-     * CloudFormation invokes this handler when the resource is updated
-     * as part of a stack update operation.
-     *
-     * @param session Current AWS session passed through from caller
-     * @param request The request object for the provisioning request passed to the implementor
-     * @param callbackContext Custom context object to allow the passing through of additional
-     * state or metadata between subsequent retries
-     * @param logger Logger to proxy requests to default publishers
-     */
-    @handlerEvent(Action.Update)
-    public async update(
-        session: Optional<SessionProxy>,
-        request: ResourceHandlerRequest<ResourceModel>,
-        callbackContext: CallbackContext,
-        logger: LoggerProxy
-    ): Promise<ProgressEvent<ResourceModel, CallbackContext>> {
-        const model = new ResourceModel(request.desiredResourceState);
-        const progress = ProgressEvent.progress<ProgressEvent<ResourceModel, CallbackContext>>(model);
-        // TODO: put code here
-        progress.status = OperationStatus.Success;
-        return progress;
-    }
 
-    /**
-     * CloudFormation invokes this handler when the resource is deleted, either when
-     * the resource is deleted from the stack as part of a stack update operation,
-     * or the stack itself is deleted.
-     *
-     * @param session Current AWS session passed through from caller
-     * @param request The request object for the provisioning request passed to the implementor
-     * @param callbackContext Custom context object to allow the passing through of additional
-     * state or metadata between subsequent retries
-     * @param logger Logger to proxy requests to default publishers
-     */
-    @handlerEvent(Action.Delete)
-    public async delete(
-        session: Optional<SessionProxy>,
-        request: ResourceHandlerRequest<ResourceModel>,
-        callbackContext: CallbackContext,
-        logger: LoggerProxy
-    ): Promise<ProgressEvent<ResourceModel, CallbackContext>> {
-        const model = new ResourceModel(request.desiredResourceState);
-        const progress = ProgressEvent.progress<ProgressEvent<ResourceModel, CallbackContext>>();
-        // TODO: put code here
-        progress.status = OperationStatus.Success;
-        return progress;
-    }
-
-    /**
-     * CloudFormation invokes this handler as part of a stack update operation when
-     * detailed information about the resource's current state is required.
-     *
-     * @param session Current AWS session passed through from caller
-     * @param request The request object for the provisioning request passed to the implementor
-     * @param callbackContext Custom context object to allow the passing through of additional
-     * state or metadata between subsequent retries
-     * @param logger Logger to proxy requests to default publishers
-     */
-    @handlerEvent(Action.Read)
-    public async read(
-        session: Optional<SessionProxy>,
-        request: ResourceHandlerRequest<ResourceModel>,
-        callbackContext: CallbackContext,
-        logger: LoggerProxy
-    ): Promise<ProgressEvent<ResourceModel, CallbackContext>> {
-        const model = new ResourceModel(request.desiredResourceState);
-        // TODO: put code here
-        const progress = ProgressEvent.success<ProgressEvent<ResourceModel, CallbackContext>>(model);
-        return progress;
-    }
-
-    /**
-     * CloudFormation invokes this handler when summary information about multiple
-     * resources of this resource provider is required.
-     *
-     * @param session Current AWS session passed through from caller
-     * @param request The request object for the provisioning request passed to the implementor
-     * @param callbackContext Custom context object to allow the passing through of additional
-     * state or metadata between subsequent retries
-     * @param logger Logger to proxy requests to default publishers
-     */
-    @handlerEvent(Action.List)
-    public async list(
-        session: Optional<SessionProxy>,
-        request: ResourceHandlerRequest<ResourceModel>,
-        callbackContext: CallbackContext,
-        logger: LoggerProxy
-    ): Promise<ProgressEvent<ResourceModel, CallbackContext>> {
-        const model = new ResourceModel(request.desiredResourceState);
-        // TODO: put code here
-        const progress = ProgressEvent.builder<ProgressEvent<ResourceModel, CallbackContext>>()
-            .status(OperationStatus.Success)
-            .resourceModels([model])
-            .build();
-        return progress;
-    }
 }
 
 export const resource = new Resource(ResourceModel.TYPE_NAME, ResourceModel);

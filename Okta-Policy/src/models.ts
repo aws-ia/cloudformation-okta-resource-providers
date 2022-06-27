@@ -41,15 +41,6 @@ export class ResourceModel extends BaseModel {
         }
     )
     name?: Optional<string>;
-    @Expose({ name: 'System' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(Boolean, 'system', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    system?: Optional<boolean>;
     @Expose({ name: 'Description' })
     @Transform(
         (value: any, obj: any) =>
@@ -68,15 +59,6 @@ export class ResourceModel extends BaseModel {
         }
     )
     priority?: Optional<integer>;
-    @Expose({ name: 'Status' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'status', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    status?: Optional<string>;
     @Expose({ name: 'Conditions' })
     @Transform(
         (value: any, obj: any) =>
@@ -147,6 +129,9 @@ export class Policy extends BaseModel {
     ['constructor']: typeof Policy;
 
 
+    @Expose({ name: 'OktaAccess' })
+    @Type(() => OktaAccess)
+    oktaAccess?: Optional<OktaAccess>;
     @Expose({ name: 'Id' })
     @Transform(
         (value: any, obj: any) =>

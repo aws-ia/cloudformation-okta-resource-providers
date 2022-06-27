@@ -20,6 +20,9 @@
         "Policy": {
             "type": "object",
             "properties": {
+                "OktaAccess": {
+                    "$ref": "#/definitions/OktaAccess"
+                },
                 "Id": {
                     "type": "string",
                     "description": "Identifier of the Policy"
@@ -118,16 +121,13 @@
                 "PASSWORD",
                 "MFA_ENROLL",
                 "OAUTH_AUTHORIZATION_POLICY",
-                "IDP_DISCOVERY"
+                "IDP_DISCOVERY",
+                "ACCESS_POLICY"
             ]
         },
         "Name": {
             "type": "string",
             "description": "Name of the Policy"
-        },
-        "System": {
-            "type": "boolean",
-            "description": "This is set to true on system policies, which cannot be deleted."
         },
         "Description": {
             "type": "string",
@@ -136,14 +136,6 @@
         "Priority": {
             "type": "integer",
             "description": "Priority of the Policy"
-        },
-        "Status": {
-            "type": "string",
-            "description": "Status of the Policy: ACTIVE or INACTIVE",
-            "enum": [
-                "ACTIVE",
-                "INACTIVE"
-            ]
         },
         "Conditions": {
             "type": "object"
@@ -157,39 +149,32 @@
     },
     "additionalProperties": false,
     "required": [
-        "TestCode"
+        "Type",
+        "Name",
+        "Description"
     ],
     "readOnlyProperties": [
-        "/properties/Id"
+        "/properties/Id",
+        "/properties/Policy"
     ],
     "primaryIdentifier": [
         "/properties/Id"
     ],
     "handlers": {
         "create": {
-            "permissions": [
-                "initech:CreateReport"
-            ]
+            "permissions": []
         },
         "read": {
-            "permissions": [
-                "initech:DescribeReport"
-            ]
+            "permissions": []
         },
         "update": {
-            "permissions": [
-                "initech:UpdateReport"
-            ]
+            "permissions": []
         },
         "delete": {
-            "permissions": [
-                "initech:DeleteReport"
-            ]
+            "permissions": []
         },
         "list": {
-            "permissions": [
-                "initech:ListReports"
-            ]
+            "permissions": []
         }
     }
 }
