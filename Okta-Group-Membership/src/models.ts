@@ -13,6 +13,9 @@ export class ResourceModel extends BaseModel {
     @Exclude()
     protected readonly IDENTIFIER_KEY_USERIDENTIFIER: string = '/properties/UserIdentifier';
 
+    @Expose({ name: 'OktaAccess' })
+    @Type(() => OktaAccess)
+    oktaAccess?: Optional<OktaAccess>;
     @Expose({ name: 'GroupId' })
     @Transform(
         (value: any, obj: any) =>
@@ -25,6 +28,9 @@ export class ResourceModel extends BaseModel {
     @Expose({ name: 'UserIdentifier' })
     @Type(() => UserIdentifier)
     userIdentifier?: Optional<UserIdentifier>;
+    @Expose({ name: 'GroupMembership' })
+    @Type(() => GroupMembership)
+    groupMembership?: Optional<GroupMembership>;
 
     @Exclude()
     public getPrimaryIdentifier(): Dict {
@@ -49,6 +55,31 @@ export class ResourceModel extends BaseModel {
     }
 }
 
+export class OktaAccess extends BaseModel {
+    ['constructor']: typeof OktaAccess;
+
+
+    @Expose({ name: 'Url' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'url', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    url?: Optional<string>;
+    @Expose({ name: 'ApiKey' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'apiKey', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    apiKey?: Optional<string>;
+
+}
+
 export class UserIdentifier extends BaseModel {
     ['constructor']: typeof UserIdentifier;
 
@@ -71,6 +102,25 @@ export class UserIdentifier extends BaseModel {
         }
     )
     guid?: Optional<string>;
+
+}
+
+export class GroupMembership extends BaseModel {
+    ['constructor']: typeof GroupMembership;
+
+
+    @Expose({ name: 'GroupId' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'groupId', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    groupId?: Optional<string>;
+    @Expose({ name: 'UserIdentifier' })
+    @Type(() => UserIdentifier)
+    userIdentifier?: Optional<UserIdentifier>;
 
 }
 

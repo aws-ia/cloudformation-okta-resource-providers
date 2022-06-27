@@ -1,0 +1,25 @@
+{
+  "CREATE": {
+    "/OktaAccess": {
+      "ApiKey": "<OKTA_API_KEY>",
+      "Url": "<OKTA_URL>"
+    },
+    "/GroupId": "00g1e6z3hj56cYK7c697",
+    "/UserIdentifier": {
+      "Login": "okta@nakomis.com",
+      "Guid": null
+    }
+  },
+  "UPDATE": {
+    "/OktaAccess": {
+      "ApiKey": "<OKTA_API_KEY>",
+      "Url": "<OKTA_URL>"
+    },
+    "/GroupId": "00g1e6z3hj56cYK7c697",
+    "/UserIdentifier": {
+      "Login": "okta@nakomis.com",
+      "Guid": null
+    }
+  }
+}
+

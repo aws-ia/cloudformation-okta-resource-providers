@@ -1,55 +1,96 @@
-import {AbstractOktaResource} from "okta-common/src/abstract-okta-resource";
-import {Group, ResourceModel} from './models';
-import {OktaClient} from "okta-common/src/okta-client";
+import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
+import {GroupMembership, ResourceModel} from './models';
+import {OktaClient} from "../../Okta-Common/src/okta-client";
+import {AxiosError, AxiosResponse} from "axios";
 
 interface CallbackContext extends Record<string, any> {}
 
-class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group> {
+type User = {
+    id: string
+}
+
+type Users = User[]
+
+type GroupMemberships = GroupMembership[]
+
+class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, GroupMembership, GroupMembership> {
     async get(model: ResourceModel): Promise<ResourceModel> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
+        let userGuid = await this.getUserGuid(model);
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Users>(
             'get',
-            `/api/v1/apps/${model.id}`);
-        return new ResourceModel(response.data);
+            `/api/v1/groups/${model.groupId}/users`);
+        let found = response.data.find(u => {
+            return u.id == userGuid;
+        })
+        if (!found) {
+            // Simulate Axios 404 to use existing exception processing
+            const response: AxiosResponse = {
+                data: {message: "Membership Not Found"},
+                status: 404,
+            } as AxiosResponse;
+            const axiosError = {
+                config: {},
+                request: {},
+                response: response} as AxiosError<any>;
+            throw axiosError;
+        }
+        return model;
     }
 
     async list(model: ResourceModel): Promise<ResourceModel[]> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Group>(
-            'get',
-            `/api/v1/apps`);
+        try {
+            return [await this.get(model)];
+        } catch (e) {
+            return [];
+        }
+    }
 
-        return null;
-        // return response.data.dashboards.map(dashboard => this.setModelFrom(new ResourceModel(), new Dashboard(dashboard)));
+    async getUserGuid(model: ResourceModel): Promise<string> {
+        if (model.userIdentifier.guid) {
+            return model.userIdentifier.guid;
+        }
+        let response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<User>(
+            'get',
+            `/api/v1/users/${model.userIdentifier.login}`,
+            {},
+            {},
+            this.loggerProxy);
+        return response.data.id;
     }
 
     async create(model: ResourceModel): Promise<ResourceModel> {
+        let userGuid = await this.getUserGuid(model);
         const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<ResourceModel>(
-            'post',
-            `/api/v1/apps`,
-            {},
-            model.toJSON());
-        return new ResourceModel(response.data);
+            'put',
+            `/api/v1/groups/${model.groupId}/users/${userGuid}`);
+        return new ResourceModel(model);
     }
 
     async update(model: ResourceModel): Promise<ResourceModel> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Application>(
-            'put',
-            `/api/v1/apps/${model.id}`);
-        return new ResourceModel(response.data);
+        // Nothing is updatable
+        return model;
     }
 
     async delete(model: ResourceModel): Promise<void> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Application>(
+        let userGuid = await this.getUserGuid(model);
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<GroupMembership>(
             'delete',
-            `/api/v1/apps/${model.id}`);
-        // return new ResourceModel(response.data);
+            `/api/v1/groups/${model.groupId}/users/${userGuid}`);
     }
 
     newModel(partial: any): ResourceModel {
-        return undefined;
+        return new ResourceModel(partial);
     }
 
-    setModelFrom(model: ResourceModel, from: ResourceModel | undefined): ResourceModel {
-        return undefined;
+    setModelFrom(model: ResourceModel, from: GroupMembership | undefined): ResourceModel {
+        if (!from) {
+            return model;
+        }
+        if (from.groupId) {
+            model.groupId = from.groupId;
+            model.userIdentifier = from.userIdentifier;
+        }
+        return model;
     }
 
 
