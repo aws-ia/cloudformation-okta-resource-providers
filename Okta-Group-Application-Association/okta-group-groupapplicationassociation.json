@@ -57,6 +57,9 @@
         "/properties/ApplicationId",
         "/properties/GroupId"
     ],
+    "readOnlyProperties": [
+        "/properties/GroupApplicationAssociation"
+    ],
     "primaryIdentifier": [
         "/properties/ApplicationId",
         "/properties/GroupId"

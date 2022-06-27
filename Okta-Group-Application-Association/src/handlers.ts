@@ -1,55 +1,66 @@
 import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
 import {GroupApplicationAssociation, ResourceModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
+import {exceptions} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib";
 
 interface CallbackContext extends Record<string, any> {}
+
+type GroupApplicationAssociations = {
+    id: string
+}[]
 
 class Resource extends AbstractOktaResource<ResourceModel, GroupApplicationAssociation, GroupApplicationAssociation, GroupApplicationAssociation> {
     async get(model: ResourceModel): Promise<ResourceModel> {
         const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<GroupApplicationAssociation>(
             'get',
-            `/api/v1/apps/${model.id}`);
+            `/api/v1/apps/${model.applicationId}/groups/${model.groupId}`);
         return new ResourceModel(response.data);
     }
 
     async list(model: ResourceModel): Promise<ResourceModel[]> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<GroupApplicationAssociation>(
+        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<GroupApplicationAssociations>(
             'get',
-            `/api/v1/apps`);
-
-        return null;
-        // return response.data.dashboards.map(dashboard => this.setModelFrom(new ResourceModel(), new Dashboard(dashboard)));
+            `/api/v1/apps/${model.applicationId}/groups`);
+        return response.data.map(assn => new ResourceModel(<ResourceModel>{
+            applicationId: model.applicationId,
+            groupId: assn.id
+        }));
     }
 
     async create(model: ResourceModel): Promise<ResourceModel> {
         const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<ResourceModel>(
-            'post',
-            `/api/v1/apps`,
-            {},
-            model.toJSON());
+            'put',
+            `/api/v1/apps/${model.applicationId}/groups/${model.groupId}`,
+            {});
         return new ResourceModel(response.data);
     }
 
     async update(model: ResourceModel): Promise<ResourceModel> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<GroupApplicationAssociation>(
-            'put',
-            `/api/v1/apps/${model.id}`);
-        return new ResourceModel(response.data);
+        // Nothing is updatable
+        return model;
     }
 
     async delete(model: ResourceModel): Promise<void> {
         const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<GroupApplicationAssociation>(
             'delete',
-            `/api/v1/apps/${model.id}`);
-        // return new ResourceModel(response.data);
+            `/api/v1/apps/${model.applicationId}/groups/${model.groupId}`);
     }
 
     newModel(partial: any): ResourceModel {
-        return undefined;
+        return new ResourceModel(partial);
     }
 
-    setModelFrom(model: ResourceModel, from: ResourceModel | undefined): ResourceModel {
-        return undefined;
+    setModelFrom(model: ResourceModel, from?: GroupApplicationAssociation): ResourceModel {
+        if (!from) {
+            return model;
+        }
+        if (from.applicationId) {
+            model.applicationId = from.applicationId;
+        }
+        if (from.groupId) {
+            model.groupId = from.groupId;
+        }
+        return model;
     }
 
 

@@ -14,7 +14,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "Properties" : {
         "<a href="#oktaaccess" title="OktaAccess">OktaAccess</a>" : <i><a href="oktaaccess.md">OktaAccess</a></i>,
         "<a href="#profile" title="Profile">Profile</a>" : <i><a href="profile.md">Profile</a></i>,
-        "<a href="#group" title="Group">Group</a>" : <i><a href="group.md">Group</a></i>
     }
 }
 </pre>
@@ -26,7 +25,6 @@ Type: Okta::Group::Group
 Properties:
     <a href="#oktaaccess" title="OktaAccess">OktaAccess</a>: <i><a href="oktaaccess.md">OktaAccess</a></i>
     <a href="#profile" title="Profile">Profile</a>: <i><a href="profile.md">Profile</a></i>
-    <a href="#group" title="Group">Group</a>: <i><a href="group.md">Group</a></i>
 </pre>
 
 ## Properties
@@ -47,14 +45,6 @@ _Type_: <a href="profile.md">Profile</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### Group
-
-_Required_: No
-
-_Type_: <a href="group.md">Group</a>
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
 ## Return Values
 
 ### Ref
@@ -70,4 +60,8 @@ For more information about using the `Fn::GetAtt` intrinsic function, see [Fn::G
 #### Id
 
 Unique key for Group
+
+#### Group
+
+Returns the <code>Group</code> value.
 
