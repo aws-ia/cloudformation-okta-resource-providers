@@ -10,11 +10,8 @@ import {AbstractBasedResource} from "./abstract-base-resource";
 export abstract class AbstractOktaResource<ResourceModelType extends BaseModel, GetResponseData, CreateResponseData, UpdateResponseData> extends AbstractBasedResource<ResourceModelType, GetResponseData, CreateResponseData, UpdateResponseData, AxiosError<ApiErrorResponse>> {
 
     processRequestException(e: AxiosError<ApiErrorResponse>, request: ResourceHandlerRequest<ResourceModelType>) {
-        const apiErrorResponse = e.response.data;
-        let errorMessage = apiErrorResponse.error.message;
-        if (apiErrorResponse.error.constraintViolations) {
-            errorMessage += '\n' + apiErrorResponse.error.constraintViolations.map(cv => `[PATH: ${cv.path}] ${cv.message}`).join('\n');
-        }
+        const apiErrorResponse = e.response?.data;
+        let errorMessage = apiErrorResponse?.message;
 
         const status = e.status
             ? parseInt(e.status)
@@ -27,7 +24,7 @@ export abstract class AbstractOktaResource<ResourceModelType extends BaseModel, 
             case 401:
                 throw new exceptions.AccessDenied(`Access denied, please check your API token: ${errorMessage}`);
             case 404:
-                throw new exceptions.NotFound(this.typeName, request.logicalResourceIdentifier);
+                throw new exceptions.NotFound(this.typeName, "id");
             case 429:
                 throw new exceptions.ServiceLimitExceeded(errorMessage);
             default:

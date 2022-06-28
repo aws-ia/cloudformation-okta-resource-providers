@@ -166,10 +166,6 @@
       "description": "Specifies visibility settings for the application",
       "type": "object",
       "properties": {
-        "AppLinks": {
-          "type": "string",
-          "description": "Each application defines one or more appLinks that can be published."
-        },
         "AutoLaunch": {
           "description": "Automatically signs in to the app when user signs into Okta.",
           "type": "boolean",
@@ -218,13 +214,8 @@
       "type": "object",
       "description": "Application returned by Okta API",
       "properties": {
-        "Embedded": {
-          "type": "string",
-          "description": "Embedded resources related to the app"
-        },
-        "Links": {
-          "type": "string",
-          "description": "Discoverable resources related to the app"
+        "OktaAccess": {
+          "$ref": "#/definitions/OktaAccess"
         },
         "Accessibility": {
           "$ref": "#/definitions/Accessibility"
@@ -266,10 +257,6 @@
         },
         "Name": {
           "description": "Unique key for app definition",
-          "type": "string"
-        },
-        "Profile": {
-          "description": "Valid JSON schema for specifying properties",
           "type": "string"
         },
         "RequestObjectSigningAlg": {
@@ -318,22 +305,6 @@
     "Credentials": {
       "$ref": "#/definitions/ApplicationCredentials"
     },
-    "Features": {
-      "type": "string",
-      "description": "Applications may support optional provisioning features on a per-app basis.",
-      "enum": [
-        "GROUP_PUSH",
-        "IMPORT_NEW_USER",
-        "IMPORT_PROFILE_UPDATES",
-        "IMPORT_USER_SCHEMA",
-        "PROFILE_MASTERING",
-        "PUSH_NEW_USERS",
-        "PUSH_PASSWORD_UPDATES",
-        "PUSH_PROFILE_UPDATES",
-        "PUSH_USER_DEACTIVATION",
-        "REACTIVATE_USERS"
-      ]
-    },
     "Id": {
       "description": "Unique key for app",
       "type": "string"
@@ -344,10 +315,6 @@
     },
     "Name": {
       "description": "Unique key for app definition",
-      "type": "string"
-    },
-    "Profile": {
-      "description": "Valid JSON schema for specifying properties",
       "type": "string"
     },
     "RequestObjectSigningAlg": {
@@ -384,7 +351,8 @@
     "/properties/SignOnMode"
   ],
   "readOnlyProperties": [
-    "/properties/Id"
+    "/properties/Id",
+    "/properties/Application"
   ],
   "createOnlyProperties": [
     "/properties/Name"

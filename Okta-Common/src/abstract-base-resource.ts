@@ -107,12 +107,10 @@ export abstract class AbstractBasedResource<ResourceModelType extends BaseModel,
         logger: LoggerProxy
     ): Promise<ProgressEvent<ResourceModelType, RetryableCallbackContext>> {
         let model = this.newModel(request.desiredResourceState);
-
         if (!callbackContext.retry) {
             if (await this.assertExists(model)) {
                 throw new exceptions.AlreadyExists(this.typeName, request.logicalResourceIdentifier);
             }
-
             try {
                 let data = await this.create(model);
                 model = this.setModelFrom(model, data);
@@ -123,7 +121,6 @@ export abstract class AbstractBasedResource<ResourceModelType extends BaseModel,
                 this.processRequestException(e, request);
             }
         }
-
         try {
             const data = await this.get(model);
             model = this.setModelFrom(model, data);
@@ -199,7 +196,6 @@ export abstract class AbstractBasedResource<ResourceModelType extends BaseModel,
         logger: LoggerProxy
     ): Promise<ProgressEvent<ResourceModelType, RetryableCallbackContext>> {
         let model = this.newModel(request.desiredResourceState);
-
         if (!callbackContext.retry) {
             if (!(await this.assertExists(model))) {
                 throw new exceptions.NotFound(this.typeName, request.logicalResourceIdentifier);
@@ -218,13 +214,16 @@ export abstract class AbstractBasedResource<ResourceModelType extends BaseModel,
         try {
             await this.get(model);
         } catch (e) {
+            if (e instanceof NotFound) {
+                return ProgressEvent.success<ProgressEvent<ResourceModelType, RetryableCallbackContext>>();
+            }
             try {
                 this.processRequestException(e, request);
-            } catch (e) {
-                if (e instanceof NotFound) {
+            } catch (e2) {
+                if (e2 instanceof NotFound) {
                     return ProgressEvent.success<ProgressEvent<ResourceModelType, RetryableCallbackContext>>();
                 }
-                throw e;
+                throw e2;
             }
         }
 
@@ -293,6 +292,9 @@ export abstract class AbstractBasedResource<ResourceModelType extends BaseModel,
                 .resourceModels(data)
                 .build();
         } catch (e) {
+            if (e instanceof NotFound) {
+                throw e;
+            }
             this.processRequestException(e, request);
         }
     }
