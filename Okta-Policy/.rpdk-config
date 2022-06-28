@@ -3,8 +3,8 @@
     "typeName": "Okta::Policy::Policy",
     "language": "typescript",
     "runtime": "nodejs12.x",
-    "entrypoint": "dist/handlers.entrypoint",
-    "testEntrypoint": "dist/handlers.testEntrypoint",
+    "entrypoint": "dist/Okta-Policy/src/handlers.entrypoint",
+    "testEntrypoint": "dist/Okta-Policy/src/handlers.testEntrypoint",
     "settings": {
         "version": false,
         "subparser_name": null,
