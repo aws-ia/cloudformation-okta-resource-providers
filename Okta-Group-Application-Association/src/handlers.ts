@@ -1,7 +1,6 @@
 import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
 import {GroupApplicationAssociation, ResourceModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
-import {exceptions} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib";
 
 interface CallbackContext extends Record<string, any> {}
 

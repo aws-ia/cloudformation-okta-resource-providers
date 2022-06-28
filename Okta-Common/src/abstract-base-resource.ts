@@ -292,6 +292,9 @@ export abstract class AbstractBasedResource<ResourceModelType extends BaseModel,
                 .resourceModels(data)
                 .build();
         } catch (e) {
+            if (e instanceof NotFound) {
+                throw e;
+            }
             this.processRequestException(e, request);
         }
     }

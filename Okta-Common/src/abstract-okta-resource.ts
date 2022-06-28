@@ -10,8 +10,8 @@ import {AbstractBasedResource} from "./abstract-base-resource";
 export abstract class AbstractOktaResource<ResourceModelType extends BaseModel, GetResponseData, CreateResponseData, UpdateResponseData> extends AbstractBasedResource<ResourceModelType, GetResponseData, CreateResponseData, UpdateResponseData, AxiosError<ApiErrorResponse>> {
 
     processRequestException(e: AxiosError<ApiErrorResponse>, request: ResourceHandlerRequest<ResourceModelType>) {
-        const apiErrorResponse = e.response.data;
-        let errorMessage = apiErrorResponse.message;
+        const apiErrorResponse = e.response?.data;
+        let errorMessage = apiErrorResponse?.message;
 
         const status = e.status
             ? parseInt(e.status)
