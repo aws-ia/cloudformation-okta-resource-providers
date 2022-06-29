@@ -28,7 +28,7 @@ export abstract class AbstractOktaResource<ResourceModelType extends BaseModel, 
             case 429:
                 throw new exceptions.ServiceLimitExceeded(errorMessage);
             default:
-                throw new exceptions.InternalFailure(`Unexpected error occurred while talking to the Okta API (HTTP status ${status}) => ${errorMessage}`);
+                throw new exceptions.InternalFailure(`  Unexpected error occurred while talking to the Okta API (HTTP status ${status}) => ${errorMessage}`);
         }
     }
 }

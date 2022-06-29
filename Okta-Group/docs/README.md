@@ -39,7 +39,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 #### Profile
 
-_Required_: No
+_Required_: Yes
 
 _Type_: <a href="profile.md">Profile</a>
 

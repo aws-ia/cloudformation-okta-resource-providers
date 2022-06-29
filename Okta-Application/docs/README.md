@@ -75,7 +75,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 User-defined display name for app
 
-_Required_: No
+_Required_: Yes
 
 _Type_: String
 
@@ -113,7 +113,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 #### SignOnMode
 
-_Required_: No
+_Required_: Yes
 
 _Type_: String
 

@@ -65,7 +65,7 @@
     },
     "additionalProperties": false,
     "required": [
-        "/properties/Profile"
+        "Profile"
     ],
     "readOnlyProperties": [
         "/properties/Id",

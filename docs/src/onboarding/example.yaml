@@ -1,0 +1,51 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: |
+  The following CloudFormation Okta resource types allow the creation and configuration of
+  Applications, Groups, Policies and associated memberships. This allows you to onboard new applications
+  simply, efficiently, and consistently.
+
+Resources:
+  NewOktaApp:
+    Type: Okta::Application::Application
+    Properties:
+      OktaAccess:
+        Url: https://trial-2662420.okta.com
+        ApiKey: 00TbePj9nY7eah8s50E1UjkFbm8GFQ1DPpvQKgq4jk
+      Name: "template_basic_auth"
+      Label: "CFN Sample Application"
+      SignOnMode: "BASIC_AUTH"
+      Settings:
+        App:
+          Url: "https://example.com/login.html"
+          AuthURL: "https://example.com/auth.html"
+
+  NewOktaGroup:
+    Type: Okta::Group::Group
+    Properties:
+      OktaAccess:
+        Url: https://trial-2662420.okta.com
+        ApiKey: 00TbePj9nY7eah8s50E1UjkFbm8GFQ1DPpvQKgq4jk
+      Profile:
+        Name: CFN Sample Group
+        Description: Description of the CFN Sample Group
+
+  NewGroupAssociation:
+    Type: Okta::Group::GroupApplicationAssociation
+    Properties:
+      OktaAccess:
+        Url: https://trial-2662420.okta.com
+        ApiKey: 00TbePj9nY7eah8s50E1UjkFbm8GFQ1DPpvQKgq4jk
+      ApplicationId: !GetAtt NewOktaApp.Id
+      GroupId: !GetAtt NewOktaGroup.Id
+
+  NewGroupMembership:
+    Type: Okta::Group::Membership
+    Properties:
+      OktaAccess:
+        Url: https://trial-2662420.okta.com
+        ApiKey: 00TbePj9nY7eah8s50E1UjkFbm8GFQ1DPpvQKgq4jk
+      GroupId: !GetAtt NewOktaGroup.Id
+      UserIdentifier:
+        Login: okta@nakomis.com

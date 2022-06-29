@@ -347,8 +347,8 @@
   },
   "additionalProperties": false,
   "required": [
-    "/properties/Label",
-    "/properties/SignOnMode"
+    "Label",
+    "SignOnMode"
   ],
   "readOnlyProperties": [
     "/properties/Id",
