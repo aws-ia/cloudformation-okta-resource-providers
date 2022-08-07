@@ -13,9 +13,6 @@ export class ResourceModel extends BaseModel {
     @Exclude()
     protected readonly IDENTIFIER_KEY_GROUPID: string = '/properties/GroupId';
 
-    @Expose({ name: 'OktaAccess' })
-    @Type(() => OktaAccess)
-    oktaAccess?: Optional<OktaAccess>;
     @Expose({ name: 'ApplicationId' })
     @Transform(
         (value: any, obj: any) =>
@@ -61,31 +58,6 @@ export class ResourceModel extends BaseModel {
     }
 }
 
-export class OktaAccess extends BaseModel {
-    ['constructor']: typeof OktaAccess;
-
-
-    @Expose({ name: 'Url' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'url', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    url?: Optional<string>;
-    @Expose({ name: 'ApiKey' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'apiKey', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    apiKey?: Optional<string>;
-
-}
-
 export class GroupApplicationAssociation extends BaseModel {
     ['constructor']: typeof GroupApplicationAssociation;
 
@@ -108,6 +80,41 @@ export class GroupApplicationAssociation extends BaseModel {
         }
     )
     groupId?: Optional<string>;
+
+}
+
+export class TypeConfigurationModel extends BaseModel {
+    ['constructor']: typeof TypeConfigurationModel;
+
+
+    @Expose({ name: 'OktaAccess' })
+    @Type(() => OktaAccess)
+    oktaAccess?: Optional<OktaAccess>;
+
+}
+
+export class OktaAccess extends BaseModel {
+    ['constructor']: typeof OktaAccess;
+
+
+    @Expose({ name: 'Url' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'url', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    url?: Optional<string>;
+    @Expose({ name: 'ApiKey' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'apiKey', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    apiKey?: Optional<string>;
 
 }
 

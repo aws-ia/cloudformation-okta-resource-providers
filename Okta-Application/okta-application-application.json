@@ -2,6 +2,14 @@
   "typeName": "Okta::Application::Application",
   "description": "Manage an Application in Okta.",
   "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+  "typeConfiguration": {
+    "properties": {
+      "OktaAccess": {
+        "$ref": "#/definitions/OktaAccess"
+      }
+    },
+    "additionalProperties": false
+  },
   "definitions": {
     "OktaAccess": {
       "type": "object",
@@ -296,9 +304,6 @@
     }
   },
   "properties": {
-    "OktaAccess": {
-      "$ref": "#/definitions/OktaAccess"
-    },
     "Accessibility": {
       "$ref": "#/definitions/Accessibility"
     },

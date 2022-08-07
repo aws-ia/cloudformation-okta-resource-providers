@@ -11,11 +11,8 @@ export class ResourceModel extends BaseModel {
     @Exclude()
     protected readonly IDENTIFIER_KEY_GROUPID: string = '/properties/GroupId';
     @Exclude()
-    protected readonly IDENTIFIER_KEY_USERIDENTIFIER: string = '/properties/UserIdentifier';
+    protected readonly IDENTIFIER_KEY_USERID: string = '/properties/UserId';
 
-    @Expose({ name: 'OktaAccess' })
-    @Type(() => OktaAccess)
-    oktaAccess?: Optional<OktaAccess>;
     @Expose({ name: 'GroupId' })
     @Transform(
         (value: any, obj: any) =>
@@ -25,9 +22,24 @@ export class ResourceModel extends BaseModel {
         }
     )
     groupId?: Optional<string>;
-    @Expose({ name: 'UserIdentifier' })
-    @Type(() => UserIdentifier)
-    userIdentifier?: Optional<UserIdentifier>;
+    @Expose({ name: 'UserId' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'userId', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    userId?: Optional<string>;
+    @Expose({ name: 'UserLogin' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'userLogin', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    userLogin?: Optional<string>;
     @Expose({ name: 'GroupMembership' })
     @Type(() => GroupMembership)
     groupMembership?: Optional<GroupMembership>;
@@ -39,8 +51,8 @@ export class ResourceModel extends BaseModel {
             identifier[this.IDENTIFIER_KEY_GROUPID] = this.groupId;
         }
 
-        if (this.userIdentifier != null) {
-            identifier[this.IDENTIFIER_KEY_USERIDENTIFIER] = this.userIdentifier;
+        if (this.userId != null) {
+            identifier[this.IDENTIFIER_KEY_USERID] = this.userId;
         }
 
         // only return the identifier if it can be used, i.e. if all components are present
@@ -53,6 +65,50 @@ export class ResourceModel extends BaseModel {
         // only return the identifiers if any can be used
         return identifiers.length === 0 ? null : identifiers;
     }
+}
+
+export class GroupMembership extends BaseModel {
+    ['constructor']: typeof GroupMembership;
+
+
+    @Expose({ name: 'GroupId' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'groupId', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    groupId?: Optional<string>;
+    @Expose({ name: 'UserId' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'userId', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    userId?: Optional<string>;
+    @Expose({ name: 'UserLogin' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'userLogin', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    userLogin?: Optional<string>;
+
+}
+
+export class TypeConfigurationModel extends BaseModel {
+    ['constructor']: typeof TypeConfigurationModel;
+
+
+    @Expose({ name: 'OktaAccess' })
+    @Type(() => OktaAccess)
+    oktaAccess?: Optional<OktaAccess>;
+
 }
 
 export class OktaAccess extends BaseModel {
@@ -77,50 +133,6 @@ export class OktaAccess extends BaseModel {
         }
     )
     apiKey?: Optional<string>;
-
-}
-
-export class UserIdentifier extends BaseModel {
-    ['constructor']: typeof UserIdentifier;
-
-
-    @Expose({ name: 'Login' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'login', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    login?: Optional<string>;
-    @Expose({ name: 'Guid' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'guid', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    guid?: Optional<string>;
-
-}
-
-export class GroupMembership extends BaseModel {
-    ['constructor']: typeof GroupMembership;
-
-
-    @Expose({ name: 'GroupId' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'groupId', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    groupId?: Optional<string>;
-    @Expose({ name: 'UserIdentifier' })
-    @Type(() => UserIdentifier)
-    userIdentifier?: Optional<UserIdentifier>;
 
 }
 

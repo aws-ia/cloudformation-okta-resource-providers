@@ -10,18 +10,12 @@ Resources:
   NewGroupAssociation:
     Type: Okta::Group::GroupApplicationAssociation
     Properties:
-      OktaAccess:
-        Url: https://trial-2662420.okta.com
-        ApiKey: 00TbePj9nY7eah8s50E1UjkFbm8GFQ1DPpvQKgq4jk
       ApplicationId: 0oa1d6uujxz48JnNu697
       GroupId: 00g1e6z3hj56cYK7c697
 
   NewGroupMembership:
     Type: Okta::Group::Membership
     Properties:
-      OktaAccess:
-        Url: https://trial-2662420.okta.com
-        ApiKey: 00TbePj9nY7eah8s50E1UjkFbm8GFQ1DPpvQKgq4jk
       GroupId: 00g1e6z3hj56cYK7c697
       UserIdentifier:
         Login: okta@nakomis.com

@@ -1,22 +1,22 @@
 import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
-import {Policy, ResourceModel} from './models';
+import {Policy, ResourceModel, TypeConfigurationModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
 
 interface CallbackContext extends Record<string, any> {}
 
 type Policies = Policy[];
 
-class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Policy> {
-    async get(model: ResourceModel): Promise<ResourceModel> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Policy>(
+class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Policy, TypeConfigurationModel> {
+    async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Policy>(
             'get',
             `/api/v1/policies/${model.id}`);
         return new ResourceModel(response.data);
     }
 
-    async list(model: ResourceModel): Promise<ResourceModel[]> {
+    async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel[]> {
         delete model.settings
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Policies>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Policies>(
             'get',
             `/api/v1/policies`,
             {
@@ -26,25 +26,23 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
         return response.data.map(app => this.setModelFrom(new ResourceModel(), new Policy(app)));
     }
 
-    async create(model: ResourceModel): Promise<Policy> {
+    async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<Policy> {
         delete model.policy
-        var response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<ResourceModel>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<ResourceModel>(
             'post',
             `/api/v1/policies`,
             {},
             model.toJSON(),
             this.loggerProxy);
 
-        let policyResponse: Policy = new Policy(response.data);
-        policyResponse.oktaAccess = model.oktaAccess;
-        return policyResponse;
+        return new Policy(response.data);
     }
 
-    async update(model: ResourceModel): Promise<ResourceModel> {
+    async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
         let modelToUpdate = new ResourceModel(model);
         delete modelToUpdate.id
         delete modelToUpdate.policy
-        var response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Policy>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Policy>(
             'put',
             `/api/v1/policies/${model.id}`,
             {},
@@ -54,8 +52,8 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
         return new ResourceModel(response.data);
     }
 
-    async delete(model: ResourceModel): Promise<void> {
-        await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<Policy>(
+    async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<void> {
+        await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Policy>(
             'delete',
             `/api/v1/policies/${model.id}`);
     }
@@ -78,7 +76,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
 
 }
 
-export const resource = new Resource(ResourceModel.TYPE_NAME, ResourceModel);
+export const resource = new Resource(ResourceModel.TYPE_NAME, ResourceModel, null, null, TypeConfigurationModel);
 
 // Entrypoint for production usage after registered in CloudFormation
 export const entrypoint = resource.entrypoint;

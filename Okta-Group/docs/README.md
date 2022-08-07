@@ -12,7 +12,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 {
     "Type" : "Okta::Group::Group",
     "Properties" : {
-        "<a href="#oktaaccess" title="OktaAccess">OktaAccess</a>" : <i><a href="oktaaccess.md">OktaAccess</a></i>,
         "<a href="#profile" title="Profile">Profile</a>" : <i><a href="profile.md">Profile</a></i>,
     }
 }
@@ -23,19 +22,10 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 <pre>
 Type: Okta::Group::Group
 Properties:
-    <a href="#oktaaccess" title="OktaAccess">OktaAccess</a>: <i><a href="oktaaccess.md">OktaAccess</a></i>
     <a href="#profile" title="Profile">Profile</a>: <i><a href="profile.md">Profile</a></i>
 </pre>
 
 ## Properties
-
-#### OktaAccess
-
-_Required_: No
-
-_Type_: <a href="oktaaccess.md">OktaAccess</a>
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
 #### Profile
 

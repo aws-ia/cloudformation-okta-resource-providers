@@ -1,5 +1,5 @@
 import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
-import {GroupApplicationAssociation, ResourceModel} from './models';
+import {GroupApplicationAssociation, ResourceModel, TypeConfigurationModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
 
 interface CallbackContext extends Record<string, any> {}
@@ -8,16 +8,16 @@ type GroupApplicationAssociations = {
     id: string
 }[]
 
-class Resource extends AbstractOktaResource<ResourceModel, GroupApplicationAssociation, GroupApplicationAssociation, GroupApplicationAssociation> {
-    async get(model: ResourceModel): Promise<ResourceModel> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<GroupApplicationAssociation>(
+class Resource extends AbstractOktaResource<ResourceModel, GroupApplicationAssociation, GroupApplicationAssociation, GroupApplicationAssociation, TypeConfigurationModel> {
+    async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<GroupApplicationAssociation>(
             'get',
             `/api/v1/apps/${model.applicationId}/groups/${model.groupId}`);
         return new ResourceModel(response.data);
     }
 
-    async list(model: ResourceModel): Promise<ResourceModel[]> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<GroupApplicationAssociations>(
+    async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel[]> {
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<GroupApplicationAssociations>(
             'get',
             `/api/v1/apps/${model.applicationId}/groups`);
         return response.data.map(assn => new ResourceModel(<ResourceModel>{
@@ -26,21 +26,21 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupApplicationAssoc
         }));
     }
 
-    async create(model: ResourceModel): Promise<ResourceModel> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<ResourceModel>(
+    async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<ResourceModel>(
             'put',
             `/api/v1/apps/${model.applicationId}/groups/${model.groupId}`,
             {});
         return new ResourceModel(response.data);
     }
 
-    async update(model: ResourceModel): Promise<ResourceModel> {
+    async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
         // Nothing is updatable
         return model;
     }
 
-    async delete(model: ResourceModel): Promise<void> {
-        const response = await new OktaClient(model.oktaAccess.url, model.oktaAccess.apiKey).doRequest<GroupApplicationAssociation>(
+    async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<void> {
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<GroupApplicationAssociation>(
             'delete',
             `/api/v1/apps/${model.applicationId}/groups/${model.groupId}`);
     }
@@ -65,7 +65,7 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupApplicationAssoc
 
 }
 
-export const resource = new Resource(ResourceModel.TYPE_NAME, ResourceModel);
+export const resource = new Resource(ResourceModel.TYPE_NAME, ResourceModel, null, null, TypeConfigurationModel);
 
 // Entrypoint for production usage after registered in CloudFormation
 export const entrypoint = resource.entrypoint;

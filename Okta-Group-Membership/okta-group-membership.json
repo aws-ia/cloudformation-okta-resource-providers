@@ -2,6 +2,14 @@
     "typeName": "Okta::Group::Membership",
     "description": "An example resource schema demonstrating some basic constructs and validation rules.",
     "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "typeConfiguration": {
+        "properties": {
+            "OktaAccess": {
+                "$ref": "#/definitions/OktaAccess"
+            }
+        },
+        "additionalProperties": false
+    },
     "definitions": {
         "OktaAccess": {
             "type": "object",
@@ -17,40 +25,31 @@
             },
             "additionalProperties": false
         },
-        "UserIdentifier": {
-            "type": "object",
-            "properties": {
-                "Login" : {
-                    "type" : "string"
-                },
-                "Guid" : {
-                    "type" : "string"
-                }
-            },
-            "additionalProperties": false
-        },
         "GroupMembership": {
             "type": "object",
             "properties": {
                 "GroupId": {
                     "type": "string"
                 },
-                "UserIdentifier": {
-                    "$ref": "#/definitions/UserIdentifier"
+                "UserId": {
+                    "type": "string"
+                },
+                "UserLogin": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false
         }
     },
     "properties": {
-        "OktaAccess": {
-            "$ref": "#/definitions/OktaAccess"
-        },
         "GroupId": {
             "type": "string"
         },
-        "UserIdentifier": {
-           "$ref": "#/definitions/UserIdentifier"
+        "UserId": {
+            "type": "string"
+        },
+        "UserLogin": {
+            "type": "string"
         },
         "GroupMembership": {
             "$ref": "#/definitions/GroupMembership"
@@ -58,16 +57,15 @@
     },
     "additionalProperties": false,
     "required": [
-        "GroupId",
-        "UserIdentifier"
+        "GroupId"
     ],
     "primaryIdentifier": [
         "/properties/GroupId",
-        "/properties/UserIdentifier"
+        "/properties/UserId"
     ],
     "createOnlyProperties": [
         "/properties/GroupId",
-        "/properties/UserIdentifier"
+        "/properties/UserId"
     ],
     "readOnlyProperties": [
         "/properties/GroupMembership"

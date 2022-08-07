@@ -2,6 +2,14 @@
     "typeName": "Okta::Policy::Policy",
     "description": "An example resource schema demonstrating some basic constructs and validation rules.",
     "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "typeConfiguration": {
+        "properties": {
+            "OktaAccess": {
+                "$ref": "#/definitions/OktaAccess"
+            }
+        },
+        "additionalProperties": false
+    },
     "definitions": {
         "OktaAccess": {
             "type": "object",
@@ -106,9 +114,6 @@
         }
     },
     "properties": {
-        "OktaAccess": {
-            "$ref": "#/definitions/OktaAccess"
-        },
         "Id": {
             "type": "string",
             "description": "Identifier of the Policy"

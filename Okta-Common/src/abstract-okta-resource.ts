@@ -7,7 +7,7 @@ import {
 import {AxiosError} from "axios";
 import {AbstractBasedResource} from "./abstract-base-resource";
 
-export abstract class AbstractOktaResource<ResourceModelType extends BaseModel, GetResponseData, CreateResponseData, UpdateResponseData> extends AbstractBasedResource<ResourceModelType, GetResponseData, CreateResponseData, UpdateResponseData, AxiosError<ApiErrorResponse>> {
+export abstract class AbstractOktaResource<ResourceModelType extends BaseModel, GetResponseData, CreateResponseData, UpdateResponseData, TypeConfigurationModel> extends AbstractBasedResource<ResourceModelType, GetResponseData, CreateResponseData, UpdateResponseData, AxiosError<ApiErrorResponse>, TypeConfigurationModel> {
 
     processRequestException(e: AxiosError<ApiErrorResponse>, request: ResourceHandlerRequest<ResourceModelType>) {
         const apiErrorResponse = e.response?.data;

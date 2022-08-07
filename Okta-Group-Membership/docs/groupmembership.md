@@ -9,7 +9,8 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 <pre>
 {
     "<a href="#groupid" title="GroupId">GroupId</a>" : <i>String</i>,
-    "<a href="#useridentifier" title="UserIdentifier">UserIdentifier</a>" : <i><a href="useridentifier.md">UserIdentifier</a></i>
+    "<a href="#userid" title="UserId">UserId</a>" : <i>String</i>,
+    "<a href="#userlogin" title="UserLogin">UserLogin</a>" : <i>String</i>
 }
 </pre>
 
@@ -17,7 +18,8 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 <a href="#groupid" title="GroupId">GroupId</a>: <i>String</i>
-<a href="#useridentifier" title="UserIdentifier">UserIdentifier</a>: <i><a href="useridentifier.md">UserIdentifier</a></i>
+<a href="#userid" title="UserId">UserId</a>: <i>String</i>
+<a href="#userlogin" title="UserLogin">UserLogin</a>: <i>String</i>
 </pre>
 
 ## Properties
@@ -30,11 +32,19 @@ _Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### UserIdentifier
+#### UserId
 
 _Required_: No
 
-_Type_: <a href="useridentifier.md">UserIdentifier</a>
+_Type_: String
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### UserLogin
+
+_Required_: No
+
+_Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 

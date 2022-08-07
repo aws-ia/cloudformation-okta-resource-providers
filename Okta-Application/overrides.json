@@ -1,9 +1,5 @@
 {
   "CREATE": {
-    "/OktaAccess": {
-      "ApiKey": "<OKTA_API_KEY>",
-      "Url": "<OKTA_URL>"
-    },
     "/Settings": {
       "App": {
         "Url": "http://myurl.com",
@@ -21,10 +17,6 @@
     "/SignOnMode": "BASIC_AUTH"
   },
   "UPDATE": {
-    "/OktaAccess": {
-      "ApiKey": "<OKTA_API_KEY>",
-      "Url": "<OKTA_URL>"
-    },
     "/Settings": {
       "App": {
         "Url": "http://myurl2.com",

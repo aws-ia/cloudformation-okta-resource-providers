@@ -2,6 +2,14 @@
     "typeName": "Okta::Group::GroupApplicationAssociation",
     "description": "An example resource schema demonstrating some basic constructs and validation rules.",
     "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "typeConfiguration": {
+        "properties": {
+            "OktaAccess": {
+                "$ref": "#/definitions/OktaAccess"
+            }
+        },
+        "additionalProperties": false
+    },
     "definitions": {
         "OktaAccess": {
             "type": "object",
@@ -33,9 +41,6 @@
         }
     },
     "properties": {
-        "OktaAccess": {
-            "$ref": "#/definitions/OktaAccess"
-        },
         "ApplicationId": {
             "type": "string",
             "description": "id of an app"
