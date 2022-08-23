@@ -8,7 +8,10 @@
         "$ref": "#/definitions/OktaAccess"
       }
     },
-    "additionalProperties": false
+    "additionalProperties": false,
+    "required": [
+      "OktaAccess"
+    ]
   },
   "definitions": {
     "OktaAccess": {
@@ -381,16 +384,5 @@
     "list": {
       "permissions": []
     }
-  },
-  "typeConfiguration": {
-    "properties": {
-      "OktaAccess": {
-        "$ref": "#/definitions/OktaAccess"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "OktaAccess"
-    ]
   }
 }

@@ -28,11 +28,23 @@ Resources:
   NewGroupAssociation:
     Type: Okta::Group::GroupApplicationAssociation
     Properties:
-      ApplicationId: 0oa1d6uujxz48JnNu697
-      GroupId: 00g1e6z3hj56cYK7c697
+      ApplicationId: !GetAtt NewOktaApp.Id
+      GroupId: !GetAtt NewOktaGroup.Id
 
   NewGroupUserMembership:
     Type: Okta::Group::Membership
     Properties:
-      GroupId: 00g1e6z3hj56cYK7c697
-      UserLogin: okta@nakomis.com
+      GroupId: !GetAtt NewOktaGroup.Id
+      UserLogin: duncan.grant@cloudsoft.io
+
+  NewGroupPolicy:
+    Type: Okta::Policy::Policy
+    Properties:
+      Type: OKTA_SIGN_ON
+      Name: My Policy
+      Description: My Policy Description
+      Conditions:
+        People:
+          Groups:
+            Include:
+            - !GetAtt NewOktaGroup.Id

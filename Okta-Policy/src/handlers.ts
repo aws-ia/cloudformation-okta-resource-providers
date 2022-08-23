@@ -2,13 +2,18 @@ import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource
 import {Policy, ResourceModel, TypeConfigurationModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
 
+import {version} from '../package.json';
+
 interface CallbackContext extends Record<string, any> {}
 
 type Policies = Policy[];
 
 class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Policy, TypeConfigurationModel> {
+
+    private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
+
     async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Policy>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Policy>(
             'get',
             `/api/v1/policies/${model.id}`);
         return new ResourceModel(response.data);
@@ -16,7 +21,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel[]> {
         delete model.settings
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Policies>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Policies>(
             'get',
             `/api/v1/policies`,
             {
@@ -28,7 +33,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
 
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<Policy> {
         delete model.policy
-        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<ResourceModel>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'post',
             `/api/v1/policies`,
             {},
@@ -42,7 +47,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
         let modelToUpdate = new ResourceModel(model);
         delete modelToUpdate.id
         delete modelToUpdate.policy
-        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Policy>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Policy>(
             'put',
             `/api/v1/policies/${model.id}`,
             {},
@@ -53,7 +58,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
     }
 
     async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<void> {
-        await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Policy>(
+        await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Policy>(
             'delete',
             `/api/v1/policies/${model.id}`);
     }

@@ -17,10 +17,12 @@ export type PaginatedResponseType = {
 export class OktaClient {
     private baseUrl: string;
     private apiKey: string;
+    private userAgent: string;
 
-    constructor(baseUrl: string, apiKey: string) {
+    constructor(baseUrl: string, apiKey: string, userAgent?: string) {
         this.baseUrl = baseUrl;
         this.apiKey = apiKey;
+        this.userAgent = userAgent;
     }
 
     public async doRequest<ResponseType>(method: 'get' | 'put' | 'post' | 'delete', path: string, params: any = {}, body?: {}, logger?: LoggerProxy): Promise<AxiosResponse<ResponseType>> {
@@ -32,7 +34,8 @@ export class OktaClient {
             headers: {
                 Authorization: `SSWS ${this.apiKey}`,
                 'Content-type': 'application/json; charset=utf-8',
-                Accept: 'application/json; charset=utf-8'
+                Accept: 'application/json; charset=utf-8',
+                'User-Agent': this.userAgent || "AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource"
             }
         });
     }

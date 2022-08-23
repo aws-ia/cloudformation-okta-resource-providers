@@ -12,9 +12,9 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 {
     "Type" : "Okta::Group::Membership",
     "Properties" : {
-        "<a href="#oktaaccess" title="OktaAccess">OktaAccess</a>" : <i><a href="oktaaccess.md">OktaAccess</a></i>,
         "<a href="#groupid" title="GroupId">GroupId</a>" : <i>String</i>,
-        "<a href="#useridentifier" title="UserIdentifier">UserIdentifier</a>" : <i><a href="useridentifier.md">UserIdentifier</a></i>,
+        "<a href="#userid" title="UserId">UserId</a>" : <i>String</i>,
+        "<a href="#userlogin" title="UserLogin">UserLogin</a>" : <i>String</i>,
     }
 }
 </pre>
@@ -24,20 +24,12 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 <pre>
 Type: Okta::Group::Membership
 Properties:
-    <a href="#oktaaccess" title="OktaAccess">OktaAccess</a>: <i><a href="oktaaccess.md">OktaAccess</a></i>
     <a href="#groupid" title="GroupId">GroupId</a>: <i>String</i>
-    <a href="#useridentifier" title="UserIdentifier">UserIdentifier</a>: <i><a href="useridentifier.md">UserIdentifier</a></i>
+    <a href="#userid" title="UserId">UserId</a>: <i>String</i>
+    <a href="#userlogin" title="UserLogin">UserLogin</a>: <i>String</i>
 </pre>
 
 ## Properties
-
-#### OktaAccess
-
-_Required_: No
-
-_Type_: <a href="oktaaccess.md">OktaAccess</a>
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
 #### GroupId
 
@@ -47,13 +39,21 @@ _Type_: String
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 
-#### UserIdentifier
+#### UserId
 
-_Required_: Yes
+_Required_: No
 
-_Type_: <a href="useridentifier.md">UserIdentifier</a>
+_Type_: String
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
+
+#### UserLogin
+
+_Required_: No
+
+_Type_: String
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
 ## Return Values
 

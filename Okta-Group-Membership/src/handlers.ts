@@ -3,6 +3,8 @@ import {GroupMembership, ResourceModel, TypeConfigurationModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
 import {AxiosError, AxiosResponse} from "axios";
 
+import {version} from '../package.json';
+
 interface CallbackContext extends Record<string, any> {}
 
 type User = {
@@ -14,10 +16,13 @@ type Users = User[]
 type GroupMemberships = GroupMembership[]
 
 class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, GroupMembership, GroupMembership, TypeConfigurationModel> {
+
+    private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
+
     async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
         let userGuid = await this.getUserGuid(model, typeConfiguration);
         model.userId = userGuid;
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Users>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Users>(
             'get',
             `/api/v1/groups/${model.groupId}/users`);
         let found = response.data.find(u => {
@@ -50,7 +55,7 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
         if (model.userId) {
             return model.userId;
         }
-        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<User>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<User>(
             'get',
             `/api/v1/users/${model.userLogin}`,
             {},
@@ -62,7 +67,7 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
         let userGuid = await this.getUserGuid(model, typeConfiguration);
         model.userId = userGuid;
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<ResourceModel>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'put',
             `/api/v1/groups/${model.groupId}/users/${userGuid}`);
         return new ResourceModel(model);
@@ -76,7 +81,7 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
     async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<void> {
         let userGuid = await this.getUserGuid(model, typeConfiguration);
         model.userId = userGuid;
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<GroupMembership>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<GroupMembership>(
             'delete',
             `/api/v1/groups/${model.groupId}/users/${userGuid}`);
     }

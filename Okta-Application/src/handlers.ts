@@ -2,20 +2,25 @@ import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource
 import {Application, ResourceModel, TypeConfigurationModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
 
+import {version} from '../package.json';
+
 interface CallbackContext extends Record<string, any> {}
 
 type Applications = Application[];
 
 class Resource extends AbstractOktaResource<ResourceModel, Application, Application, Application, TypeConfigurationModel> {
+
+    private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
+
     async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Application>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Application>(
             'get',
             `/api/v1/apps/${model.id}`);
         return new ResourceModel(response.data);
     }
 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel[]> {
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Applications>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Applications>(
             'get',
             `/api/v1/apps`);
 
@@ -23,7 +28,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
     }
 
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<Application> {
-        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<ResourceModel>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'post',
             `/api/v1/apps`,
             {},
@@ -34,7 +39,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
     }
 
     async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Application>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Application>(
             'put',
             `/api/v1/apps/${model.id}`,
             {},
@@ -44,7 +49,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
     }
 
     async deactivate(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Application>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Application>(
             'post',
             `/api/v1/apps/${model.id}/lifecycle/deactivate`,
             {},
@@ -55,7 +60,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
 
     async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<void> {
         await this.deactivate(model, typeConfiguration);
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey).doRequest<Application>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Application>(
             'delete',
             `/api/v1/apps/${model.id}`);
     }
