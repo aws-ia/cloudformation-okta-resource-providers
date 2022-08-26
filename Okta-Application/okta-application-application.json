@@ -225,9 +225,6 @@
       "type": "object",
       "description": "Application returned by Okta API",
       "properties": {
-        "OktaAccess": {
-          "$ref": "#/definitions/OktaAccess"
-        },
         "Accessibility": {
           "$ref": "#/definitions/Accessibility"
         },

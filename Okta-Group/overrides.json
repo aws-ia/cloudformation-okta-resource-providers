@@ -1,19 +1,11 @@
 {
   "CREATE": {
-    "/OktaAccess": {
-      "ApiKey": "<OKTA_API_KEY>",
-      "Url": "<OKTA_URL>"
-    },
     "/Profile": {
       "Name": "Okta SAM Group",
       "Description": "Description of Okta SAM Group"
     }
   },
   "UPDATE": {
-    "/OktaAccess": {
-      "ApiKey": "<OKTA_API_KEY>",
-      "Url": "<OKTA_URL>"
-    },
     "/Profile": {
       "Name": "Updated Okta SAM Group",
       "Description": "Description of UpdatedOkta SAM Group"

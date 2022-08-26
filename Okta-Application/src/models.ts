@@ -315,9 +315,6 @@ export class Application extends BaseModel {
     ['constructor']: typeof Application;
 
 
-    @Expose({ name: 'OktaAccess' })
-    @Type(() => OktaAccess)
-    oktaAccess?: Optional<OktaAccess>;
     @Expose({ name: 'Accessibility' })
     @Type(() => Accessibility)
     accessibility?: Optional<Accessibility>;
@@ -420,6 +417,16 @@ export class Application extends BaseModel {
 
 }
 
+export class TypeConfigurationModel extends BaseModel {
+    ['constructor']: typeof TypeConfigurationModel;
+
+
+    @Expose({ name: 'OktaAccess' })
+    @Type(() => OktaAccess)
+    oktaAccess?: Optional<OktaAccess>;
+
+}
+
 export class OktaAccess extends BaseModel {
     ['constructor']: typeof OktaAccess;
 
@@ -442,16 +449,6 @@ export class OktaAccess extends BaseModel {
         }
     )
     apiKey?: Optional<string>;
-
-}
-
-export class TypeConfigurationModel extends BaseModel {
-    ['constructor']: typeof TypeConfigurationModel;
-
-
-    @Expose({ name: 'OktaAccess' })
-    @Type(() => OktaAccess)
-    oktaAccess?: Optional<OktaAccess>;
 
 }
 
