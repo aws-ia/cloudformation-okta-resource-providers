@@ -10,7 +10,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 {
-    "<a href="#oktaaccess" title="OktaAccess">OktaAccess</a>" : <i><a href="oktaaccess.md">OktaAccess</a></i>,
     "<a href="#accessibility" title="Accessibility">Accessibility</a>" : <i><a href="accessibility.md">Accessibility</a></i>,
     "<a href="#created" title="Created">Created</a>" : <i>String</i>,
     "<a href="#credentials" title="Credentials">Credentials</a>" : <i><a href="applicationcredentials.md">ApplicationCredentials</a></i>,
@@ -30,7 +29,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 ### YAML
 
 <pre>
-<a href="#oktaaccess" title="OktaAccess">OktaAccess</a>: <i><a href="oktaaccess.md">OktaAccess</a></i>
 <a href="#accessibility" title="Accessibility">Accessibility</a>: <i><a href="accessibility.md">Accessibility</a></i>
 <a href="#created" title="Created">Created</a>: <i>String</i>
 <a href="#credentials" title="Credentials">Credentials</a>: <i><a href="applicationcredentials.md">ApplicationCredentials</a></i>
@@ -47,14 +45,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 </pre>
 
 ## Properties
-
-#### OktaAccess
-
-_Required_: No
-
-_Type_: <a href="oktaaccess.md">OktaAccess</a>
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
 #### Accessibility
 

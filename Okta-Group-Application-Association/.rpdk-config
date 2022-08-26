@@ -2,7 +2,7 @@
     "artifact_type": "RESOURCE",
     "typeName": "Okta::Group::GroupApplicationAssociation",
     "language": "typescript",
-    "runtime": "nodejs12.x",
+    "runtime": "nodejs14.x",
     "entrypoint": "dist/Okta-Group-Application-Association/src/handlers.entrypoint",
     "testEntrypoint": "dist/Okta-Group-Application-Association/src/handlers.testEntrypoint",
     "settings": {

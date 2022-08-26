@@ -2,7 +2,7 @@
     "artifact_type": "RESOURCE",
     "typeName": "Okta::Policy::Policy",
     "language": "typescript",
-    "runtime": "nodejs12.x",
+    "runtime": "nodejs14.x",
     "entrypoint": "dist/Okta-Policy/src/handlers.entrypoint",
     "testEntrypoint": "dist/Okta-Policy/src/handlers.testEntrypoint",
     "settings": {
