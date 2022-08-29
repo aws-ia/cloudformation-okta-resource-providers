@@ -35,7 +35,7 @@ Resources:
     Type: Okta::Group::Membership
     Properties:
       GroupId: !GetAtt NewOktaGroup.Id
-      UserLogin: duncan.grant@cloudsoft.io
+      UserLogin: EMAIL_FOR_EXISTING_USER
 
   NewGroupPolicy:
     Type: Okta::Policy::Policy
