@@ -4,11 +4,15 @@ import {OktaClient} from "../../Okta-Common/src/okta-client";
 import {AxiosError, AxiosResponse} from "axios";
 
 import {version} from '../package.json';
+import {type} from "os";
 
 interface CallbackContext extends Record<string, any> {}
 
 type User = {
-    id: string
+    id: string,
+    profile: {
+        login: string
+    }
 }
 
 type Users = User[]
@@ -40,6 +44,7 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
                 response: response} as AxiosError<any>;
             throw axiosError;
         }
+        model.userLogin = await this.getUserLogin(model, typeConfiguration);
         return model;
     }
 
@@ -62,6 +67,19 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
             {},
             this.loggerProxy);
         return response.data.id;
+    }
+
+    async getUserLogin(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<string> {
+        if (model.userLogin) {
+            return model.userLogin;
+        }
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<User>(
+            'get',
+            `/api/v1/users/${model.userId}`,
+            {},
+            {},
+            this.loggerProxy);
+        return response.data.profile.login;
     }
 
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
@@ -101,7 +119,6 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
         }
         return model;
     }
-
 
 }
 

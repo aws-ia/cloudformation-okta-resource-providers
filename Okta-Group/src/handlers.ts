@@ -64,11 +64,15 @@ class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group, 
         if (!from) {
             return model;
         }
-        model.group = from;
-        if (from.id) {
-            model.id = from.id;
-        }
-        return model;
+        let result =  new ResourceModel({
+            ...model,
+            ...from
+        });
+        // Delete a couple of unused fields that are returned by the API
+        // as they are subject to change server-side
+        delete (<any>result)?.lastUpdated;
+        delete (<any>result)?.created;
+        return result;
     }
 
 

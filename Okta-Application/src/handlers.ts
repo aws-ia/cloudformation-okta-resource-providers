@@ -1,6 +1,7 @@
 import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
 import {Application, ResourceModel, TypeConfigurationModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
+import {CaseTransformer, Transformer} from "../../Okta-Common/src/util";
 
 import {version} from '../package.json';
 
@@ -24,10 +25,10 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
             'get',
             `/api/v1/apps`);
 
-        return response.data.map(app => this.setModelFrom(new ResourceModel(), new Application(app)));
+        return response.data.map(app => this.setModelFrom(new ResourceModel(), new ResourceModel(app)));
     }
 
-    async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<Application> {
+    async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
         let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'post',
             `/api/v1/apps`,
@@ -35,7 +36,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
             model.toJSON(),
             this.loggerProxy);
 
-        return new Application(response.data);
+        return new ResourceModel(response.data);
     }
 
     async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
@@ -69,17 +70,30 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
         return new ResourceModel(partial);
     }
 
-    setModelFrom(model: ResourceModel, from: Application | undefined): ResourceModel {
+    setModelFrom(model: ResourceModel, from: ResourceModel | undefined): ResourceModel {
         if (!from) {
             return model;
         }
-        model.application = from;
-        if (from.id) {
-            model.id = from.id;
-        }
-        return model;
+        let result = new ResourceModel({
+            ...model,
+            ...Transformer.for(from)
+                .transformKeys(CaseTransformer.SNAKE_TO_CAMEL)
+                .forModelIngestion()
+                .transform(),
+            // Special case for schema-free object
+            settings: Transformer.for(from.settings)
+                .transformKeys(CaseTransformer.CAMEL_TO_PASCAL)
+                .forModelIngestion()
+                .transform()
+        });
+        // Special case for unusual capitalisation
+        result.visibility.hide.ios = (<any>from?.visibility?.hide)?.iOS;
+        // Delete a couple of unused fields that are returned by the API
+        // as they are subject to change server-side
+        delete (<any>result)?.lastUpdated;
+        delete (<any>result)?.status;
+        return result;
     }
-
 }
 
 export const resource = new Resource(ResourceModel.TYPE_NAME, ResourceModel, null, null, TypeConfigurationModel);
