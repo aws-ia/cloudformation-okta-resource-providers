@@ -1,0 +1,185 @@
+{
+    "typeName": "Okta::Policy::Policy",
+    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+    "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "typeConfiguration": {
+        "properties": {
+            "OktaAccess": {
+                "$ref": "#/definitions/OktaAccess"
+            }
+        },
+        "additionalProperties": false
+    },
+    "definitions": {
+        "OktaAccess": {
+            "type": "object",
+            "properties": {
+                "Url": {
+                    "type": "string",
+                    "description": "Okta URL, including organization identifier"
+                },
+                "ApiKey": {
+                    "type": "string",
+                    "description": "Okta API tokens are used to authenticate requests to Okta APIs."
+                }
+            },
+            "additionalProperties": false
+        },
+        "Policy": {
+            "type": "object",
+            "properties": {
+                "OktaAccess": {
+                    "$ref": "#/definitions/OktaAccess"
+                },
+                "Id": {
+                    "type": "string",
+                    "description": "Identifier of the Policy"
+                },
+                "Type": {
+                    "type": "string",
+                    "description": "Specifies the type of Policy.",
+                    "enum": [
+                        "OKTA_SIGN_ON",
+                        "PASSWORD",
+                        "MFA_ENROLL",
+                        "OAUTH_AUTHORIZATION_POLICY",
+                        "IDP_DISCOVERY"
+                    ]
+                },
+                "Name": {
+                    "type": "string",
+                    "description": "Name of the Policy"
+                },
+                "System": {
+                    "type": "boolean",
+                    "description": "This is set to true on system policies, which cannot be deleted."
+                },
+                "Description": {
+                    "type": "string",
+                    "description": "Description of the Policy."
+                },
+                "Priority": {
+                    "type": "integer",
+                    "description": "Priority of the Policy"
+                },
+                "Status": {
+                    "type": "string",
+                    "description": "Status of the Policy: ACTIVE or INACTIVE",
+                    "enum": [
+                        "ACTIVE",
+                        "INACTIVE"
+                    ]
+                },
+                "Conditions": {
+                    "type": "object"
+                },
+                "Settings": {
+                    "type": "object"
+                },
+                "Created": {
+                    "type": "string",
+                    "description": "Timestamp when the Policy was created"
+                },
+                "LastUpdated": {
+                    "type": "string",
+                    "description": "Timestamp when the Policy was last modified"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links"
+                }
+            },
+            "additionalProperties": false
+        },
+        "Links": {
+            "type": "object",
+            "properties": {
+                "Self": {
+                    "type": "string",
+                    "description": "The Policy or Rule"
+                },
+                "Activate": {
+                    "type": "string",
+                    "description": "Action to activate a Policy or Rule (present if the Rule is currently inactive)"
+                },
+                "Deactivate": {
+                    "type": "string",
+                    "description": "Action to deactivate a Policy or Rule (present if the Rule is currently active)"
+                },
+                "Rules": {
+                    "type": "string",
+                    "description": "Action to retrieve the Rules objects for the given Policy"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "Id": {
+            "type": "string",
+            "description": "Identifier of the Policy"
+        },
+        "Type": {
+            "type": "string",
+            "description": "Specifies the type of Policy.",
+            "enum": [
+                "OKTA_SIGN_ON",
+                "PASSWORD",
+                "MFA_ENROLL",
+                "OAUTH_AUTHORIZATION_POLICY",
+                "IDP_DISCOVERY",
+                "ACCESS_POLICY"
+            ]
+        },
+        "Name": {
+            "type": "string",
+            "description": "Name of the Policy"
+        },
+        "Description": {
+            "type": "string",
+            "description": "Description of the Policy."
+        },
+        "Priority": {
+            "type": "integer",
+            "description": "Priority of the Policy"
+        },
+        "Conditions": {
+            "type": "object"
+        },
+        "Settings": {
+            "type": "object"
+        },
+        "Policy": {
+            "$ref": "#/definitions/Policy"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "Type",
+        "Name",
+        "Description"
+    ],
+    "readOnlyProperties": [
+        "/properties/Id",
+        "/properties/Policy"
+    ],
+    "primaryIdentifier": [
+        "/properties/Id"
+    ],
+    "handlers": {
+        "create": {
+            "permissions": []
+        },
+        "read": {
+            "permissions": []
+        },
+        "update": {
+            "permissions": []
+        },
+        "delete": {
+            "permissions": []
+        },
+        "list": {
+            "permissions": []
+        }
+    }
+}

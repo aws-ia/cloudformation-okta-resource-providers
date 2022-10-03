@@ -1,0 +1,89 @@
+{
+    "typeName": "Okta::Group::GroupApplicationAssociation",
+    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+    "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "typeConfiguration": {
+        "properties": {
+            "OktaAccess": {
+                "$ref": "#/definitions/OktaAccess"
+            }
+        },
+        "additionalProperties": false
+    },
+    "definitions": {
+        "OktaAccess": {
+            "type": "object",
+            "properties": {
+                "Url": {
+                    "type": "string",
+                    "description": "Okta URL, including organization identifier"
+                },
+                "ApiKey": {
+                    "type": "string",
+                    "description": "Okta API tokens are used to authenticate requests to Okta APIs."
+                }
+            },
+            "additionalProperties": false
+        },
+        "GroupApplicationAssociation": {
+            "type": "object",
+            "properties": {
+                "ApplicationId": {
+                    "type": "string",
+                    "description": "id of an app"
+                },
+                "GroupId": {
+                    "type": "string",
+                    "description": "unique key of a valid Group"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "ApplicationId": {
+            "type": "string",
+            "description": "id of an app"
+        },
+        "GroupId": {
+            "type": "string",
+            "description": "unique key of a valid Group"
+        },
+        "GroupApplicationAssociation": {
+            "$ref": "#/definitions/GroupApplicationAssociation"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "ApplicationId",
+        "GroupId"
+    ],
+    "createOnlyProperties": [
+        "/properties/ApplicationId",
+        "/properties/GroupId"
+    ],
+    "readOnlyProperties": [
+        "/properties/GroupApplicationAssociation"
+    ],
+    "primaryIdentifier": [
+        "/properties/ApplicationId",
+        "/properties/GroupId"
+    ],
+    "handlers": {
+        "create": {
+            "permissions": []
+        },
+        "read": {
+            "permissions": []
+        },
+        "update": {
+            "permissions": []
+        },
+        "delete": {
+            "permissions": []
+        },
+        "list": {
+            "permissions": []
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+  "CREATE": {
+    "/Type": "OKTA_SIGN_ON",
+    "/Name": "My Group Policy",
+    "/Description": "Description of My Group Policy",
+    "/Conditions": {
+      "People": {
+        "Groups": {
+          "Include": [
+            "00g231byxyX0Has1O697"
+          ]
+        }
+      }
+    },
+    "/Priority": 1,
+    "/Settings": null
+  },
+  "UPDATE": {
+    "/Type": "OKTA_SIGN_ON",
+    "/Name": "My Updated Group Policy",
+    "/Description": "Updated Description of My Group Policy",
+    "/Conditions": {
+      "People": {
+        "Groups": {
+          "Include": [
+            "00g231byxyX0Has1O697"
+          ]
+        }
+      }
+    },
+    "/Priority": 1,
+    "/Settings": null
+  }
+}

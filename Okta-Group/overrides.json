@@ -1,0 +1,14 @@
+{
+  "CREATE": {
+    "/Profile": {
+      "Name": "Okta SAM Group",
+      "Description": "Description of Okta SAM Group"
+    }
+  },
+  "UPDATE": {
+    "/Profile": {
+      "Name": "Updated Okta SAM Group",
+      "Description": "Description of UpdatedOkta SAM Group"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: |
+  The following CloudFormation Okta resource types allow the creation and configuration of
+  Applications, Groups, Policies and associated memberships. This allows you to onboard new applications
+  simply, efficiently, and consistently.
+
+Resources:
+  NewOktaApp:
+    Type: Okta::Application::Application
+    Properties:
+      Name: "template_basic_auth"
+      Label: "CFN Sample Application"
+      SignOnMode: "BASIC_AUTH"
+      Settings:
+        App:
+          Url: "https://example.com/login.html"
+          AuthURL: "https://example.com/auth.html"
+
+  NewOktaGroup:
+    Type: Okta::Group::Group
+    Properties:
+      Profile:
+        Name: CFN Sample Group
+        Description: Description of the CFN Sample Group
+
+  NewGroupAssociation:
+    Type: Okta::Group::GroupApplicationAssociation
+    Properties:
+      ApplicationId: !GetAtt NewOktaApp.Id
+      GroupId: !GetAtt NewOktaGroup.Id
+
+  NewGroupUserMembership:
+    Type: Okta::Group::Membership
+    Properties:
+      GroupId: !GetAtt NewOktaGroup.Id
+      UserLogin: EMAIL_FOR_EXISTING_USER
+
+  NewGroupPolicy:
+    Type: Okta::Policy::Policy
+    Properties:
+      Type: OKTA_SIGN_ON
+      Name: My Policy
+      Description: My Policy Description
+      Conditions:
+        People:
+          Groups:
+            Include:
+            - !GetAtt NewOktaGroup.Id

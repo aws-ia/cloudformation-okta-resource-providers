@@ -1,0 +1,90 @@
+{
+    "typeName": "Okta::Group::Membership",
+    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+    "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "typeConfiguration": {
+        "properties": {
+            "OktaAccess": {
+                "$ref": "#/definitions/OktaAccess"
+            }
+        },
+        "additionalProperties": false
+    },
+    "definitions": {
+        "OktaAccess": {
+            "type": "object",
+            "properties": {
+                "Url": {
+                    "type": "string",
+                    "description": "Okta URL, including organization identifier"
+                },
+                "ApiKey": {
+                    "type": "string",
+                    "description": "Okta API tokens are used to authenticate requests to Okta APIs."
+                }
+            },
+            "additionalProperties": false
+        },
+        "GroupMembership": {
+            "type": "object",
+            "properties": {
+                "GroupId": {
+                    "type": "string"
+                },
+                "UserId": {
+                    "type": "string"
+                },
+                "UserLogin": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "GroupId": {
+            "type": "string"
+        },
+        "UserId": {
+            "type": "string"
+        },
+        "UserLogin": {
+            "type": "string"
+        },
+        "GroupMembership": {
+            "$ref": "#/definitions/GroupMembership"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "GroupId"
+    ],
+    "primaryIdentifier": [
+        "/properties/GroupId",
+        "/properties/UserId"
+    ],
+    "createOnlyProperties": [
+        "/properties/GroupId",
+        "/properties/UserId"
+    ],
+    "readOnlyProperties": [
+        "/properties/GroupMembership"
+    ],
+    "handlers": {
+        "create": {
+            "permissions": []
+        },
+        "read": {
+            "permissions": []
+        },
+        "update": {
+            "permissions": []
+        },
+        "delete": {
+            "permissions": []
+        },
+        "list": {
+            "permissions": []
+        }
+    }
+}
