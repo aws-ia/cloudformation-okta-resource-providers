@@ -25,7 +25,6 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
 
     async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
         let userGuid = await this.getUserGuid(model, typeConfiguration);
-        model.userId = userGuid;
         const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Users>(
             'get',
             `/api/v1/groups/${model.groupId}/users`);
@@ -44,7 +43,6 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
                 response: response} as AxiosError<any>;
             throw axiosError;
         }
-        model.userLogin = await this.getUserLogin(model, typeConfiguration);
         return model;
     }
 
@@ -57,12 +55,12 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
     }
 
     async getUserGuid(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<string> {
-        if (model.userId) {
-            return model.userId;
+        if (model.user.userId) {
+            return model.user.userId;
         }
         let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<User>(
             'get',
-            `/api/v1/users/${model.userLogin}`,
+            `/api/v1/users/${model.user.userLogin}`,
             {},
             {},
             this.loggerProxy);
@@ -70,12 +68,12 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
     }
 
     async getUserLogin(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<string> {
-        if (model.userLogin) {
-            return model.userLogin;
+        if (model.user.userLogin) {
+            return model.user.userLogin;
         }
         let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<User>(
             'get',
-            `/api/v1/users/${model.userId}`,
+            `/api/v1/users/${model.user.userId}`,
             {},
             {},
             this.loggerProxy);
@@ -84,7 +82,6 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
 
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
         let userGuid = await this.getUserGuid(model, typeConfiguration);
-        model.userId = userGuid;
         const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'put',
             `/api/v1/groups/${model.groupId}/users/${userGuid}`);
@@ -98,7 +95,6 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
 
     async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<void> {
         let userGuid = await this.getUserGuid(model, typeConfiguration);
-        model.userId = userGuid;
         const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<GroupMembership>(
             'delete',
             `/api/v1/groups/${model.groupId}/users/${userGuid}`);
@@ -114,8 +110,7 @@ class Resource extends AbstractOktaResource<ResourceModel, GroupMembership, Grou
         }
         if (from.groupId) {
             model.groupId = from.groupId;
-            model.userId = from.userId;
-            model.userLogin = from.userLogin;
+            model.user = from.user;
         }
         return model;
     }

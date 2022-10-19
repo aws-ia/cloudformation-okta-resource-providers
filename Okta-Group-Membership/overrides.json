@@ -1,24 +1,14 @@
 {
   "CREATE": {
-    "/OktaAccess": {
-      "ApiKey": "<OKTA_API_KEY>",
-      "Url": "<OKTA_URL>"
-    },
-    "/GroupId": "00g1e6z3hj56cYK7c697",
-    "/UserIdentifier": {
-      "Login": "okta@nakomis.com",
-      "Guid": null
+    "/GroupId": "00g2qfw2dvmkETxdr697",
+    "/User": {
+      "UserId": "00u2qfgs43o3R4Evc697"
     }
   },
   "UPDATE": {
-    "/OktaAccess": {
-      "ApiKey": "<OKTA_API_KEY>",
-      "Url": "<OKTA_URL>"
-    },
-    "/GroupId": "00g1e6z3hj56cYK7c697",
-    "/UserIdentifier": {
-      "Login": "okta@nakomis.com",
-      "Guid": null
+    "/GroupId": "00g2qfw2dvmkETxdr697",
+    "/User": {
+      "UserId": "00u2qfgs43o3R4Evc697"
     }
   }
 }

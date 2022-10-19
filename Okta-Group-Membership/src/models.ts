@@ -11,7 +11,7 @@ export class ResourceModel extends BaseModel {
     @Exclude()
     protected readonly IDENTIFIER_KEY_GROUPID: string = '/properties/GroupId';
     @Exclude()
-    protected readonly IDENTIFIER_KEY_USERID: string = '/properties/UserId';
+    protected readonly IDENTIFIER_KEY_USER: string = '/properties/User';
 
     @Expose({ name: 'GroupId' })
     @Transform(
@@ -22,6 +22,40 @@ export class ResourceModel extends BaseModel {
         }
     )
     groupId?: Optional<string>;
+    @Expose({ name: 'User' })
+    @Type(() => User)
+    user?: Optional<User>;
+    @Expose({ name: 'GroupMembership' })
+    @Type(() => GroupMembership)
+    groupMembership?: Optional<GroupMembership>;
+
+    @Exclude()
+    public getPrimaryIdentifier(): Dict {
+        const identifier: Dict = {};
+        if (this.groupId != null) {
+            identifier[this.IDENTIFIER_KEY_GROUPID] = this.groupId;
+        }
+
+        if (this.user != null) {
+            identifier[this.IDENTIFIER_KEY_USER] = this.user;
+        }
+
+        // only return the identifier if it can be used, i.e. if all components are present
+        return Object.keys(identifier).length === 2 ? identifier : null;
+    }
+
+    @Exclude()
+    public getAdditionalIdentifiers(): Array<Dict> {
+        const identifiers: Array<Dict> = new Array<Dict>();
+        // only return the identifiers if any can be used
+        return identifiers.length === 0 ? null : identifiers;
+    }
+}
+
+export class User extends BaseModel {
+    ['constructor']: typeof User;
+
+
     @Expose({ name: 'UserId' })
     @Transform(
         (value: any, obj: any) =>
@@ -40,31 +74,7 @@ export class ResourceModel extends BaseModel {
         }
     )
     userLogin?: Optional<string>;
-    @Expose({ name: 'GroupMembership' })
-    @Type(() => GroupMembership)
-    groupMembership?: Optional<GroupMembership>;
 
-    @Exclude()
-    public getPrimaryIdentifier(): Dict {
-        const identifier: Dict = {};
-        if (this.groupId != null) {
-            identifier[this.IDENTIFIER_KEY_GROUPID] = this.groupId;
-        }
-
-        if (this.userId != null) {
-            identifier[this.IDENTIFIER_KEY_USERID] = this.userId;
-        }
-
-        // only return the identifier if it can be used, i.e. if all components are present
-        return Object.keys(identifier).length === 2 ? identifier : null;
-    }
-
-    @Exclude()
-    public getAdditionalIdentifiers(): Array<Dict> {
-        const identifiers: Array<Dict> = new Array<Dict>();
-        // only return the identifiers if any can be used
-        return identifiers.length === 0 ? null : identifiers;
-    }
 }
 
 export class GroupMembership extends BaseModel {
@@ -80,24 +90,9 @@ export class GroupMembership extends BaseModel {
         }
     )
     groupId?: Optional<string>;
-    @Expose({ name: 'UserId' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'userId', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    userId?: Optional<string>;
-    @Expose({ name: 'UserLogin' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'userLogin', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    userLogin?: Optional<string>;
+    @Expose({ name: 'User' })
+    @Type(() => User)
+    user?: Optional<User>;
 
 }
 
