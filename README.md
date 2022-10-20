@@ -16,10 +16,14 @@ cat << EOF >> .git/config
 [filter "okta-data"]
 	clean = sed \\
 		-e 's:[apiKey]:<OKTA_API_KEY>:g' \\
-		-e 's:[url]:<OKTA_URL>:g'
+		-e 's:[url]:<OKTA_URL>:g' \\
+		-e 's:[groupId]:<OKTA_GROUP_ID>:g' \\
+		-e 's:[userId]:<OKTA_USER_ID>:g'
 	smudge = sed \\
-		-e 's:<OKTA_API_KEY>:[apiKey]:g' \\
-		-e 's:<OKTA_URL>:[url]:g'
+		-e 's:[apiKey]:<OKTA_API_KEY>:g' \\
+		-e 's:[url]:<OKTA_URL>:g' \\
+		-e 's:[groupId]:<OKTA_GROUP_ID>:g' \\
+		-e 's:[userId]:<OKTA_USER_ID>:g'
 EOF
 
 git checkout .

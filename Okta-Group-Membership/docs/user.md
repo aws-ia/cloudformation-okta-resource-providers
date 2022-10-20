@@ -1,4 +1,4 @@
-# Okta::Group::Membership GroupMembership
+# Okta::Group::Membership User
 
 ## Syntax
 
@@ -8,21 +8,21 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 {
-    "<a href="#groupid" title="GroupId">GroupId</a>" : <i>String</i>,
-    "<a href="#user" title="User">User</a>" : <i><a href="user.md">User</a></i>
+    "<a href="#userid" title="UserId">UserId</a>" : <i>String</i>,
+    "<a href="#userlogin" title="UserLogin">UserLogin</a>" : <i>String</i>
 }
 </pre>
 
 ### YAML
 
 <pre>
-<a href="#groupid" title="GroupId">GroupId</a>: <i>String</i>
-<a href="#user" title="User">User</a>: <i><a href="user.md">User</a></i>
+<a href="#userid" title="UserId">UserId</a>: <i>String</i>
+<a href="#userlogin" title="UserLogin">UserLogin</a>: <i>String</i>
 </pre>
 
 ## Properties
 
-#### GroupId
+#### UserId
 
 _Required_: No
 
@@ -30,11 +30,11 @@ _Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### User
+#### UserLogin
 
 _Required_: No
 
-_Type_: <a href="user.md">User</a>
+_Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 

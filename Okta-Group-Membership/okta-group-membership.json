@@ -25,17 +25,26 @@
             },
             "additionalProperties": false
         },
+        "User": {
+            "type": "object",
+            "properties": {
+                "UserId": {
+                    "type": "string"
+                },
+                "UserLogin": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
         "GroupMembership": {
             "type": "object",
             "properties": {
                 "GroupId": {
                     "type": "string"
                 },
-                "UserId": {
-                    "type": "string"
-                },
-                "UserLogin": {
-                    "type": "string"
+                "User": {
+                    "$ref": "#/definitions/User"
                 }
             },
             "additionalProperties": false
@@ -45,11 +54,8 @@
         "GroupId": {
             "type": "string"
         },
-        "UserId": {
-            "type": "string"
-        },
-        "UserLogin": {
-            "type": "string"
+        "User": {
+            "$ref": "#/definitions/User"
         },
         "GroupMembership": {
             "$ref": "#/definitions/GroupMembership"
@@ -61,11 +67,11 @@
     ],
     "primaryIdentifier": [
         "/properties/GroupId",
-        "/properties/UserId"
+        "/properties/User"
     ],
     "createOnlyProperties": [
         "/properties/GroupId",
-        "/properties/UserId"
+        "/properties/User"
     ],
     "readOnlyProperties": [
         "/properties/GroupMembership"
