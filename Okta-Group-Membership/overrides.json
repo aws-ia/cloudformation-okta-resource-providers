@@ -1,14 +1,14 @@
 {
   "CREATE": {
-    "/GroupId": "00g2qfw2dvmkETxdr697",
+    "/GroupId": "<OKTA_GROUP_ID>",
     "/User": {
-      "UserId": "00u2qfgs43o3R4Evc697"
+      "UserId": "<OKTA_USER_ID>"
     }
   },
   "UPDATE": {
-    "/GroupId": "00g2qfw2dvmkETxdr697",
+    "/GroupId": "<OKTA_GROUP_ID>",
     "/User": {
-      "UserId": "00u2qfgs43o3R4Evc697"
+      "UserId": "<OKTA_USER_ID>"
     }
   }
 }
