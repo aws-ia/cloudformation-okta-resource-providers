@@ -2,5 +2,5 @@
 #
 # Set up any prerequisites needed for cfn test
 
-echo "TODO..."
+echo "About to... TODO"
 
