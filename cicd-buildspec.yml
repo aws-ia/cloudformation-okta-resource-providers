@@ -10,8 +10,8 @@ phases:
       - export PATH="/usr/local/bin:$PATH"
       - /usr/local/bin/dockerd-entrypoint.sh
       - cat /var/log/docker.log
-      - ENTRY_PATH=TODO
       - cd $RESOURCE_PATH
+      - python get_type_configuration.py
 
   build:
     commands:
