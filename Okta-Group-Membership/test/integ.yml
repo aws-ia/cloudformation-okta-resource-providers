@@ -1,0 +1,9 @@
+Resources:
+
+  GroupMembership:
+    Type: Okta::Group::Membership
+    Properties:
+      User:
+        UserId: 00u2rwlocoelECtwM697
+      GroupId: 00g2rfcb5bhGT68tW697
+
