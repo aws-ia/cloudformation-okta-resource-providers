@@ -12,6 +12,8 @@ phases:
       - cat /var/log/docker.log
       - cd $RESOURCE_PATH
       - python get_type_configuration.py
+      - npm --version
+      - node --version
 
   build:
     commands:
