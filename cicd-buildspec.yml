@@ -11,19 +11,21 @@ phases:
       - /usr/local/bin/dockerd-entrypoint.sh
       - cat /var/log/docker.log
       - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
-      - nvm install 14
+      - export NVM_DIR="$HOME/.nvm"
+      - echo "Loading nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm install 14
       - npm --version
       - node --version
-      - npm run-script build
-      - cd $RESOURCE_PATH
-      - python get_type_configuration.py
 
   build:
     commands:
       - echo Entered the build phase...
+      - npm install && npm run build
+      - cd $RESOURCE_PATH
+      - ./setup.sh
       - cfn validate
       - cfn generate
-      - ./setup.sh
+      - npm install && npm run build
+      - python get_type_configuration.py
       - cfn submit --dry-run
       - nohup sam local start-lambda &
       - sleep 10
@@ -35,4 +37,5 @@ artifacts:
   files:
     - $BUILD_FILE_NAME 
   name: extensions-build
+
 

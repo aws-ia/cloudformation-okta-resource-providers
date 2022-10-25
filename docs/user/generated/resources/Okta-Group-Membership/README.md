@@ -13,8 +13,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "Type" : "Okta::Group::Membership",
     "Properties" : {
         "<a href="#groupid" title="GroupId">GroupId</a>" : <i>String</i>,
-        "<a href="#userid" title="UserId">UserId</a>" : <i>String</i>,
-        "<a href="#userlogin" title="UserLogin">UserLogin</a>" : <i>String</i>,
+        "<a href="#user" title="User">User</a>" : <i><a href="user.md">User</a></i>,
     }
 }
 </pre>
@@ -25,8 +24,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 Type: Okta::Group::Membership
 Properties:
     <a href="#groupid" title="GroupId">GroupId</a>: <i>String</i>
-    <a href="#userid" title="UserId">UserId</a>: <i>String</i>
-    <a href="#userlogin" title="UserLogin">UserLogin</a>: <i>String</i>
+    <a href="#user" title="User">User</a>: <i><a href="user.md">User</a></i>
 </pre>
 
 ## Properties
@@ -39,21 +37,13 @@ _Type_: String
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 
-#### UserId
+#### User
 
 _Required_: No
 
-_Type_: String
+_Type_: <a href="user.md">User</a>
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
-
-#### UserLogin
-
-_Required_: No
-
-_Type_: String
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
 ## Return Values
 
