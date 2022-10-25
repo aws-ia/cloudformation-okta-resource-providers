@@ -10,10 +10,13 @@ phases:
       - export PATH="/usr/local/bin:$PATH"
       - /usr/local/bin/dockerd-entrypoint.sh
       - cat /var/log/docker.log
-      - cd $RESOURCE_PATH
-      - python get_type_configuration.py
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+      - nvm install 14
       - npm --version
       - node --version
+      - npm run-script build
+      - cd $RESOURCE_PATH
+      - python get_type_configuration.py
 
   build:
     commands:
