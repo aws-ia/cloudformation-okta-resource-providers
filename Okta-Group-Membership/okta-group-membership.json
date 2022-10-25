@@ -56,9 +56,6 @@
         },
         "User": {
             "$ref": "#/definitions/User"
-        },
-        "GroupMembership": {
-            "$ref": "#/definitions/GroupMembership"
         }
     },
     "additionalProperties": false,
@@ -67,14 +64,11 @@
     ],
     "primaryIdentifier": [
         "/properties/GroupId",
-        "/properties/User"
+        "/properties/User/UserId"
     ],
     "createOnlyProperties": [
         "/properties/GroupId",
-        "/properties/User"
-    ],
-    "readOnlyProperties": [
-        "/properties/GroupMembership"
+        "/properties/User/UserId"
     ],
     "handlers": {
         "create": {

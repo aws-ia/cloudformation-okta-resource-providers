@@ -1,6 +1,6 @@
 Resources:
 
-  GroupMembership:
+  AddUserToGroup:
     Type: Okta::Group::Membership
     Properties:
       User:

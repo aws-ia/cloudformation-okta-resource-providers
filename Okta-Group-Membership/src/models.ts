@@ -11,7 +11,7 @@ export class ResourceModel extends BaseModel {
     @Exclude()
     protected readonly IDENTIFIER_KEY_GROUPID: string = '/properties/GroupId';
     @Exclude()
-    protected readonly IDENTIFIER_KEY_USER: string = '/properties/User';
+    protected readonly IDENTIFIER_KEY_USER_USERID: string = '/properties/User/UserId';
 
     @Expose({ name: 'GroupId' })
     @Transform(
@@ -25,9 +25,6 @@ export class ResourceModel extends BaseModel {
     @Expose({ name: 'User' })
     @Type(() => User)
     user?: Optional<User>;
-    @Expose({ name: 'GroupMembership' })
-    @Type(() => GroupMembership)
-    groupMembership?: Optional<GroupMembership>;
 
     @Exclude()
     public getPrimaryIdentifier(): Dict {
@@ -36,8 +33,8 @@ export class ResourceModel extends BaseModel {
             identifier[this.IDENTIFIER_KEY_GROUPID] = this.groupId;
         }
 
-        if (this.user != null) {
-            identifier[this.IDENTIFIER_KEY_USER] = this.user;
+        if (this.user != null && this.user.userId != null) {
+            identifier[this.IDENTIFIER_KEY_USER_USERID] = this.user.userId;
         }
 
         // only return the identifier if it can be used, i.e. if all components are present
@@ -74,25 +71,6 @@ export class User extends BaseModel {
         }
     )
     userLogin?: Optional<string>;
-
-}
-
-export class GroupMembership extends BaseModel {
-    ['constructor']: typeof GroupMembership;
-
-
-    @Expose({ name: 'GroupId' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'groupId', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    groupId?: Optional<string>;
-    @Expose({ name: 'User' })
-    @Type(() => User)
-    user?: Optional<User>;
 
 }
 
