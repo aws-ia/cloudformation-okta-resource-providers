@@ -11,7 +11,7 @@ export class ResourceModel extends BaseModel {
     @Exclude()
     protected readonly IDENTIFIER_KEY_GROUPID: string = '/properties/GroupId';
     @Exclude()
-    protected readonly IDENTIFIER_KEY_USER_USERID: string = '/properties/User/UserId';
+    protected readonly IDENTIFIER_KEY_USERID: string = '/properties/UserId';
 
     @Expose({ name: 'GroupId' })
     @Transform(
@@ -22,9 +22,15 @@ export class ResourceModel extends BaseModel {
         }
     )
     groupId?: Optional<string>;
-    @Expose({ name: 'User' })
-    @Type(() => User)
-    user?: Optional<User>;
+    @Expose({ name: 'UserId' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'userId', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    userId?: Optional<string>;
 
     @Exclude()
     public getPrimaryIdentifier(): Dict {
@@ -33,8 +39,8 @@ export class ResourceModel extends BaseModel {
             identifier[this.IDENTIFIER_KEY_GROUPID] = this.groupId;
         }
 
-        if (this.user != null && this.user.userId != null) {
-            identifier[this.IDENTIFIER_KEY_USER_USERID] = this.user.userId;
+        if (this.userId != null) {
+            identifier[this.IDENTIFIER_KEY_USERID] = this.userId;
         }
 
         // only return the identifier if it can be used, i.e. if all components are present
@@ -47,31 +53,6 @@ export class ResourceModel extends BaseModel {
         // only return the identifiers if any can be used
         return identifiers.length === 0 ? null : identifiers;
     }
-}
-
-export class User extends BaseModel {
-    ['constructor']: typeof User;
-
-
-    @Expose({ name: 'UserId' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'userId', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    userId?: Optional<string>;
-    @Expose({ name: 'UserLogin' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'userLogin', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    userLogin?: Optional<string>;
-
 }
 
 export class TypeConfigurationModel extends BaseModel {

@@ -1,7 +1,7 @@
 {
     "typeName": "Okta::Group::Membership",
-    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
-    "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "description": "Adds Okta users to groups",
+    "sourceUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers/tree/main/Okta-Group-Membership",
     "typeConfiguration": {
         "properties": {
             "OktaAccess": {
@@ -24,51 +24,28 @@
                 }
             },
             "additionalProperties": false
-        },
-        "User": {
-            "type": "object",
-            "properties": {
-                "UserId": {
-                    "type": "string"
-                },
-                "UserLogin": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false
-        },
-        "GroupMembership": {
-            "type": "object",
-            "properties": {
-                "GroupId": {
-                    "type": "string"
-                },
-                "User": {
-                    "$ref": "#/definitions/User"
-                }
-            },
-            "additionalProperties": false
         }
     },
     "properties": {
         "GroupId": {
             "type": "string"
         },
-        "User": {
-            "$ref": "#/definitions/User"
+        "UserId": {
+            "type": "string"
         }
     },
     "additionalProperties": false,
     "required": [
-        "GroupId"
+        "GroupId", 
+        "UserId"
     ],
     "primaryIdentifier": [
         "/properties/GroupId",
-        "/properties/User/UserId"
+        "/properties/UserId"
     ],
     "createOnlyProperties": [
         "/properties/GroupId",
-        "/properties/User/UserId"
+        "/properties/UserId"
     ],
     "handlers": {
         "create": {
