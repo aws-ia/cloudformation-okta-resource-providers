@@ -18,6 +18,16 @@ export abstract class AbstractOktaResource<ResourceModelType extends BaseModel, 
             : e.response
                 ? e.response.status
                 : null;
+
+        let errorCauses = (<any> e.response?.data)?.errorCauses
+        if (Array.isArray(errorCauses) && errorCauses.length > 0) {
+            errorCauses.forEach(function(item) {
+                if ((<string>item.errorSummary).indexOf("An object with this field already exists in the current organization") > 0) {
+                    throw new exceptions.AlreadyExists(this.typeName, "id")
+                }
+            })
+        }
+
         switch (status) {
             case 400:
                 throw new exceptions.InvalidRequest(errorMessage);
