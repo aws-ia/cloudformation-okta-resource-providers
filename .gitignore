@@ -1,2 +1,5 @@
 .idea
 rpdk.log
+.env
+.venv
+

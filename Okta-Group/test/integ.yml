@@ -1,0 +1,9 @@
+Resources:
+  
+  MyGroup:
+    Type: Okta::Group::Group
+    Properties:
+      Profile:
+        Name: MyGroup
+        Description: Testing
+
