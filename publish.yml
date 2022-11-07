@@ -9,7 +9,7 @@ Resources:
     Type: AWS::CloudFormation::ResourceVersion
     Properties:
       SchemaHandlerPackage: !Ref SchemaPackageURL 
-      TypeName: Okta::Group::Group
+      TypeName: MyOrg::MyService::MyType 
   ResourceDefaultVersion:    
     Type: AWS::CloudFormation::ResourceDefaultVersion
     DependsOn: PrivateResourceVersion
@@ -25,4 +25,4 @@ Resources:
     DependsOn: Publisher
     Properties:
       Type: RESOURCE
-      TypeName: Okta::Group::Group
+      TypeName: MyOrg::MyService::MyType
