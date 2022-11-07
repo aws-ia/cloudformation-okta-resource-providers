@@ -4,6 +4,6 @@ Resources:
     Type: Okta::Group::Group
     Properties:
       Profile:
-        Name: MyGroup
+        Name: GROUP_NAME
         Description: Testing
 
