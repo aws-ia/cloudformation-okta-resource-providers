@@ -23,6 +23,8 @@ phases:
       - echo Entered the build phase...
       - npm install && npm run build
       - cd $RESOURCE_PATH
+      - TYPE_NAME=$(cat .rpdk-config | jq -r .typeName)
+      - echo "TYPE_NAME is $TYPE_NAME"
       - ./setup.sh
       - cfn validate
       - cfn generate

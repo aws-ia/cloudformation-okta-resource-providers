@@ -23,11 +23,13 @@ phases:
       - echo Entered the build phase...
       - npm install && npm run build
       - cd $RESOURCE_PATH
+      - TYPE_NAME=$(cat .rpdk-config | jq -r .typeName)
       - ./setup.sh
       - cfn validate
       - cfn generate
       - npm install && npm run build
       - python get_type_configuration.py
+      - aws cloudformation set-type-configuration --type RESOURCE --type-name $TYPE_NAME --configuration-alias default --configuration $(cat ~/.cfn-cli/typeConfiguration.json| jq -c)
       - cfn submit --set-default
       - INTEG_STACK_NAME="integ-$(echo $RESOURCE_PATH | tr '[:upper:]' '[:lower:]')"
       - aws cloudformation create-stack --stack-name $INTEG_STACK_NAME --template-body file://test/integ.yml
