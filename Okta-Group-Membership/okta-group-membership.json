@@ -24,41 +24,14 @@
                 }
             },
             "additionalProperties": false
-        },
-        "User": {
-            "type": "object",
-            "properties": {
-                "UserId": {
-                    "type": "string"
-                },
-                "UserLogin": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false
-        },
-        "GroupMembership": {
-            "type": "object",
-            "properties": {
-                "GroupId": {
-                    "type": "string"
-                },
-                "User": {
-                    "$ref": "#/definitions/User"
-                }
-            },
-            "additionalProperties": false
         }
     },
     "properties": {
         "GroupId": {
             "type": "string"
         },
-        "User": {
-            "$ref": "#/definitions/User"
-        },
-        "GroupMembership": {
-            "$ref": "#/definitions/GroupMembership"
+        "UserId": {
+            "type": "string"
         }
     },
     "additionalProperties": false,
@@ -67,14 +40,11 @@
     ],
     "primaryIdentifier": [
         "/properties/GroupId",
-        "/properties/User"
+        "/properties/UserId"
     ],
     "createOnlyProperties": [
         "/properties/GroupId",
-        "/properties/User"
-    ],
-    "readOnlyProperties": [
-        "/properties/GroupMembership"
+        "/properties/UserId"
     ],
     "handlers": {
         "create": {
