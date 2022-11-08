@@ -1,15 +1,10 @@
 {
   "CREATE": {
     "/GroupId": "<OKTA_GROUP_ID>",
-    "/User": {
-      "UserId": "<OKTA_USER_ID>"
-    }
+    "/UserId": "<OKTA_USER_ID>"
   },
   "UPDATE": {
     "/GroupId": "<OKTA_GROUP_ID>",
-    "/User": {
-      "UserId": "<OKTA_USER_ID>"
-    }
+    "/UserId": "<OKTA_USER_ID>"
   }
 }
-
