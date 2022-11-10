@@ -1,6 +1,6 @@
 # Okta::Group::Membership
 
-An example resource schema demonstrating some basic constructs and validation rules.
+Adds Okta users to groups
 
 ## Syntax
 
@@ -39,7 +39,7 @@ _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/l
 
 #### UserId
 
-_Required_: No
+_Required_: Yes
 
 _Type_: String
 

@@ -16,3 +16,7 @@ coverage/
 
 # contains credentials
 sam-tests/
+.env/
+.venv/
+
+okta-group-group.zip

@@ -1,7 +1,7 @@
 {
     "typeName": "Okta::Group::Membership",
-    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
-    "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "description": "Adds Okta users to groups",
+    "sourceUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers/tree/main/Okta-Group-Membership",
     "typeConfiguration": {
         "properties": {
             "OktaAccess": {
@@ -36,7 +36,8 @@
     },
     "additionalProperties": false,
     "required": [
-        "GroupId"
+        "GroupId", 
+        "UserId"
     ],
     "primaryIdentifier": [
         "/properties/GroupId",
