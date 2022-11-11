@@ -1,6 +1,6 @@
 # Okta::Group::Group
 
-An example resource schema demonstrating some basic constructs and validation rules.
+An experimental resource that creates an Okta group
 
 ## Syntax
 
