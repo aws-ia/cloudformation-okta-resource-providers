@@ -26,10 +26,11 @@ def get_secret():
     if not os.path.exists(config_dir):
         os.makedirs(config_dir)
 
-    with open(os.path.join(config_dir, "typeConfiguration.json"), "w") as f:
+    full_path = os.path.join(config_dir, "typeConfiguration.json")
+    with open(full_path, "w") as f:
         f.write(secret)
 
-    print("Wrote typeConfiguration.json to", config_dir)
+    print(full_path)
 
 
 if __name__ == "__main__":

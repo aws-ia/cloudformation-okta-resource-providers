@@ -10,15 +10,28 @@ phases:
       - export PATH="/usr/local/bin:$PATH"
       - /usr/local/bin/dockerd-entrypoint.sh
       - cat /var/log/docker.log
-      - cd $RESOURCE_PATH
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+      - export NVM_DIR="$HOME/.nvm"
+      - echo "Loading nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm install 14 && nvm install-latest-npm
+      - npm --version
+      - node --version
       - pwd
       - ls
 
   build:
     commands:
       - echo Entered the build phase...
+      - npm install && npm run build
+      - cd $RESOURCE_PATH
+      - pwd
+      - ls
+      - npm install && npm run build
+      - ./setup.sh
       - ../deregister-all.sh us-east-1
       - ../publish.sh us-east-1
       - ../release/deregister-all.sh us-west-2
       - ../publish.sh us-west-2
+    finally:
+      - cat rpdk.log
+      - ./cleanup.sh    
 
