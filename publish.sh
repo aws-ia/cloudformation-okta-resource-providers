@@ -30,6 +30,12 @@ echo ""
 cfn submit --dry-run
 echo ""
 
+# Set the type configuration
+echo "About to set type configuration"
+TYPE_CONFIG_PATH=$(python get_type_configuration.py)
+echo "TYPE_CONFIG_PATH is $TYPE_CONFIG_PATH"
+aws cloudformation set-type-configuration --type RESOURCE --type-name $TYPE_NAME --configuration-alias default --configuration $(cat ${TYPE_CONFIG_PATH} | jq -c "")
+
 # For example, awscommunity-s3-deletebucketcontents
 TYPE_NAME_LOWER="$(echo $TYPE_NAME | sed s/::/-/g | tr '[:upper:]' '[:lower:]')"
 echo "TYPE_NAME_LOWER is $TYPE_NAME_LOWER"
@@ -97,7 +103,7 @@ echo "describe-type-registration"
 aws cloudformation --region $AWS_REGION describe-type-registration --registration-token $TOKEN
 
 echo "describe-type"
-aws cloudformation --region $AWS_REGION describe-type --type RESOURCE --type-name $TYPE_NAME
+aws --no-cli-pager cloudformation --region $AWS_REGION describe-type --type RESOURCE --type-name $TYPE_NAME
 
 sleep 5
 
