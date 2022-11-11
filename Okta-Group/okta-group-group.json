@@ -1,6 +1,6 @@
 {
     "typeName": "Okta::Group::Group",
-    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+    "description": "An experimental resource that creates an Okta group",
     "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
     "typeConfiguration": {
         "properties": {
