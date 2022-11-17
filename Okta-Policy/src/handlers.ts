@@ -1,5 +1,5 @@
 import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
-import {Policy, ResourceModel, TypeConfigurationModel} from './models';
+import {ResourceModel, TypeConfigurationModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
 import {CaseTransformer, Transformer} from "../../Okta-Common/src/util";
 
@@ -7,7 +7,6 @@ import {version} from '../package.json';
 
 interface CallbackContext extends Record<string, any> {}
 
-type Policies = Policy[];
 const PolicyTypes = [
     "OKTA_SIGN_ON",
     "PASSWORD",
@@ -15,42 +14,37 @@ const PolicyTypes = [
     "IDP_DISCOVERY"
 ]
 
-class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Policy, TypeConfigurationModel> {
+class Resource extends AbstractOktaResource<ResourceModel, ResourceModel, ResourceModel, ResourceModel, TypeConfigurationModel> {
 
     private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
 
     async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Policy>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'get',
             `/api/v1/policies/${model.id}`);
         return new ResourceModel(response.data);
     }
 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel[]> {
-        delete model.settings
         let results = <ResourceModel[]>[];
         for (const type of PolicyTypes) {
             results = results.concat(await this.listType(model, typeConfiguration, type));
         }
         return results;
-        // return response.data.map(app => this.setModelFrom(new ResourceModel(), new Policy(app)));
     }
 
     async listType(model: ResourceModel, typeConfiguration: TypeConfigurationModel, type: string): Promise<ResourceModel[]> {
-        delete model.settings
-
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Policies>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel[]>(
             'get',
             `/api/v1/policies`,
             {
                 "type": type
             });
 
-        return response.data.map(app => this.setModelFrom(new ResourceModel(), new Policy(app)));
+        return response.data.map(app => this.setModelFrom(new ResourceModel(), new ResourceModel(app)));
     }
 
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        delete model.policy;
         let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'post',
             `/api/v1/policies`,
@@ -64,8 +58,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
     async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
         let modelToUpdate = new ResourceModel(model);
         delete modelToUpdate.id
-        delete modelToUpdate.policy
-        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Policy>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'put',
             `/api/v1/policies/${model.id}`,
             {},
@@ -78,7 +71,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
     async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<void> {
         this.loggerProxy?.log("Deleting: ");
         this.loggerProxy?.log(`/api/v1/policies/${model.id}`);
-        await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Policy>(
+        await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'delete',
             `/api/v1/policies/${model.id}`);
     }
@@ -87,7 +80,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
         return new ResourceModel(partial);
     }
 
-    setModelFrom(model: ResourceModel, from: Policy | undefined): ResourceModel {
+    setModelFrom(model: ResourceModel, from: ResourceModel | undefined): ResourceModel {
         if (!from) {
             return model;
         }
@@ -111,6 +104,8 @@ class Resource extends AbstractOktaResource<ResourceModel, Policy, Policy, Polic
         delete (<any>result)?.created
         delete (<any>result)?.system;
         delete (<any>result)?.status;
+        delete (<any>result)?._links;
+        delete (<any>result)?.iDENTIFIER_KEY_ID;
 
         return result;
     }

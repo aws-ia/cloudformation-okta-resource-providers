@@ -16,8 +16,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
         "<a href="#name" title="Name">Name</a>" : <i>String</i>,
         "<a href="#description" title="Description">Description</a>" : <i>String</i>,
         "<a href="#priority" title="Priority">Priority</a>" : <i>Integer</i>,
-        "<a href="#conditions" title="Conditions">Conditions</a>" : <i>Map</i>,
-        "<a href="#settings" title="Settings">Settings</a>" : <i>Map</i>,
+        "<a href="#conditions" title="Conditions">Conditions</a>" : <i>Map</i>
     }
 }
 </pre>
@@ -32,7 +31,6 @@ Properties:
     <a href="#description" title="Description">Description</a>: <i>String</i>
     <a href="#priority" title="Priority">Priority</a>: <i>Integer</i>
     <a href="#conditions" title="Conditions">Conditions</a>: <i>Map</i>
-    <a href="#settings" title="Settings">Settings</a>: <i>Map</i>
 </pre>
 
 ## Properties
@@ -87,14 +85,6 @@ _Type_: Map
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### Settings
-
-_Required_: No
-
-_Type_: Map
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
 ## Return Values
 
 ### Ref
@@ -110,8 +100,4 @@ For more information about using the `Fn::GetAtt` intrinsic function, see [Fn::G
 #### Id
 
 Identifier of the Policy
-
-#### Policy
-
-Returns the <code>Policy</code> value.
 
