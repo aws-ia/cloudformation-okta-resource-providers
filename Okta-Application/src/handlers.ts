@@ -1,5 +1,5 @@
 import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
-import {Application, ResourceModel, TypeConfigurationModel} from './models';
+import {ResourceModel, TypeConfigurationModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
 import {CaseTransformer, Transformer} from "../../Okta-Common/src/util";
 
@@ -7,21 +7,19 @@ import {version} from '../package.json';
 
 interface CallbackContext extends Record<string, any> {}
 
-type Applications = Application[];
-
-class Resource extends AbstractOktaResource<ResourceModel, Application, Application, Application, TypeConfigurationModel> {
+class Resource extends AbstractOktaResource<ResourceModel, ResourceModel, ResourceModel, ResourceModel, TypeConfigurationModel> {
 
     private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
 
     async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Application>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'get',
             `/api/v1/apps/${model.id}`);
         return new ResourceModel(response.data);
     }
 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel[]> {
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Applications>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel[]>(
             'get',
             `/api/v1/apps`);
 
@@ -40,7 +38,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
     }
 
     async update(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Application>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'put',
             `/api/v1/apps/${model.id}`,
             {},
@@ -50,7 +48,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
     }
 
     async deactivate(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Application>(
+        let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'post',
             `/api/v1/apps/${model.id}/lifecycle/deactivate`,
             {},
@@ -60,8 +58,13 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
     }
 
     async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<void> {
-        await this.deactivate(model, typeConfiguration);
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Application>(
+        try {
+            await this.deactivate(model, typeConfiguration);
+        }
+        catch {
+
+        }
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'delete',
             `/api/v1/apps/${model.id}`);
     }
@@ -88,10 +91,16 @@ class Resource extends AbstractOktaResource<ResourceModel, Application, Applicat
         });
         // Special case for unusual capitalisation
         result.visibility.hide.ios = (<any>from?.visibility?.hide)?.iOS;
+        delete (<any>result?.visibility?.hide)?.iOS;
         // Delete a couple of unused fields that are returned by the API
         // as they are subject to change server-side
         delete (<any>result)?.lastUpdated;
         delete (<any>result)?.status;
+        delete (<any>result)?._links;
+        delete (<any>result)?.features;
+        delete (<any>result)?.created;
+        delete (<any>result)?.iDENTIFIER_KEY_ID;
+        delete (<any>result)?.visibility?.appLinks;
         return result;
     }
 }
