@@ -1,34 +1,32 @@
 import {AbstractOktaResource} from "../../Okta-Common/src/abstract-okta-resource";
-import {Group, ResourceModel, TypeConfigurationModel} from './models';
+import {ResourceModel, TypeConfigurationModel} from './models';
 import {OktaClient} from "../../Okta-Common/src/okta-client";
 
 import {version} from '../package.json';
 
 interface CallbackContext extends Record<string, any> {}
 
-type Groups = Group[];
-
-class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group, TypeConfigurationModel> {
+class Resource extends AbstractOktaResource<ResourceModel, ResourceModel, ResourceModel, ResourceModel, TypeConfigurationModel> {
 
     private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
 
     async get(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Group>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'get',
             `/api/v1/groups/${model.id}`);
         return new ResourceModel(response.data);
     }
 
     async list(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel[]> {
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Groups>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel[]>(
             'get',
             `/api/v1/groups`);
 
-        return response.data.map(group => this.setModelFrom(new ResourceModel(), new Group(group)));
+        return response.data.map(group => this.setModelFrom(new ResourceModel(), new ResourceModel(group)));
     }
 
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Group>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'post',
             `/api/v1/groups`,
             {},
@@ -41,7 +39,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group, 
         let modelForDelete: ResourceModel = new ResourceModel({
             profile: model.profile
         });
-        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Group>(
+        const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'put',
             `/api/v1/groups/${model.id}`,
             {},
@@ -51,7 +49,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group, 
     }
 
     async delete(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<void> {
-        await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<Group>(
+        await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'delete',
             `/api/v1/groups/${model.id}`);
     }
@@ -60,7 +58,7 @@ class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group, 
         return new ResourceModel(partial);
     }
 
-    setModelFrom(model: ResourceModel, from: Group | undefined): ResourceModel {
+    setModelFrom(model: ResourceModel, from: ResourceModel | undefined): ResourceModel {
         if (!from) {
             return model;
         }
@@ -72,6 +70,10 @@ class Resource extends AbstractOktaResource<ResourceModel, Group, Group, Group, 
         // as they are subject to change server-side
         delete (<any>result)?.lastUpdated;
         delete (<any>result)?.created;
+        delete (<any>result)?._links;
+        delete (<any>result)?.lastMembershipUpdated;
+        delete (<any>result)?.objectClass;
+        delete (<any>result)?.type;
         return result;
     }
 
