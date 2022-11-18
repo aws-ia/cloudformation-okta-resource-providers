@@ -24,20 +24,6 @@
                 }
             },
             "additionalProperties": false
-        },
-        "GroupApplicationAssociation": {
-            "type": "object",
-            "properties": {
-                "ApplicationId": {
-                    "type": "string",
-                    "description": "id of an app"
-                },
-                "GroupId": {
-                    "type": "string",
-                    "description": "unique key of a valid Group"
-                }
-            },
-            "additionalProperties": false
         }
     },
     "properties": {
@@ -48,9 +34,6 @@
         "GroupId": {
             "type": "string",
             "description": "unique key of a valid Group"
-        },
-        "GroupApplicationAssociation": {
-            "$ref": "#/definitions/GroupApplicationAssociation"
         }
     },
     "additionalProperties": false,
@@ -61,9 +44,6 @@
     "createOnlyProperties": [
         "/properties/ApplicationId",
         "/properties/GroupId"
-    ],
-    "readOnlyProperties": [
-        "/properties/GroupApplicationAssociation"
     ],
     "primaryIdentifier": [
         "/properties/ApplicationId",
@@ -76,13 +56,7 @@
         "read": {
             "permissions": []
         },
-        "update": {
-            "permissions": []
-        },
         "delete": {
-            "permissions": []
-        },
-        "list": {
             "permissions": []
         }
     }

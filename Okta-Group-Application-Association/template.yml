@@ -12,13 +12,13 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: dist/Okta-Group-Application-Association/src/handlers.testEntrypoint
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
       CodeUri: ./
 
   TypeFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: dist/Okta-Group-Application-Association/src/handlers.entrypoint
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
       CodeUri: ./
 

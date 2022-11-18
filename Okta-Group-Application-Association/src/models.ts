@@ -31,9 +31,6 @@ export class ResourceModel extends BaseModel {
         }
     )
     groupId?: Optional<string>;
-    @Expose({ name: 'GroupApplicationAssociation' })
-    @Type(() => GroupApplicationAssociation)
-    groupApplicationAssociation?: Optional<GroupApplicationAssociation>;
 
     @Exclude()
     public getPrimaryIdentifier(): Dict {
@@ -56,31 +53,6 @@ export class ResourceModel extends BaseModel {
         // only return the identifiers if any can be used
         return identifiers.length === 0 ? null : identifiers;
     }
-}
-
-export class GroupApplicationAssociation extends BaseModel {
-    ['constructor']: typeof GroupApplicationAssociation;
-
-
-    @Expose({ name: 'ApplicationId' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'applicationId', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    applicationId?: Optional<string>;
-    @Expose({ name: 'GroupId' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'groupId', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    groupId?: Optional<string>;
-
 }
 
 export class TypeConfigurationModel extends BaseModel {
