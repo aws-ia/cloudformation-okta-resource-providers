@@ -41,19 +41,6 @@
             "required": [
                 "Name"
             ]
-        },
-        "Group": {
-            "type": "object",
-            "properties": {
-                "Id": {
-                    "type": "string",
-                    "description": "Unique key for Group"
-                },
-                "Profile": {
-                    "$ref": "#/definitions/Profile"
-                }
-            },
-            "additionalProperties": false
         }
     },
     "properties": {
@@ -63,9 +50,6 @@
         },
         "Profile": {
             "$ref": "#/definitions/Profile"
-        },
-        "Group": {
-            "$ref": "#/definitions/Group"
         }
     },
     "additionalProperties": false,
@@ -73,8 +57,7 @@
         "Profile"
     ],
     "readOnlyProperties": [
-        "/properties/Id",
-        "/properties/Group"
+        "/properties/Id"
     ],
     "primaryIdentifier": [
         "/properties/Id"

@@ -12,7 +12,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 {
     "Type" : "Okta::Group::Group",
     "Properties" : {
-        "<a href="#profile" title="Profile">Profile</a>" : <i><a href="profile.md">Profile</a></i>,
+        "<a href="#profile" title="Profile">Profile</a>" : <i><a href="profile.md">Profile</a></i>
     }
 }
 </pre>
@@ -50,8 +50,4 @@ For more information about using the `Fn::GetAtt` intrinsic function, see [Fn::G
 #### Id
 
 Unique key for Group
-
-#### Group
-
-Returns the <code>Group</code> value.
 

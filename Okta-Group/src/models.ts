@@ -23,9 +23,6 @@ export class ResourceModel extends BaseModel {
     @Expose({ name: 'Profile' })
     @Type(() => Profile)
     profile?: Optional<Profile>;
-    @Expose({ name: 'Group' })
-    @Type(() => Group)
-    group?: Optional<Group>;
 
     @Exclude()
     public getPrimaryIdentifier(): Dict {
@@ -68,25 +65,6 @@ export class Profile extends BaseModel {
         }
     )
     description?: Optional<string>;
-
-}
-
-export class Group extends BaseModel {
-    ['constructor']: typeof Group;
-
-
-    @Expose({ name: 'Id' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'id', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    id?: Optional<string>;
-    @Expose({ name: 'Profile' })
-    @Type(() => Profile)
-    profile?: Optional<Profile>;
 
 }
 
