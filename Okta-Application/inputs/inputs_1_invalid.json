@@ -1,0 +1,16 @@
+{
+  "Settings": {
+    "App": {
+      "Url": 1234,
+      "AuthURL": 5678
+    }
+  },
+  "Accessibility": {
+    "ErrorRedirectUrl": "http://myerrorurl.com",
+    "LoginRedirectUrl": "http://myloginurl.com",
+    "SelfService": false
+  },
+  "Name": "invalid_name",
+  "Label": "New SAM Label",
+  "SignOnMode": "BASIC_AUTH"
+}
