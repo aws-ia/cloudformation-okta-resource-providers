@@ -1,0 +1,15 @@
+{
+  "Type": "OKTA_SIGN_ON",
+  "Name": "My Updated Group Policy",
+  "Description": "Updated Description of My Group Policy",
+  "Conditions": {
+    "People": {
+      "Groups": {
+        "Include": [
+          "<GROUP_ID>"
+        ]
+      }
+    }
+  },
+  "Priority": 1
+}

@@ -1,0 +1,15 @@
+{
+  "Type": "OKTA_SIGN_ON",
+  "Name": "My Group Policy",
+  "Description": "Description of My Group Policy",
+  "Conditions": {
+    "People": {
+      "Groups": {
+        "Include": [
+          "<GROUP_ID>"
+        ]
+      }
+    }
+  },
+  "Priority": 1
+}
