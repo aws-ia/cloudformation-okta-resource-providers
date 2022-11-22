@@ -1,7 +1,8 @@
 {
     "typeName": "Okta::Group::Group",
-    "description": "An experimental resource that creates an Okta group",
-    "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "description": "Manages an Okta Group",
+    "sourceUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers.git",
+    "documentationUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers",
     "typeConfiguration": {
         "properties": {
             "OktaAccess": {

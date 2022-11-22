@@ -1,7 +1,8 @@
 {
     "typeName": "Okta::Group::Membership",
     "description": "Adds Okta users to groups",
-    "sourceUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers/tree/main/Okta-Group-Membership",
+    "sourceUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers.git",
+    "documentationUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers",
     "typeConfiguration": {
         "properties": {
             "OktaAccess": {

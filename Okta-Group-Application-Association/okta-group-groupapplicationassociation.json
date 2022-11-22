@@ -1,7 +1,8 @@
 {
     "typeName": "Okta::Group::GroupApplicationAssociation",
-    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
-    "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "description": "Manage Groups assigned to an Application",
+    "sourceUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers.git",
+    "documentationUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers",
     "typeConfiguration": {
         "properties": {
             "OktaAccess": {

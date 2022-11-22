@@ -1,7 +1,8 @@
 {
   "typeName": "Okta::Application::Application",
   "description": "Manage an Application in Okta.",
-  "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+  "sourceUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers.git",
+  "documentationUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers",
   "typeConfiguration": {
     "properties": {
       "OktaAccess": {
