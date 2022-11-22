@@ -1,6 +1,6 @@
 {
     "typeName": "Okta::Policy::Policy",
-    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+    "description": "Manages an Okta Policy",
     "sourceUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers.git",
     "documentationUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers",
     "typeConfiguration": {
