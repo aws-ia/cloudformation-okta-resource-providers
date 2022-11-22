@@ -1,6 +1,6 @@
 {
     "typeName": "Okta::Group::Group",
-    "description": "An experimental resource that creates an Okta group",
+    "description": "Manages an Okta Group",
     "sourceUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers.git",
     "documentationUrl": "https://github.com/aws-ia/cloudformation-okta-resource-providers",
     "typeConfiguration": {
