@@ -1,6 +1,6 @@
 # Okta::Policy::Policy
 
-An example resource schema demonstrating some basic constructs and validation rules.
+Manages an Okta Policy
 
 ## Syntax
 

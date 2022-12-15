@@ -4,7 +4,7 @@
 #
 # Does not un-publish any published versions.
 #
-# Run this from the resource directory, for example `Okta-Group/`
+# Run this from the resource directory, for example `GitHub-Repositories-Repository/`
 #
 # Args
 #

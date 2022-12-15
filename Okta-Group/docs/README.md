@@ -1,6 +1,6 @@
 # Okta::Group::Group
 
-An experimental resource that creates an Okta group
+Manages an Okta Group
 
 ## Syntax
 

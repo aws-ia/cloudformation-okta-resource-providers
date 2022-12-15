@@ -29,7 +29,7 @@ phases:
       - ./setup.sh
       - ../deregister-all.sh us-east-1
       - ../publish.sh us-east-1
-      - ../release/deregister-all.sh us-west-2
+      - ../deregister-all.sh us-west-2
       - ../publish.sh us-west-2
     finally:
       - cat rpdk.log
