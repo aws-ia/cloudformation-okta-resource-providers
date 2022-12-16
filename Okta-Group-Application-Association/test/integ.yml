@@ -1,6 +1,7 @@
 Resources:
 
   MyAppAssoc:
+    Type: Okta::Group::GroupApplicationAssociation
     Properties:
       GroupId: GROUP_ID
       ApplicationId: APPLICATION_ID
