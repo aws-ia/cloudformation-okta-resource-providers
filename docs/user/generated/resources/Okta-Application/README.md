@@ -19,7 +19,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
         "<a href="#requestobjectsigningalg" title="RequestObjectSigningAlg">RequestObjectSigningAlg</a>" : <i>String</i>,
         "<a href="#settings" title="Settings">Settings</a>" : <i>Map</i>,
         "<a href="#signonmode" title="SignOnMode">SignOnMode</a>" : <i>String</i>,
-        "<a href="#visibility" title="Visibility">Visibility</a>" : <i><a href="visibility.md">Visibility</a></i>,
+        "<a href="#visibility" title="Visibility">Visibility</a>" : <i><a href="visibility.md">Visibility</a></i>
     }
 }
 </pre>
@@ -136,8 +136,4 @@ For more information about using the `Fn::GetAtt` intrinsic function, see [Fn::G
 #### Id
 
 Unique key for app
-
-#### Application
-
-Application returned by Okta API
 

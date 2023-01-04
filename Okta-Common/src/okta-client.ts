@@ -26,7 +26,10 @@ export class OktaClient {
     }
 
     public async doRequest<ResponseType>(method: 'get' | 'put' | 'post' | 'delete', path: string, params: any = {}, body?: {}, logger?: LoggerProxy): Promise<AxiosResponse<ResponseType>> {
-        return await axios.request<ResponseType>({
+
+        console.log(`About to call ${this.baseUrl}${path}`);
+        console.log(body);
+        const resp = await axios.request<ResponseType>({
             url: `${this.baseUrl}${path}`,
             params: params,
             method: method,
@@ -38,6 +41,8 @@ export class OktaClient {
                 'User-Agent': this.userAgent || "AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource"
             }
         });
+        console.log(resp);
+        return resp;
     }
 
     public async paginate<ResponseType extends PaginatedResponseType, ResultType>(method: 'get' | 'put' | 'post' | 'delete', path: string, transform: (response: AxiosResponse<ResponseType>) => ResultType[], params: any = {}, body?: {}): Promise<ResultType[]> {

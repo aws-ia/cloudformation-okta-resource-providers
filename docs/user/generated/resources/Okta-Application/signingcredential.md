@@ -26,7 +26,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 Reference for key credential for the app
 
-_Required_: Yes
+_Required_: No
 
 _Type_: String
 
