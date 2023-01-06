@@ -23,3 +23,5 @@ okta-group-membership.zip
 
 *.zip
 test/integ.yml
+inputs/
+
