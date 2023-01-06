@@ -21,3 +21,7 @@ okta-group-membership.zip
 .env
 .venv
 
+*.zip
+test/integ.yml
+inputs/
+

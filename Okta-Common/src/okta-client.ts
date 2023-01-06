@@ -41,7 +41,7 @@ export class OktaClient {
                 'User-Agent': this.userAgent || "AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource"
             }
         });
-        console.log(resp);
+        //console.log(resp);
         return resp;
     }
 

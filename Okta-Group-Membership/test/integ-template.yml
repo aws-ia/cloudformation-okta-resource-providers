@@ -3,6 +3,6 @@ Resources:
   AddUserToGroup:
     Type: Okta::Group::Membership
     Properties:
-      UserId: 00u2rwlocoelECtwM697
-      GroupId: 00g2rfcb5bhGT68tW697
+      UserId: USER_ID
+      GroupId: GROUP_ID
 
