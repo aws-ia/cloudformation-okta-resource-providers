@@ -27,6 +27,10 @@ class Resource extends AbstractOktaResource<ResourceModel, ResourceModel, Resour
     }
 
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
+        console.info("create model", model);
+        console.info("model.toJSON()", model.toJSON());
+        // TODO - This is broken. The API expects lower case properties, 
+        // but model.toJSON() returns all upper case.
         let response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'post',
             `/api/v1/apps`,
