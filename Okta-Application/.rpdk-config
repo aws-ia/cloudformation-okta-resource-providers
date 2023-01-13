@@ -17,5 +17,16 @@
         "target_schemas": [],
         "useDocker": false,
         "protocolVersion": "2.0.0"
+    },
+    "contractSettings":{
+        "typeConfiguration": {
+            "configuration": {
+                "OktaAccess": {
+                    "Url": "{{resolve:ssm-secure:/cfn/okta/url:1}}",
+                    "ApiKey": "{{resolve:ssm-secure:/cfn/okta/apikey:1}}"
+                }
+            },
+            "configurationAlias": "default"
+        }
     }
 }

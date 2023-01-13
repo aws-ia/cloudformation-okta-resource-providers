@@ -1,16 +1,16 @@
 {
   "Settings": {
     "App": {
-      "Url": "https://myurl2.com",
-      "AuthURL": "https://muauthurl2.com"
+      "Url": "https://myurl.com",
+      "AuthURL": "https://muauthurl.com",
+      "SiteURL": "https://myurl.com"
     }
   },
   "Accessibility": {
-    "ErrorRedirectUrl": "https://myerrorurl2.com",
-    "LoginRedirectUrl": "https://myloginurl2.com",
+    "ErrorRedirectUrl": "https://myerrorurl.com",
     "SelfService": false
   },
-  "Name": "test-app-1",
+  "Name": "test_app",
   "Label": "test-label-1-updated",
-  "SignOnMode": "BASIC_AUTH"
+  "SignOnMode": "SECURE_PASSWORD_STORE"
 }

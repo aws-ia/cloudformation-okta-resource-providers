@@ -10,7 +10,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 {
-    "<a href="#ios" title="Ios">Ios</a>" : <i>Boolean</i>,
+    "<a href="#ios" title="IOS">IOS</a>" : <i>Boolean</i>,
     "<a href="#web" title="Web">Web</a>" : <i>Boolean</i>
 }
 </pre>
@@ -18,13 +18,13 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 ### YAML
 
 <pre>
-<a href="#ios" title="Ios">Ios</a>: <i>Boolean</i>
+<a href="#ios" title="IOS">IOS</a>: <i>Boolean</i>
 <a href="#web" title="Web">Web</a>: <i>Boolean</i>
 </pre>
 
 ## Properties
 
-#### Ios
+#### IOS
 
 Okta Mobile for iOS or Android (pre-dates Android)
 
