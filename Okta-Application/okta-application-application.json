@@ -37,10 +37,6 @@
           "type": "string",
           "description": "Custom error page for this application"
         },
-        "LoginRedirectUrl": {
-          "type": "string",
-          "description": "Custom login page for this application"
-        },
         "SelfService": {
           "type": "boolean",
           "description": "Enable self-service application assignment",
@@ -201,7 +197,7 @@
       "description": "Hides this app for specific end-user apps",
       "type": "object",
       "properties": {
-        "Ios": {
+        "IOS": {
           "type": "boolean",
           "description": "Okta Mobile for iOS or Android (pre-dates Android)",
           "default": false
@@ -214,7 +210,7 @@
       },
       "additionalProperties": false,
       "required": [
-        "Ios",
+        "IOS",
         "Web"
       ]
     }
@@ -254,7 +250,25 @@
       ]
     },
     "Settings": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "App": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "SiteURL": {
+              "type": "string"
+            },
+            "AuthURL": {
+              "type": "string"
+            },
+            "Url": {
+              "type": "string"
+            }
+          }
+        }
+      }
     },
     "SignOnMode": {
       "$ref": "#/definitions/SignOnMode"
@@ -279,7 +293,9 @@
   ],
   "writeOnlyProperties": [
     "/properties/Credentials",
-    "/properties/RequestObjectSigningAlg"
+    "/properties/RequestObjectSigningAlg",
+    "/properties/Settings/App/Url",
+    "/properties/Settings/App/AuthURL"
   ],
   "handlers": {
     "create": {

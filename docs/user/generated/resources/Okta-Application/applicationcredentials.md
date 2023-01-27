@@ -15,6 +15,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "<a href="#scheme" title="Scheme">Scheme</a>" : <i>String</i>,
     "<a href="#signing" title="Signing">Signing</a>" : <i><a href="signingcredential.md">SigningCredential</a></i>,
     "<a href="#username" title="UserName">UserName</a>" : <i>String</i>,
+    "<a href="#revealpassword" title="RevealPassword">RevealPassword</a>" : <i>Boolean</i>,
     "<a href="#usernametemplate" title="UserNameTemplate">UserNameTemplate</a>" : <i><a href="usernametemplate.md">UserNameTemplate</a></i>
 }
 </pre>
@@ -27,6 +28,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 <a href="#scheme" title="Scheme">Scheme</a>: <i>String</i>
 <a href="#signing" title="Signing">Signing</a>: <i><a href="signingcredential.md">SigningCredential</a></i>
 <a href="#username" title="UserName">UserName</a>: <i>String</i>
+<a href="#revealpassword" title="RevealPassword">RevealPassword</a>: <i>Boolean</i>
 <a href="#usernametemplate" title="UserNameTemplate">UserNameTemplate</a>: <i><a href="usernametemplate.md">UserNameTemplate</a></i>
 </pre>
 
@@ -36,7 +38,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 Determines how to authenticate the OAuth 2.0 client
 
-_Required_: Yes
+_Required_: No
 
 _Type_: <a href="oauthcredential.md">OauthCredential</a>
 
@@ -68,7 +70,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 Determines the key used for signing assertions for the signOnMode
 
-_Required_: Yes
+_Required_: No
 
 _Type_: <a href="signingcredential.md">SigningCredential</a>
 
@@ -81,6 +83,16 @@ Shared username for app
 _Required_: No
 
 _Type_: String
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### RevealPassword
+
+Whether to reveal the credential password
+
+_Required_: No
+
+_Type_: Boolean
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 

@@ -1,6 +1,6 @@
 # Okta::Group::GroupApplicationAssociation
 
-An example resource schema demonstrating some basic constructs and validation rules.
+Manage Groups assigned to an Application
 
 ## Syntax
 

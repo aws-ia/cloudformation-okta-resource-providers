@@ -140,20 +140,16 @@ phases:
       - node --version
       - pwd
       - ls
-      - npm install && npm run build
   build:
     commands:
       - echo Entered the build phase...
-      - npm install && npm run build
       - cd $RESOURCE_PATH
       - pwd
       - ls
       - npm install && npm run build
       - ./setup.sh
-      - ../deregister-all.sh us-east-1
-      - ../publish.sh us-east-1
-      - ../release/deregister-all.sh us-west-2
-      - ../publish.sh us-west-2
+      - ../deregister-all.sh $PUBLISH_TO_REGION
+      - ../publish.sh $PUBLISH_TO_REGION
     finally:
       - cat rpdk.log
       - ./cleanup.sh    

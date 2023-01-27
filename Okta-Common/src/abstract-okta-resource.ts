@@ -12,14 +12,17 @@ export abstract class AbstractOktaResource<ResourceModelType extends BaseModel, 
     processRequestException(e: AxiosError<ApiErrorResponse>, request: ResourceHandlerRequest<ResourceModelType>) {
         const apiErrorResponse = e.response?.data;
         let errorMessage = apiErrorResponse?.message;
+        console.log(errorMessage)
 
         const status = e.status
             ? parseInt(e.status)
             : e.response
                 ? e.response.status
                 : null;
+        console.log(status)
 
         let errorCauses = (<any> e.response?.data)?.errorCauses
+        console.log(errorCauses)
         if (Array.isArray(errorCauses) && errorCauses.length > 0) {
             errorCauses.forEach(function(item) {
                 if ((<string>item.errorSummary).indexOf("An object with this field already exists in the current organization") > 0) {

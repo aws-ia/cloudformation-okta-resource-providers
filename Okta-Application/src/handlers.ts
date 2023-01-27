@@ -4,6 +4,7 @@ import {OktaClient} from "../../Okta-Common/src/okta-client";
 import {CaseTransformer, Transformer} from "../../Okta-Common/src/util";
 
 import {version} from '../package.json';
+import { Transform, classToPlain, plainToClass } from "class-transformer";
 
 interface CallbackContext extends Record<string, any> {}
 
@@ -31,7 +32,10 @@ class Resource extends AbstractOktaResource<ResourceModel, ResourceModel, Resour
             'post',
             `/api/v1/apps`,
             {},
-            model.toJSON(),
+            Transformer.for(model.toJSON())
+                .transformKeys(CaseTransformer.PASCAL_TO_CAMEL)
+                .forModelIngestion()
+                .transform(),
             this.loggerProxy);
 
         return new ResourceModel(response.data);
@@ -42,7 +46,10 @@ class Resource extends AbstractOktaResource<ResourceModel, ResourceModel, Resour
             'put',
             `/api/v1/apps/${model.id}`,
             {},
-            model.toJSON(),
+            Transformer.for(model.toJSON())
+                .transformKeys(CaseTransformer.PASCAL_TO_CAMEL)
+                .forModelIngestion()
+                .transform(),
             this.loggerProxy);
         return new ResourceModel(response.data);
     }
@@ -79,28 +86,16 @@ class Resource extends AbstractOktaResource<ResourceModel, ResourceModel, Resour
         }
         let result = new ResourceModel({
             ...model,
-            ...Transformer.for(from)
-                .transformKeys(CaseTransformer.SNAKE_TO_CAMEL)
-                .forModelIngestion()
-                .transform(),
-            // Special case for schema-free object
-            settings: Transformer.for(from.settings)
-                .transformKeys(CaseTransformer.CAMEL_TO_PASCAL)
-                .forModelIngestion()
-                .transform()
+            ...from
         });
-        // Special case for unusual capitalisation
-        result.visibility.hide.ios = (<any>from?.visibility?.hide)?.iOS;
-        delete (<any>result?.visibility?.hide)?.iOS;
-        // Delete a couple of unused fields that are returned by the API
-        // as they are subject to change server-side
-        delete (<any>result)?.lastUpdated;
-        delete (<any>result)?.status;
-        delete (<any>result)?._links;
-        delete (<any>result)?.features;
-        delete (<any>result)?.created;
-        delete (<any>result)?.iDENTIFIER_KEY_ID;
-        delete (<any>result)?.visibility?.appLinks;
+        
+        result = plainToClass(ResourceModel,
+            classToPlain(result),
+	        { excludeExtraneousValues: true });
+
+        delete result.credentials;
+        delete result.requestObjectSigningAlg;
+
         return result;
     }
 }

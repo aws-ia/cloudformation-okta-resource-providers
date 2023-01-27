@@ -2,6 +2,11 @@
 rpdk.log
 .env
 .venv
+*.zip
+integ-unique.yml
+local/
+
+
 
 local/
 integ-unique.yml

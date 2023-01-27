@@ -18,3 +18,7 @@ coverage/
 sam-tests/
 
 okta-policy-policy.zip
+inputs/
+local/
+integ.yml
+

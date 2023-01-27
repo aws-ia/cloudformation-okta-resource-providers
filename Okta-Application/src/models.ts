@@ -54,14 +54,8 @@ export class ResourceModel extends BaseModel {
     )
     requestObjectSigningAlg?: Optional<string>;
     @Expose({ name: 'Settings' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(Object, 'settings', value, obj, [Map]),
-        {
-            toClassOnly: true,
-        }
-    )
-    settings?: Optional<Map<string, object>>;
+    @Type(() => Settings)
+    settings?: Optional<Settings>;
     @Expose({ name: 'SignOnMode' })
     @Transform(
         (value: any, obj: any) =>
@@ -107,15 +101,6 @@ export class Accessibility extends BaseModel {
         }
     )
     errorRedirectUrl?: Optional<string>;
-    @Expose({ name: 'LoginRedirectUrl' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'loginRedirectUrl', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    loginRedirectUrl?: Optional<string>;
     @Expose({ name: 'SelfService' })
     @Transform(
         (value: any, obj: any) =>
@@ -264,6 +249,50 @@ export class UserNameTemplate extends BaseModel {
 
 }
 
+export class Settings extends BaseModel {
+    ['constructor']: typeof Settings;
+
+
+    @Expose({ name: 'App' })
+    @Type(() => App)
+    app?: Optional<App>;
+
+}
+
+export class App extends BaseModel {
+    ['constructor']: typeof App;
+
+
+    @Expose({ name: 'SiteURL' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'siteURL', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    siteURL?: Optional<string>;
+    @Expose({ name: 'AuthURL' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'authURL', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    authURL?: Optional<string>;
+    @Expose({ name: 'Url' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'url', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    url?: Optional<string>;
+
+}
+
 export class Visibility extends BaseModel {
     ['constructor']: typeof Visibility;
 
@@ -296,15 +325,15 @@ export class Hide extends BaseModel {
     ['constructor']: typeof Hide;
 
 
-    @Expose({ name: 'Ios' })
+    @Expose({ name: 'IOS' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(Boolean, 'ios', value, obj, []),
+            transformValue(Boolean, 'iOS', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    ios?: Optional<boolean>;
+    iOS?: Optional<boolean>;
     @Expose({ name: 'Web' })
     @Transform(
         (value: any, obj: any) =>

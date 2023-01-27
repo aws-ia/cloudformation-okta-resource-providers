@@ -54,6 +54,10 @@ class Resource extends AbstractOktaResource<ResourceModel, ResourceModel, Resour
     }
 
     async create(model: ResourceModel, typeConfiguration: TypeConfigurationModel): Promise<ResourceModel> {
+        
+        console.log("create")
+        console.log(model)
+
         const response = await new OktaClient(typeConfiguration.oktaAccess.url, typeConfiguration.oktaAccess.apiKey, this.userAgent).doRequest<ResourceModel>(
             'put',
             `/api/v1/groups/${model.groupId}/users/${model.userId}`);

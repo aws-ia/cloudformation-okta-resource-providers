@@ -17,3 +17,7 @@ coverage/
 # contains credentials
 sam-tests/
 *.zip
+.env
+.venv
+integ-unique.yml
+

@@ -1,16 +1,16 @@
 {
   "Settings": {
     "App": {
-      "Url": "http://myurl2.com",
-      "AuthURL": "http://muauthurl2.com"
+      "Url": "https://myurl.com",
+      "AuthURL": "https://muauthurl.com",
+      "SiteURL": "https://myurl.com"
     }
   },
   "Accessibility": {
-    "ErrorRedirectUrl": "http://myerrorurl2.com",
-    "LoginRedirectUrl": "http://myloginurl2.com",
+    "ErrorRedirectUrl": "https://myerrorurl.com",
     "SelfService": false
   },
-  "Name": "template_basic_auth",
-  "Label": "Updated SAM Label",
-  "SignOnMode": "BASIC_AUTH"
+  "Name": "test_app",
+  "Label": "test-label-1-updated",
+  "SignOnMode": "SECURE_PASSWORD_STORE"
 }
