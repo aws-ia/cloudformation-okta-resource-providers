@@ -3,3 +3,5 @@ rpdk.log
 .env
 .venv
 
+local/
+integ-unique.yml
