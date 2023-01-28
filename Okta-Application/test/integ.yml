@@ -7,11 +7,11 @@ Resources:
         App:
           Url: http://something.example.com
           AuthURL: https://auth.example.com
+          SiteURL: https://myurl.com
       Accessibility:
         ErrorRedirectUrl: https://r.example.com
-        LoginRedirectUrl: https://l.example.com
         SelfService: false
       Name: test-app-1
       Label: test-label
-      SignOnMode: BASIC_AUTH
+      SignOnMode: SECURE_PASSWORD_STORE
 
