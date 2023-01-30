@@ -17,7 +17,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
         "<a href="#label" title="Label">Label</a>" : <i>String</i>,
         "<a href="#name" title="Name">Name</a>" : <i>String</i>,
         "<a href="#requestobjectsigningalg" title="RequestObjectSigningAlg">RequestObjectSigningAlg</a>" : <i>String</i>,
-        "<a href="#settings" title="Settings">Settings</a>" : <i>Map</i>,
+        "<a href="#settings" title="Settings">Settings</a>" : <i><a href="settings.md">Settings</a></i>,
         "<a href="#signonmode" title="SignOnMode">SignOnMode</a>" : <i>String</i>,
         "<a href="#visibility" title="Visibility">Visibility</a>" : <i><a href="visibility.md">Visibility</a></i>
     }
@@ -34,7 +34,7 @@ Properties:
     <a href="#label" title="Label">Label</a>: <i>String</i>
     <a href="#name" title="Name">Name</a>: <i>String</i>
     <a href="#requestobjectsigningalg" title="RequestObjectSigningAlg">RequestObjectSigningAlg</a>: <i>String</i>
-    <a href="#settings" title="Settings">Settings</a>: <i>Map</i>
+    <a href="#settings" title="Settings">Settings</a>: <i><a href="settings.md">Settings</a></i>
     <a href="#signonmode" title="SignOnMode">SignOnMode</a>: <i>String</i>
     <a href="#visibility" title="Visibility">Visibility</a>: <i><a href="visibility.md">Visibility</a></i>
 </pre>
@@ -97,7 +97,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 _Required_: No
 
-_Type_: Map
+_Type_: <a href="settings.md">Settings</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 

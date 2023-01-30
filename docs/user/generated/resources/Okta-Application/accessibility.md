@@ -11,7 +11,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 <pre>
 {
     "<a href="#errorredirecturl" title="ErrorRedirectUrl">ErrorRedirectUrl</a>" : <i>String</i>,
-    "<a href="#loginredirecturl" title="LoginRedirectUrl">LoginRedirectUrl</a>" : <i>String</i>,
     "<a href="#selfservice" title="SelfService">SelfService</a>" : <i>Boolean</i>
 }
 </pre>
@@ -20,7 +19,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 <a href="#errorredirecturl" title="ErrorRedirectUrl">ErrorRedirectUrl</a>: <i>String</i>
-<a href="#loginredirecturl" title="LoginRedirectUrl">LoginRedirectUrl</a>: <i>String</i>
 <a href="#selfservice" title="SelfService">SelfService</a>: <i>Boolean</i>
 </pre>
 
@@ -29,16 +27,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 #### ErrorRedirectUrl
 
 Custom error page for this application
-
-_Required_: No
-
-_Type_: String
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
-#### LoginRedirectUrl
-
-Custom login page for this application
 
 _Required_: No
 
