@@ -71,7 +71,7 @@ PUBLISHING_ENABLED=0
 ACCOUNT_ID=$(aws sts get-caller-identity|jq -r .Account)
 echo "ACCOUNT_ID is $ACCOUNT_ID"
 
-if [ $"ACCOUNT_ID" == "387586997764" ]
+if [ "$ACCOUNT_ID" == "387586997764" ]
 then
     PUBLISHING_ENABLED=1
 fi
@@ -184,6 +184,11 @@ done
 
 echo $TEST_STATUS
 
+if [ "$TEST_STATUS" == "FAILED" ] 
+then
+    exit 1    
+fi
+
 # Publish the type
 if [ "$PUBLISHING_ENABLED" -eq 1 ]
 then
@@ -192,7 +197,6 @@ then
 else
     echo "PUBLISHING_ENABLED is $PUBLISHING_ENABLED, not publishing"
 fi
-
 
 echo "Done"
 
