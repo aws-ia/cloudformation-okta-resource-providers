@@ -10,7 +10,7 @@
     "ErrorRedirectUrl": "https://myerrorurl.com",
     "SelfService": false
   },
-  "Name": "test_app",
+  "Name": "bookmark",
   "Label": "test-label-1-updated",
   "SignOnMode": "SECURE_PASSWORD_STORE"
 }
