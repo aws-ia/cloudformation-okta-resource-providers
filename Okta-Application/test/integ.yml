@@ -11,7 +11,7 @@ Resources:
       Accessibility:
         ErrorRedirectUrl: https://r.example.com
         SelfService: false
-      Name: test-app-1
+      Name: bookmark
       Label: test-label
       SignOnMode: SECURE_PASSWORD_STORE
 
