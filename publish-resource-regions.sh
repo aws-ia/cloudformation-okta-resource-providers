@@ -63,8 +63,8 @@ for region in ${regions_to_publish[@]}
 do
     echo "About to start publishing to $region"
 
-    ../../release/deregister-all.sh $region RESOURCE
-    ../../release/publish-resource.sh $region
+    ../deregister-all.sh $region
+    ../publish-resource.sh $region
 
     if [ "$?" -eq 0 ]
     then
