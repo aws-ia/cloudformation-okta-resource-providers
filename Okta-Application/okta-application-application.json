@@ -294,8 +294,8 @@
   "writeOnlyProperties": [
     "/properties/Credentials",
     "/properties/RequestObjectSigningAlg",
-    "/properties/Settings/App/Url",
-    "/properties/Settings/App/AuthURL"
+    "/properties/Settings/App/AuthURL",
+    "/properties/Settings/App/SiteURL"
   ],
   "handlers": {
     "create": {
