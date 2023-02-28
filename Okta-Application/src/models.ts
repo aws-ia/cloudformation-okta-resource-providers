@@ -256,6 +256,9 @@ export class Settings extends BaseModel {
     @Expose({ name: 'App' })
     @Type(() => App)
     app?: Optional<App>;
+    @Expose({ name: 'SignOn' })
+    @Type(() => SignOn)
+    signOn?: Optional<SignOn>;
 
 }
 
@@ -290,6 +293,148 @@ export class App extends BaseModel {
         }
     )
     url?: Optional<string>;
+    @Expose({ name: 'AcsUrl' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'acsUrl', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    acsUrl?: Optional<string>;
+    @Expose({ name: 'AudRestriction' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'audRestriction', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    audRestriction?: Optional<string>;
+    @Expose({ name: 'BaseUrl' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'baseUrl', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    baseUrl?: Optional<string>;
+    @Expose({ name: 'OrgName' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'orgName', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    orgName?: Optional<string>;
+    @Expose({ name: 'PasswordField' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'passwordField', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    passwordField?: Optional<string>;
+    @Expose({ name: 'UsernameField' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'usernameField', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    usernameField?: Optional<string>;
+    @Expose({ name: 'OptionalField1' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'optionalField1', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    optionalField1?: Optional<string>;
+    @Expose({ name: 'OptionalField2' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'optionalField2', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    optionalField2?: Optional<string>;
+    @Expose({ name: 'OptionalField3' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'optionalField3', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    optionalField3?: Optional<string>;
+    @Expose({ name: 'OptionalField1Value' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'optionalField1Value', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    optionalField1Value?: Optional<string>;
+    @Expose({ name: 'OptionalField2Value' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'optionalField2Value', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    optionalField2Value?: Optional<string>;
+    @Expose({ name: 'OptionalField3Value' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'optionalField3Value', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    optionalField3Value?: Optional<string>;
+    @Expose({ name: 'LoginUrlRegex' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'loginUrlRegex', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    loginUrlRegex?: Optional<string>;
+    @Expose({ name: 'ButtonField' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'buttonField', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    buttonField?: Optional<string>;
+
+}
+
+export class SignOn extends BaseModel {
+    ['constructor']: typeof SignOn;
+
+
+    @Expose({ name: 'DestinationOverride' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'destinationOverride', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    destinationOverride?: Optional<string>;
 
 }
 
