@@ -10,9 +10,7 @@
       }
     },
     "additionalProperties": false,
-    "required": [
-      "OktaAccess"
-    ]
+    "required": ["OktaAccess"]
   },
   "definitions": {
     "OktaAccess": {
@@ -97,9 +95,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "TokenEndpointAuthMethod"
-      ]
+      "required": ["TokenEndpointAuthMethod"]
     },
     "Password": {
       "description": "Specifies a password for a user",
@@ -139,18 +135,12 @@
         "Type": {
           "description": "type of mapping expression",
           "type": "string",
-          "enum": [
-            "NONE",
-            "BUILT_IN",
-            "CUSTOM"
-          ],
+          "enum": ["NONE", "BUILT_IN", "CUSTOM"],
           "default": "BUILT_IN"
         }
       },
       "additionalProperties": false,
-      "required": [
-        "Type"
-      ]
+      "required": ["Type"]
     },
     "SignOnMode": {
       "type": "string",
@@ -187,11 +177,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "AutoLaunch",
-        "AutoSubmitToolbar",
-        "Hide"
-      ]
+      "required": ["AutoLaunch", "AutoSubmitToolbar", "Hide"]
     },
     "Hide": {
       "description": "Hides this app for specific end-user apps",
@@ -209,10 +195,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "IOS",
-        "Web"
-      ]
+      "required": ["IOS", "Web"]
     }
   },
   "properties": {
@@ -265,6 +248,57 @@
             },
             "Url": {
               "type": "string"
+            },
+            "AcsUrl": {
+              "type": "string"
+            },
+            "AudRestriction": {
+              "type": "string"
+            },
+            "BaseUrl": {
+              "type": "string"
+            },
+            "OrgName": {
+              "type": "string"
+            },
+            "PasswordField": {
+              "type": "string"
+            },
+            "UsernameField": {
+              "type": "string"
+            },
+            "OptionalField1": {
+              "type": "string"
+            },
+            "OptionalField2": {
+              "type": "string"
+            },
+            "OptionalField3": {
+              "type": "string"
+            },
+            "OptionalField1Value": {
+              "type": "string"
+            },
+            "OptionalField2Value": {
+              "type": "string"
+            },
+            "OptionalField3Value": {
+              "type": "string"
+            },
+            "LoginUrlRegex": {
+              "type": "string"
+            },
+            "ButtonField": {
+              "type": "string"
+            }
+          }
+        },
+        "SignOn": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "DestinationOverride": {
+              "type": "string"
             }
           }
         }
@@ -278,24 +312,16 @@
     }
   },
   "additionalProperties": false,
-  "required": [
-    "Label",
-    "SignOnMode"
-  ],
-  "readOnlyProperties": [
-    "/properties/Id"
-  ],
-  "createOnlyProperties": [
-    "/properties/Name"
-  ],
-  "primaryIdentifier": [
-    "/properties/Id"
-  ],
+  "required": ["Label", "SignOnMode"],
+  "readOnlyProperties": ["/properties/Id"],
+  "createOnlyProperties": ["/properties/Name"],
+  "primaryIdentifier": ["/properties/Id"],
   "writeOnlyProperties": [
     "/properties/Credentials",
     "/properties/RequestObjectSigningAlg",
-    "/properties/Settings/App/Url",
-    "/properties/Settings/App/AuthURL"
+    "/properties/Settings/App/AuthURL",
+    "/properties/Settings/App/SiteURL",
+    "/properties/Settings/App/Url"
   ],
   "handlers": {
     "create": {
