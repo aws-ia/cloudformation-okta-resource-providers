@@ -12,5 +12,5 @@
   },
   "Name": "bookmark",
   "Label": "test-label-1-updated",
-  "SignOnMode": "SECURE_PASSWORD_STORE"
+  "SignOnMode": "BOOKMARK"
 }
