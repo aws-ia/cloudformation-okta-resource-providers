@@ -1,0 +1,12 @@
+{
+  "Settings": {
+    "App": {
+      "BaseUrl": "https://myurl.com",
+      "AcsUrl": "https://acsUrl.com",
+      "AudRestriction": "https://www.okta.com/saml2/service-provider/exampleid"
+    }
+  },
+  "Name": "okta_org2org",
+  "Label": "Sample Okta Org2Org App Update",
+  "SignOnMode": "SAML_2_0"
+}

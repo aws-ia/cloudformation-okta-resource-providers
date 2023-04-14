@@ -1,0 +1,14 @@
+{
+  "Name": "cornerstone",
+  "Label": "Example SAML 2.0 App Update",
+  "SignOnMode": "SAML_2_0",
+  "Settings": {
+    "App": {
+      "OrgName": "example",
+      "Url": "https://example.com/login.html"
+    },
+    "SignOn": {
+      "DestinationOverride": "http://www.yourDestinationOverride.com"
+    }
+  }
+}

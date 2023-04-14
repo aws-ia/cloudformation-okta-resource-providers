@@ -95,7 +95,10 @@ class Resource extends AbstractOktaResource<ResourceModel, ResourceModel, Resour
 
         delete result.credentials;
         delete result.requestObjectSigningAlg;
-
+	// Settings.App.Url is a writeOnlyProperty but will get returned if set. To pass testing we have to remove it.
+	if (result.settings && result.settings.app) {
+	    delete result.settings.app.url;
+	}
         return result;
     }
 }

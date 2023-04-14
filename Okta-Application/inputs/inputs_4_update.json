@@ -1,0 +1,14 @@
+{
+  "Name": "template_swa",
+  "Label": "Sample Plugin App Update",
+  "SignOnMode": "BROWSER_PLUGIN",
+  "Settings": {
+    "App": {
+      "ButtonField": "btn-login",
+      "PasswordField": "txtbox-password",
+      "UsernameField": "txtboxusername",
+      "Url": "https://example.com/login.html",
+      "LoginUrlRegex": "https://example.com/login.html"
+    }
+  }
+}

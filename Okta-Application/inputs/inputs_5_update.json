@@ -1,0 +1,18 @@
+{
+  "Name": "template_sps",
+  "Label": "Example SWA App update",
+  "SignOnMode": "SECURE_PASSWORD_STORE",
+  "Settings": {
+    "App": {
+      "Url": "https://example.com/login.html",
+      "PasswordField": "#txtbox-password",
+      "UsernameField": "#txtbox-username",
+      "OptionalField1": "param1",
+      "OptionalField1Value": "somevalue",
+      "OptionalField2": "param2",
+      "OptionalField2Value": "yetanothervalue",
+      "OptionalField3": "param3",
+      "OptionalField3Value": "finalvalue"
+    }
+  }
+}
